@@ -10,9 +10,24 @@ AVAILABLE_AREAS = [
     "Learning",
 ]
 
+SESSION_STATE_KEYS = [
+    "pipeline_step",
+    "transcript_data",
+    "retrieved_context",
+    "final_output",
+    "error_message",
+]
+
+
+def initialize_session_state() -> None:
+    for key in SESSION_STATE_KEYS:
+        if key not in st.session_state:
+            st.session_state[key] = None
+
 
 def main() -> None:
     st.set_page_config(page_title="YT Insight Extractor", layout="wide")
+    initialize_session_state()
     st.title("YT Insight Extractor")
     st.markdown(
         "Provide a YouTube video link, choose an area of life, and optionally add a goal to generate targeted insights."
@@ -33,6 +48,12 @@ def main() -> None:
         if not youtube_url:
             st.error("Please enter a YouTube URL before processing.")
             return
+
+        st.session_state.pipeline_step = "inputs_received"
+        st.session_state.transcript_data = None
+        st.session_state.retrieved_context = None
+        st.session_state.final_output = None
+        st.session_state.error_message = None
 
         st.success("Inputs received. Running the MVP workflow...")
         st.markdown("---")
