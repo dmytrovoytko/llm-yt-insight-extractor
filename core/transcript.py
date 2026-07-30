@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Iterable
 from urllib.parse import parse_qs, urlparse
 
@@ -11,7 +13,12 @@ from youtube_transcript_api._errors import (
 )
 
 VALIDATE_DURATION = True
-DURATION_TRESHOLD = 60*60 # 60 minutes
+DURATION_TRESHOLD = 60 * 60  # 60 minutes
+
+USE_TRANSCRIPT_CACHE = True
+TRANSCRIPT_CACHE_DIR = Path("data") / ".transcript_cache"
+TRANSCRIPT_CACHE_EXTENSION = ".txt"
+
 
 class TranscriptError(RuntimeError):
     pass
@@ -49,15 +56,77 @@ def validate_transcript_duration(transcript: list[dict]) -> float:
     )
 
     if total_duration > DURATION_TRESHOLD:
-        raise TranscriptError(f"For the MVP, videos must be under {DURATION_TRESHOLD//60} minutes.")
+        raise TranscriptError(
+            f"For the MVP, videos must be under {DURATION_TRESHOLD//60} minutes."
+        )
 
     return total_duration
 
 
+def _get_transcript_cache_path(
+    video_id: str, cache_dir: Path | str = TRANSCRIPT_CACHE_DIR
+) -> Path:
+    return Path(cache_dir) / f"{video_id}{TRANSCRIPT_CACHE_EXTENSION}"
+
+
+def load_transcript_cache(
+    video_id: str, cache_dir: Path | str = TRANSCRIPT_CACHE_DIR
+) -> list[dict] | None:
+    cache_path = _get_transcript_cache_path(video_id, cache_dir)
+    if not cache_path.exists():
+        return None
+
+    try:
+        with cache_path.open("r", encoding="utf-8") as fp:
+            data = json.load(fp)
+    except (OSError, json.JSONDecodeError):
+        return None
+
+    if not isinstance(data, list):
+        return None
+
+    formatted = []
+    for entry in data:
+        formatted.append(
+            {
+                "text": str(entry["text"]).strip(),
+                "start": float(entry["start"]),
+                "duration": float(entry["duration"]),
+            }
+        )
+
+    return formatted
+
+
+def save_transcript_cache(
+    video_id: str,
+    transcript: list[dict],
+    cache_dir: Path | str = TRANSCRIPT_CACHE_DIR,
+) -> Path:
+    cache_path = _get_transcript_cache_path(video_id, cache_dir)
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with cache_path.open("w", encoding="utf-8") as fp:
+        json.dump(transcript, fp, indent=2)
+
+    return cache_path
+
+
 def fetch_youtube_transcript(
-    youtube_url: str, languages: Iterable[str] | None = None
+    youtube_url: str,
+    languages: Iterable[str] | None = None,
+    use_cache: bool = USE_TRANSCRIPT_CACHE,
+    cache_dir: Path | str = TRANSCRIPT_CACHE_DIR,
 ) -> list[dict]:
     video_id = extract_video_id(youtube_url)
+
+    if use_cache:
+        cached = load_transcript_cache(video_id, cache_dir)
+        if cached is not None:
+            if VALIDATE_DURATION:
+                validate_transcript_duration(cached)
+            return cached
+
     try:
         ytt_api = YouTubeTranscriptApi()
         transcript_data = ytt_api.fetch(
@@ -86,10 +155,14 @@ def fetch_youtube_transcript(
     if VALIDATE_DURATION:
         validate_transcript_duration(formatted)
 
+    if use_cache:
+        save_transcript_cache(video_id, formatted, cache_dir)
+
     return formatted
 
+
 if __name__ == "__main__":
-    # quick test
+    # quick transcript extraction test
     url = "https://www.youtube.com/watch?v=TrvLEgPpV8s"  # Productivity Tips From Tim Ferriss, <7min
     video_id = extract_video_id(url)
     print(f"{video_id=}")

@@ -1,3 +1,4 @@
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -10,6 +11,8 @@ from youtube_transcript_api._errors import (
 from core.transcript import (
     TranscriptError,
     fetch_youtube_transcript,
+    load_transcript_cache,
+    save_transcript_cache,
     validate_transcript_duration,
 )
 
@@ -17,7 +20,8 @@ from core.transcript import (
 class TestTranscriptExtraction(unittest.TestCase):
     url_no_transcript_error = "https://www.youtube.com/watch?v=ru4hdcMmlwQ"  # 10 Minute Meditation Music • Pure Waves
     url_duration_rejects_over_60_minutes = "https://www.youtube.com/watch?v=8KPLs-ZFuPo"  # How to Embrace Slow Productivity, Achieve Mastery, and Defend Your Time — Cal Newport & Tim Ferriss
-    url_duration_passes_within_limit = "https://www.youtube.com/watch?v=TrvLEgPpV8s"  # Productivity Tips From Tim Ferriss
+    video_id_valid = "TrvLEgPpV8s"  # Productivity Tips From Tim Ferriss, <7min
+    url_duration_passes_within_limit = f"https://www.youtube.com/watch?v={video_id_valid}" 
 
     def test_fetch_youtube_transcript_returns_formatted_entries(self):
         sample_transcript = [
@@ -30,7 +34,7 @@ class TestTranscriptExtraction(unittest.TestCase):
             return_value=sample_transcript,
         ):
             result = fetch_youtube_transcript(
-                self.url_duration_passes_within_limit
+                self.url_duration_passes_within_limit, use_cache=False
             )
 
         self.assertEqual(len(result), 2)
@@ -52,6 +56,42 @@ class TestTranscriptExtraction(unittest.TestCase):
                     str(context.exception),
                     "Could not retrieve transcript for this video. It may not have subtitles available.",
                 )
+
+    def test_load_and_save_transcript_cache_roundtrip(self):
+        sample_transcript = [
+            {"text": "One", "start": 0.0, "duration": 1.0},
+            {"text": "Two", "start": 1.0, "duration": 2.0},
+        ]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            save_transcript_cache(
+                "video123", sample_transcript, cache_dir=temp_dir
+            )
+            loaded = load_transcript_cache("video123", cache_dir=temp_dir)
+
+        self.assertEqual(loaded, sample_transcript)
+
+    def test_fetch_youtube_transcript_uses_cache_if_available(self):
+        sample_transcript = [
+            {"text": "Cached text", "start": 0.0, "duration": 1.5}
+        ]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            save_transcript_cache(
+                self.video_id_valid, sample_transcript, cache_dir=temp_dir
+            )
+            with patch(
+                "core.transcript.YouTubeTranscriptApi.fetch",
+                side_effect=AssertionError(
+                    "Remote API should not be called when cache exists"
+                ),
+            ):
+                result = fetch_youtube_transcript(
+                    self.url_duration_passes_within_limit,
+                    cache_dir=temp_dir,
+                )
+
+        self.assertEqual(result, sample_transcript)
 
     def test_validate_transcript_duration_rejects_over_60_minutes(self):
         transcript = [
