@@ -120,10 +120,61 @@ def run_pipeline_step_2_chunk_and_vectorize(
     return chunks, rag_engine
 
 
+def build_rag_query(area_of_life: str, specific_goal: str) -> str:
+    """Create a simple retrieval query for RAG.
+
+    Args:
+        area_of_life: Selected area of life.
+        specific_goal: Optional specific goal.
+
+    Returns:
+        A combined query string.
+    """
+    query = f"Extract insights about {area_of_life}."
+    if specific_goal:
+        query += f" The user wants to: {specific_goal}."
+    return query
+
+
+def run_pipeline_step_3_rag_and_summarize(
+    area_of_life: str,
+    specific_goal: str,
+    rag_engine,
+    top_k: int = 5,
+) -> tuple[list[dict], str]:
+    """Step 3: Retrieve relevant transcript context and summarize.
+
+    Args:
+        area_of_life: Selected area of life.
+        specific_goal: Optional specific goal.
+        rag_engine: Initialized RAG engine.
+        top_k: Number of top chunks to retrieve.
+
+    Returns:
+        Tuple of (retrieved_context, status_message).
+
+    Raises:
+        Exception: If retrieval fails.
+    """
+    query = build_rag_query(area_of_life, specific_goal)
+    results = rag_engine.retrieve(query, top_k=top_k)
+
+    if not results:
+        raise Exception(
+            "No relevant context could be retrieved from the transcript."
+        )
+
+    status_msg = (
+        f"Retrieved {len(results)} relevant transcript chunks "
+        f"for RAG & summarization."
+    )
+    return results, status_msg
+
+
 def display_pipeline_progress(
     youtube_url: str, area_of_life: str, specific_goal: str
 ):
-    """Execute and display pipeline progress for steps 1-2.
+    """Execute and display pipeline progress for steps 1-3.
 
     Args:
         youtube_url: YouTube video URL.
@@ -184,10 +235,42 @@ def display_pipeline_progress(
             st.error(str(e))
             return
 
-    # Display success state
+    # Step 3: RAG & Summarization
+    with st.status(
+        "🔄 Step 3: RAG & Summarization...", expanded=True
+    ) as step3_status:
+        try:
+            retrieved_context, status_msg = (
+                run_pipeline_step_3_rag_and_summarize(
+                    area_of_life,
+                    specific_goal,
+                    st.session_state.rag_engine,
+                )
+            )
+            st.session_state.retrieved_context = retrieved_context
+            st.session_state.final_output = {
+                "query": build_rag_query(area_of_life, specific_goal),
+                "retrieved_context": retrieved_context,
+            }
+            st.session_state.pipeline_step = "step_3_complete"
+
+            step3_status.update(
+                label=f"✅ Step 3: {status_msg}", state="complete"
+            )
+            st.success(
+                f"🚀 Step 3 complete: {len(retrieved_context)} chunks retrieved for summarization."
+            )
+
+        except Exception as e:
+            st.session_state.error_message = str(e)
+            st.session_state.pipeline_step = "error"
+            step3_status.update(label=f"❌ Step 3: {str(e)}", state="error")
+            st.error(str(e))
+            return
+
     st.markdown("---")
     st.info(
-        "✅ Transcript extraction and vectorization complete. Step 3 (RAG & LLM) coming soon!"
+        "✅ Pipeline complete. Review retrieved context below and continue to build the LLM summary flow."
     )
 
 
@@ -201,8 +284,9 @@ def main() -> None:
 
     with st.form(key="input_form"):
         youtube_url = st.text_input(
-            "YouTube URL", placeholder="https://www.youtube.com/watch?v=...",
-            value="https://www.youtube.com/watch?v=TrvLEgPpV8s" # Initial Value
+            "YouTube URL",
+            placeholder="https://www.youtube.com/watch?v=...",
+            value="https://www.youtube.com/watch?v=TrvLEgPpV8s",  # Initial Value
         )
         area_of_life = st.selectbox("Area of Life", AVAILABLE_AREAS)
         specific_goal = st.text_input(
@@ -229,8 +313,26 @@ def main() -> None:
         # st.write("**Area of Life:**", area_of_life)
         # st.write("**Specific Goal:**", specific_goal or "(none)")
 
-        # Run the pipeline for steps 1-2
+        # Run the pipeline for steps 1-3
         display_pipeline_progress(youtube_url, area_of_life, specific_goal)
+
+        if st.session_state.pipeline_step == "step_3_complete":
+            st.markdown("---")
+            st.subheader("📌 Retrieved RAG Context")
+            st.write("**Query:**", st.session_state.final_output["query"])
+            for idx, item in enumerate(
+                st.session_state.retrieved_context, start=1
+            ):
+                with st.expander(
+                    f"Chunk {idx} — score {item.get('score', 0.0):.3f}"
+                ):
+                    st.write(item["text"])
+                    st.write(
+                        "_Chunk start:_",
+                        f"{item.get('start_time', 0.0):.1f}s",
+                        "_end:_",
+                        f"{item.get('end_time', 0.0):.1f}s",
+                    )
 
 
 if __name__ == "__main__":
