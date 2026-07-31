@@ -6,6 +6,14 @@ using RAG-powered processing pipeline.
 
 import streamlit as st
 
+from core.exports import (
+    convert_timestamps_to_youtube_links,
+    export_actionable_ideas_to_markdown,
+    export_subtopics_to_markdown,
+    export_to_json,
+    export_to_markdown,
+)
+from core.prompts import ActionableIdeas, Subtopics
 from core.transcript import extract_video_id, fetch_youtube_transcript
 
 # Page config
@@ -272,6 +280,101 @@ def display_pipeline_progress(
     st.info(
         "✅ Pipeline complete. Review retrieved context below and continue to build the LLM summary flow."
     )
+
+
+def render_results_tabs(
+    subtopics: Subtopics,
+    actionable_ideas: ActionableIdeas,
+    video_id: str,
+) -> None:
+    """Render extracted results in two tabs with clickable timestamps.
+
+    Args:
+        subtopics: Extracted subtopics Pydantic model
+        actionable_ideas: Extracted actionable ideas Pydantic model
+        video_id: YouTube video ID for creating timestamp links
+    """
+    tab1, tab2 = st.tabs(["📚 Subtopics Summary", "💡 Top 5 Actionable Ideas"])
+
+    with tab1:
+        st.markdown("## Subtopics Summary\n")
+        for idx, subtopic in enumerate(subtopics.subtopics, start=1):
+            # Convert timestamp to clickable link
+            timestamp_with_link = convert_timestamps_to_youtube_links(
+                subtopic.timestamp, video_id
+            )
+
+            with st.container(border=True):
+                st.subheader(subtopic.title)
+                st.markdown(f"**Timestamp:** {timestamp_with_link}")
+                st.write(subtopic.summary)
+
+    with tab2:
+        st.markdown("## Top 5 Actionable Ideas\n")
+        for idx, idea in enumerate(actionable_ideas.ideas, start=1):
+            # Convert timestamp to clickable link
+            timestamp_with_link = convert_timestamps_to_youtube_links(
+                idea.timestamp, video_id
+            )
+
+            with st.container(border=True):
+                st.subheader(f"{idx}. {idea.title}")
+                st.markdown(f"**Description:** {idea.description}")
+                st.markdown(f"**Timestamp:** {timestamp_with_link}")
+
+
+def create_download_buttons(
+    subtopics: Subtopics,
+    actionable_ideas: ActionableIdeas,
+    video_id: str,
+    video_url: str = "",
+    area_of_life: str = "",
+    goal: str = "",
+) -> None:
+    """Create download buttons for markdown and JSON exports.
+
+    Args:
+        subtopics: Extracted subtopics Pydantic model
+        actionable_ideas: Extracted actionable ideas Pydantic model
+        video_id: YouTube video ID
+        video_url: Original YouTube URL (optional)
+        area_of_life: User's selected area of life (optional)
+        goal: User's specific goal (optional)
+    """
+    col1, col2 = st.columns(2)
+
+    with col1:
+        # Markdown export
+        md_content = export_to_markdown(
+            subtopics,
+            actionable_ideas,
+            video_id,
+            video_url=video_url,
+            area_of_life=area_of_life,
+        )
+        st.download_button(
+            label="📄 Download as Markdown (.md)",
+            data=md_content,
+            file_name=f"yt-insight-{video_id}.md",
+            mime="text/markdown",
+        )
+
+    with col2:
+        # JSON export
+        json_content = export_to_json(
+            subtopics,
+            actionable_ideas,
+            video_url=video_url,
+            area_of_life=area_of_life,
+            goal=goal,
+            pretty=True,
+        )
+        st.download_button(
+            label="📋 Download as JSON (.json)",
+            data=json_content,
+            file_name=f"yt-insight-{video_id}.json",
+            mime="application/json",
+        )
 
 
 def main() -> None:
