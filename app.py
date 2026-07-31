@@ -13,6 +13,7 @@ from core.exports import (
     export_to_json,
     export_to_markdown,
 )
+from core.generator import generate_all_outputs
 from core.prompts import ActionableIdeas, Subtopics
 from core.transcript import extract_video_id, fetch_youtube_transcript
 from core.history import get_history_store, load_history
@@ -40,6 +41,9 @@ SESSION_STATE_KEYS = [
     "chunks",
     "rag_engine",
     "retrieved_context",
+    "subtopics",
+    "actionable_ideas",
+    "video_id",
     "final_output",
     "error_message",
 ]
@@ -150,8 +154,8 @@ def run_pipeline_step_3_rag_and_summarize(
     specific_goal: str,
     rag_engine,
     top_k: int = 5,
-) -> tuple[list[dict], str]:
-    """Step 3: Retrieve relevant transcript context and summarize.
+) -> tuple[list[dict], Subtopics, ActionableIdeas, str]:
+    """Step 3: Retrieve relevant transcript context and generate structured results.
 
     Args:
         area_of_life: Selected area of life.
@@ -160,10 +164,10 @@ def run_pipeline_step_3_rag_and_summarize(
         top_k: Number of top chunks to retrieve.
 
     Returns:
-        Tuple of (retrieved_context, status_message).
+        Tuple of (retrieved_context, subtopics, actionable_ideas, status_message).
 
     Raises:
-        Exception: If retrieval fails.
+        Exception: If retrieval or generation fails.
     """
     query = build_rag_query(area_of_life, specific_goal)
     results = rag_engine.retrieve(query, top_k=top_k)
@@ -173,11 +177,15 @@ def run_pipeline_step_3_rag_and_summarize(
             "No relevant context could be retrieved from the transcript."
         )
 
+    subtopics, actionable_ideas = generate_all_outputs(
+        area_of_life, specific_goal, results
+    )
+
     status_msg = (
         f"Retrieved {len(results)} relevant transcript chunks "
-        f"for RAG & summarization."
+        f"and generated structured insights."
     )
-    return results, status_msg
+    return results, subtopics, actionable_ideas, status_msg
 
 
 def display_pipeline_progress(
@@ -249,14 +257,19 @@ def display_pipeline_progress(
         "🔄 Step 3: RAG & Summarization...", expanded=True
     ) as step3_status:
         try:
-            retrieved_context, status_msg = (
-                run_pipeline_step_3_rag_and_summarize(
-                    area_of_life,
-                    specific_goal,
-                    st.session_state.rag_engine,
-                )
+            (
+                retrieved_context,
+                subtopics,
+                actionable_ideas,
+                status_msg,
+            ) = run_pipeline_step_3_rag_and_summarize(
+                area_of_life,
+                specific_goal,
+                st.session_state.rag_engine,
             )
             st.session_state.retrieved_context = retrieved_context
+            st.session_state.subtopics = subtopics
+            st.session_state.actionable_ideas = actionable_ideas
             st.session_state.final_output = {
                 "query": build_rag_query(area_of_life, specific_goal),
                 "retrieved_context": retrieved_context,
@@ -267,7 +280,7 @@ def display_pipeline_progress(
                 label=f"✅ Step 3: {status_msg}", state="complete"
             )
             st.success(
-                f"🚀 Step 3 complete: {len(retrieved_context)} chunks retrieved for summarization."
+                f"🚀 Step 3 complete: {len(retrieved_context)} chunks retrieved and structured results generated."
             )
 
         except Exception as e:
@@ -496,8 +509,17 @@ def main() -> None:
         st.session_state.transcript_data = None
         st.session_state.chunks = None
         st.session_state.retrieved_context = None
+        st.session_state.subtopics = None
+        st.session_state.actionable_ideas = None
+        st.session_state.video_id = None
         st.session_state.final_output = None
         st.session_state.error_message = None
+
+        try:
+            st.session_state.video_id = extract_video_id(youtube_url)
+        except ValueError as e:
+            st.error(f"Invalid YouTube URL: {str(e)}")
+            return
 
         # st.markdown("---")
         # st.subheader("📝 Received inputs")
@@ -509,6 +531,32 @@ def main() -> None:
         display_pipeline_progress(youtube_url, area_of_life, specific_goal)
 
         if st.session_state.pipeline_step == "step_3_complete":
+            st.markdown("---")
+            st.subheader("✅ Extracted Results")
+
+            if (
+                st.session_state.subtopics
+                and st.session_state.actionable_ideas
+                and st.session_state.video_id
+            ):
+                render_results_tabs(
+                    st.session_state.subtopics,
+                    st.session_state.actionable_ideas,
+                    st.session_state.video_id,
+                )
+                create_download_buttons(
+                    st.session_state.subtopics,
+                    st.session_state.actionable_ideas,
+                    st.session_state.video_id,
+                    video_url=youtube_url,
+                    area_of_life=area_of_life,
+                    goal=specific_goal,
+                )
+            else:
+                st.warning(
+                    "Structured results are not available yet. Please rerun the pipeline or check for errors."
+                )
+
             st.markdown("---")
             st.subheader("📌 Retrieved RAG Context")
             st.write("**Query:**", st.session_state.final_output["query"])
