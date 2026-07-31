@@ -6,7 +6,7 @@ from typing import Optional
 
 from llama_index.llms.ollama import Ollama
 
-DEFAULT_MODEL = "granite4.1:3b" # "granite4:350m" # "granite3.3:2b"
+DEFAULT_MODEL = "llama3.2:1b"  # granite4.1:3b granite4:350m "granite3.3:2b
 DEFAULT_OLLAMA_HOST = "http://localhost:11434"
 DEFAULT_OLLAMA_TIMEOUT = 120.0
 
