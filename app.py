@@ -15,6 +15,7 @@ from core.exports import (
 )
 from core.prompts import ActionableIdeas, Subtopics
 from core.transcript import extract_video_id, fetch_youtube_transcript
+from core.history import get_history_store, load_history
 
 # Page config
 st.set_page_config(
@@ -377,9 +378,97 @@ def create_download_buttons(
         )
 
 
+def render_history_page() -> None:
+    """Render the History page where past analyses are listed and can be viewed.
+
+    Loads entries from the default history store and allows the user to view
+    a prior run's results (which populates the UI using existing render
+    and export helpers).
+    """
+    st.title("🕘 Analysis History")
+    store = get_history_store()
+    try:
+        entries = store.load_history()
+    except Exception as e:
+        st.error(f"Failed to load history: {e}")
+        return
+
+    if not entries:
+        st.info(
+            "No history available yet. Run an analysis to create history entries."
+        )
+        return
+
+    # Show newest first
+    for idx, entry in enumerate(reversed(entries), start=1):
+        header = f"{idx}. {entry.video_url} — {entry.timestamp}"
+        with st.expander(header):
+            st.write("**Video URL:**", entry.video_url)
+            st.write("**Area of Life:**", entry.area_of_life)
+            st.write("**Goal:**", entry.goal or "(none)")
+            st.write("**Generated At:**", entry.timestamp)
+
+            cols = st.columns([1, 1, 1])
+            if cols[0].button("🔍 View Results", key=f"view_{idx}"):
+                # Populate session state and render results
+                try:
+                    vid = extract_video_id(entry.video_url)
+                except Exception:
+                    vid = ""
+
+                st.session_state.pipeline_step = "history_loaded"
+                st.session_state.final_output = {
+                    "video_url": entry.video_url,
+                    "area_of_life": entry.area_of_life,
+                    "goal": entry.goal,
+                    "generated_at": entry.timestamp,
+                }
+
+                # Render the stored Pydantic models directly
+                render_results_tabs(
+                    entry.subtopics, entry.actionable_ideas, vid
+                )
+                create_download_buttons(
+                    entry.subtopics,
+                    entry.actionable_ideas,
+                    vid,
+                    video_url=entry.video_url,
+                    area_of_life=entry.area_of_life,
+                    goal=entry.goal,
+                )
+
+            if cols[1].button("🗑️ Delete", key=f"delete_{idx}"):
+                # Deleting a single entry requires rewriting history
+                all_entries = list(entries)
+                # Compute index in original order
+                remove_index = len(entries) - idx
+                all_entries.pop(remove_index)
+                # Write back
+                store.history_file.parent.mkdir(parents=True, exist_ok=True)
+                with open(store.history_file, "w", encoding="utf-8") as f:
+                    import json as _json
+
+                    _json.dump(
+                        [e.model_dump() for e in all_entries], f, indent=2
+                    )
+                st.success("Entry deleted.")
+                st.experimental_rerun()
+
+            if cols[2].button("🧹 Clear All", key=f"clear_{idx}"):
+                store.clear_history()
+                st.success("History cleared.")
+                st.experimental_rerun()
+
+
 def main() -> None:
     """Main Streamlit application entry point."""
     initialize_session_state()
+    # Sidebar navigation
+    page = st.sidebar.radio("Page", ["Main App", "History"])
+
+    if page == "History":
+        render_history_page()
+        return
     st.title("🎬 YT Insight Extractor")
     st.markdown(
         "Provide a YouTube video link, choose an area of life, and optionally add a goal to generate targeted insights."
