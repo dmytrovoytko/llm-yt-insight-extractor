@@ -9,7 +9,9 @@ from pydantic import BaseModel, ValidationError
 
 from core.llm_config import OllamaLLMConfig, OllamaLLMError, create_ollama_llm
 from core.prompts import (
+    ActionableIdea,
     ActionableIdeas,
+    Subtopic,
     Subtopics,
     build_actionable_ideas_prompt,
     build_subtopics_prompt,
@@ -28,6 +30,8 @@ FIELD_MAX_LENGTHS = {
     "description": 300,
     "timestamp": 20,
 }
+
+TEST_DEBUG = True
 
 
 def _truncate_string(value: str, max_length: int) -> str:
@@ -236,6 +240,63 @@ def generate_actionable_ideas(
         )
 
 
+def _create_debug_outputs(
+    area_of_life: str, specific_goal: str
+) -> tuple[Subtopics, ActionableIdeas]:
+    """Create fixed debug outputs for UI rendering tests."""
+    subtopics = Subtopics(
+        subtopics=[
+            Subtopic(
+                title=f"Explore {area_of_life} goals",
+                timestamp="[00:05]",
+                summary=f"Use the transcript to identify key {area_of_life.lower()} themes.",
+            ),
+            Subtopic(
+                title=f"Clarify {specific_goal}",
+                timestamp="[01:20]",
+                summary="Define a clear, actionable objective from the discussion.",
+            ),
+            Subtopic(
+                title="Turn insights into priorities",
+                timestamp="[02:45]",
+                summary="Organize the most important points into a short, prioritized list.",
+            ),
+        ]
+    )
+
+    ideas = ActionableIdeas(
+        ideas=[
+            ActionableIdea(
+                title="Summarize main takeaways",
+                description="Write down the top three actionable ideas from the transcript.",
+                timestamp="[00:10]",
+            ),
+            ActionableIdea(
+                title="Create a follow-up task",
+                description="Turn one of the subtopics into a concrete next step.",
+                timestamp="[00:30]",
+            ),
+            ActionableIdea(
+                title="Set a quick deadline",
+                description="Assign a near-term deadline to the most important action.",
+                timestamp="[01:00]",
+            ),
+            ActionableIdea(
+                title="Share with a peer",
+                description="Review the idea with someone who can help keep you accountable.",
+                timestamp="[01:50]",
+            ),
+            ActionableIdea(
+                title="Track one success metric",
+                description="Choose one measurable metric to evaluate progress.",
+                timestamp="[02:20]",
+            ),
+        ]
+    )
+
+    return subtopics, ideas
+
+
 def generate_all_outputs(
     area_of_life: str,
     specific_goal: str,
@@ -256,6 +317,9 @@ def generate_all_outputs(
     Raises:
         GenerationError: If either generation step fails.
     """
+    if TEST_DEBUG:
+        return _create_debug_outputs(area_of_life, specific_goal)
+
     if llm_config is None:
         try:
             llm_config = create_ollama_llm()
