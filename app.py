@@ -399,7 +399,7 @@ def create_download_buttons(
         st.download_button(
             label="📄 Download as Markdown (.md)",
             data=md_content,
-            file_name=f"yt-insight-{video_id}.md",
+            file_name=f"yt-insight-{area_of_life}-{video_id}.md",
             mime="text/markdown",
         )
 
@@ -417,7 +417,7 @@ def create_download_buttons(
         st.download_button(
             label="📋 Download as JSON (.json)",
             data=json_content,
-            file_name=f"yt-insight-{video_id}.json",
+            file_name=f"yt-insight-{area_of_life}-{video_id}.json",
             mime="application/json",
         )
 
@@ -445,7 +445,7 @@ def render_history_page() -> None:
 
     # Show newest first
     for idx, entry in enumerate(reversed(entries), start=1):
-        header = f"{idx}. {entry.video_url} — {entry.timestamp}"
+        header = f"{idx}. {entry.video_title} — on {entry.area_of_life} — {entry.timestamp:.16}"
         with st.expander(header):
             st.write("**Video URL:**", entry.video_url)
             if getattr(entry, "video_title", ""):
@@ -498,12 +498,12 @@ def render_history_page() -> None:
                         [e.model_dump() for e in all_entries], f, indent=2
                     )
                 st.success("Entry deleted.")
-                st.experimental_rerun()
+                st.rerun()
 
             if cols[2].button("🧹 Clear All", key=f"clear_{idx}"):
                 store.clear_history()
                 st.success("History cleared.")
-                st.experimental_rerun()
+                st.rerun()
 
 
 def main() -> None:
