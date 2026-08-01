@@ -23,3 +23,23 @@ Install exact Python dependencies from `requirements.txt` and do not install `se
 ```bash
 pip install -r requirements.txt
 ```
+
+## 🐳 Docker & Docker Compose
+
+This repository includes a `Dockerfile` and `docker-compose.yml` for local deployment with Ollama.
+
+Copy `.env.example` to `.env` and adjust values if needed.
+
+Start both services with:
+
+```bash
+docker compose up --build
+```
+
+Then open:
+
+```bash
+http://localhost:8501
+```
+
+The app connects to Ollama through the compose service name `ollama` at `http://ollama:11434`.

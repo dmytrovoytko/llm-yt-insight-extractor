@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: yt_insight_extractor_app
+    ports:
+      - "8501:8501"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.2:1b}
+      - OLLAMA_TIMEOUT=${OLLAMA_TIMEOUT:-120}
+    volumes:
+      - ./:/app:cached
+      - ./data:/app/data
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ghcr.io/ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    command: ["serve", "--host", "0.0.0.0"]
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

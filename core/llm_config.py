@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from typing import Optional
 
 from llama_index.llms.ollama import Ollama
@@ -25,9 +26,9 @@ class OllamaLLMConfig:
 
     def __init__(
         self,
-        model: str = DEFAULT_MODEL,
-        base_url: str = DEFAULT_OLLAMA_HOST,
-        timeout: float = DEFAULT_OLLAMA_TIMEOUT,
+        model: Optional[str] = None,
+        base_url: Optional[str] = None,
+        timeout: Optional[float] = None,
     ):
         """Initialize Ollama LLM configuration.
 
@@ -39,9 +40,15 @@ class OllamaLLMConfig:
         Raises:
             OllamaLLMError: If Ollama server is not reachable or model is not available.
         """
-        self.model = model
-        self.base_url = base_url
-        self.timeout = timeout
+        self.model = model or os.getenv("OLLAMA_MODEL", DEFAULT_MODEL)
+        self.base_url = base_url or os.getenv(
+            "OLLAMA_HOST", DEFAULT_OLLAMA_HOST
+        )
+        self.timeout = float(
+            timeout
+            if timeout is not None
+            else os.getenv("OLLAMA_TIMEOUT", DEFAULT_OLLAMA_TIMEOUT)
+        )
         self._llm: Optional[Ollama] = None
 
         # Initialize and validate LLM
@@ -168,8 +175,8 @@ class OllamaLLMConfig:
 
 
 def create_ollama_llm(
-    model: str = DEFAULT_MODEL,
-    base_url: str = DEFAULT_OLLAMA_HOST,
+    model: Optional[str] = None,
+    base_url: Optional[str] = None,
 ) -> OllamaLLMConfig:
     """Factory function to create and validate Ollama LLM configuration.
 
