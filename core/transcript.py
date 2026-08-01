@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import Iterable
 from urllib.parse import parse_qs, urlparse
 
+from pytubefix import YouTube
+
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._errors import (
     NoTranscriptFound,
@@ -42,6 +44,15 @@ def extract_video_id(youtube_url: str) -> str:
         "Could not extract YouTube video ID from the provided URL."
     )
 
+def extract_video_title(youtube_url: str) -> str:
+    video_id = extract_video_id(youtube_url) # if it errors, no sense for title
+    try:
+        yt = YouTube(youtube_url) # , use_po_token=True # try when Youtube detects requests as "bot"
+        return yt.title
+    except Exception as e:
+        print("! extract_video_title error:", e)
+
+    return video_id
 
 def validate_transcript_duration(transcript: list[dict]) -> float:
     if not transcript:

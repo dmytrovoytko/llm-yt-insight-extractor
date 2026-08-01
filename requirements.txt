@@ -12,3 +12,4 @@ pydantic==2.13.4
 chromadb==1.5.9
 ollama==0.6.2
 python-dotenv==1.2.2
+pytubefix==9.5.1
