@@ -43,6 +43,7 @@ class HistoryStore:
                 Path(__file__).parent.parent / "data" / "history.json"
             )
         self.history_file = history_file
+        # print(f"{history_file=}") # debug
 
     def save_entry(
         self,
@@ -91,10 +92,14 @@ class HistoryStore:
         self.history_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Load existing history or initialize empty list
-        if self.history_file.exists():
-            with open(self.history_file, "r", encoding="utf-8") as f:
-                history = json.load(f)
-        else:
+        try:
+            if self.history_file.exists():
+                with open(self.history_file, "r", encoding="utf-8") as f:
+                    history = json.load(f)
+            else:
+                history = []
+        except Exception as e:
+            print(f"! History {self.history_file} load error:", e)
             history = []
 
         # Append new entry
@@ -116,8 +121,12 @@ class HistoryStore:
         if not self.history_file.exists():
             return []
 
-        with open(self.history_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        try:
+            with open(self.history_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            print(f"! History {self.history_file} load error:", e)
+            data = []        
 
         if not isinstance(data, list):
             raise ValueError("History file must contain a JSON array")
