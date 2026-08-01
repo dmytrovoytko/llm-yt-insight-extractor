@@ -16,17 +16,13 @@ def timestamp_to_seconds(timestamp: str) -> int:
     if not match:
         raise ValueError(f"Invalid timestamp format: {timestamp}")
 
-    hour_or_minute = int(match.group(1))
-    minute = int(match.group(2))
-    second = int(match.group(3) or 0)
+    g1 = int(match.group(1))
+    g2 = int(match.group(2))
+    g3 = int(match.group(3) or 0)
 
     if match.group(3) is None:
-        return (
-            minute * 60 + second
-            if hour_or_minute == 0
-            else hour_or_minute * 60 + second
-        )
-    return hour_or_minute * 3600 + minute * 60 + second
+        return g1 * 60 + g2
+    return g1 * 3600 + g2 * 60 + g3
 
 
 def convert_timestamps_to_youtube_links(text: str, video_id: str) -> str:
