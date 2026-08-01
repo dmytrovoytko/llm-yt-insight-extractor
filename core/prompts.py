@@ -62,7 +62,7 @@ class ActionableIdeas(BaseModel):
     ideas: List[ActionableIdea] = Field(
         ...,
         description="Top 5 actionable ideas with timestamps",
-        min_items=5,
+        min_items=1, # we strive for 5, 1 - still ok 
         max_items=5,
     )
 
