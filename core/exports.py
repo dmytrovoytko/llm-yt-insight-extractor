@@ -45,9 +45,7 @@ def convert_timestamps_to_youtube_links(text: str, video_id: str) -> str:
     return TIMESTAMP_PATTERN.sub(_replace, text)
 
 
-def export_subtopics_to_markdown(
-    subtopics: Subtopics, video_id: str
-) -> str:
+def export_subtopics_to_markdown(subtopics: Subtopics, video_id: str) -> str:
     """Convert Subtopics model to formatted markdown with clickable timestamps.
 
     Args:
@@ -103,6 +101,7 @@ def export_to_markdown(
     subtopics: Subtopics,
     ideas: ActionableIdeas,
     video_id: str,
+    video_title: str = "",
     video_url: str = "",
     area_of_life: str = "",
 ) -> str:
@@ -122,6 +121,9 @@ def export_to_markdown(
         "# YT Insight Extractor - Analysis Results\n",
         f"_Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_\n",
     ]
+
+    if video_title:
+        md_lines.append(f"**Video Title:** {video_title}\n")
 
     if video_url:
         md_lines.append(f"**Video:** [{video_url}]({video_url})\n")
@@ -144,6 +146,7 @@ def export_to_markdown(
 def export_to_json(
     subtopics: Subtopics,
     ideas: ActionableIdeas,
+    video_title: str = "",
     video_url: str = "",
     area_of_life: str = "",
     goal: str = "",
@@ -165,6 +168,7 @@ def export_to_json(
     output = {
         "metadata": {
             "generated_at": datetime.now().isoformat(),
+            "video_title": video_title,
             "video_url": video_url,
             "area_of_life": area_of_life,
             "goal": goal,

@@ -14,6 +14,10 @@ class HistoryEntry(BaseModel):
     """A single entry in the analysis history."""
 
     video_url: str = Field(..., description="YouTube video URL")
+    video_title: str = Field(
+        "",
+        description="Title of the YouTube video",
+    )
     area_of_life: str = Field(..., description="User's selected area of life")
     goal: str = Field(..., description="User's specific goal (optional)")
     subtopics: Subtopics = Field(..., description="Extracted subtopics")
@@ -43,6 +47,7 @@ class HistoryStore:
     def save_entry(
         self,
         video_url: str,
+        video_title: str,
         area_of_life: str,
         goal: str,
         subtopics: Subtopics,
@@ -74,6 +79,7 @@ class HistoryStore:
 
         entry = HistoryEntry(
             video_url=video_url,
+            video_title=video_title,
             area_of_life=area_of_life,
             goal=goal,
             subtopics=subtopics,
@@ -145,6 +151,7 @@ def get_history_store(history_file: Optional[Path] = None) -> HistoryStore:
 
 def save_to_history(
     video_url: str,
+    video_title: str,
     area_of_life: str,
     goal: str,
     subtopics: Subtopics,
@@ -163,7 +170,13 @@ def save_to_history(
     """
     store = get_history_store()
     store.save_entry(
-        video_url, area_of_life, goal, subtopics, actionable_ideas, timestamp
+        video_url,
+        video_title,
+        area_of_life,
+        goal,
+        subtopics,
+        actionable_ideas,
+        timestamp,
     )
 
 
