@@ -1,6 +1,6 @@
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from youtube_transcript_api._errors import (
     NoTranscriptFound,
@@ -10,6 +10,7 @@ from youtube_transcript_api._errors import (
 
 from core.transcript import (
     TranscriptError,
+    extract_video_title,
     fetch_youtube_transcript,
     load_transcript_cache,
     save_transcript_cache,
@@ -21,7 +22,9 @@ class TestTranscriptExtraction(unittest.TestCase):
     url_no_transcript_error = "https://www.youtube.com/watch?v=ru4hdcMmlwQ"  # 10 Minute Meditation Music • Pure Waves
     url_duration_rejects_over_60_minutes = "https://www.youtube.com/watch?v=8KPLs-ZFuPo"  # How to Embrace Slow Productivity, Achieve Mastery, and Defend Your Time — Cal Newport & Tim Ferriss
     video_id_valid = "TrvLEgPpV8s"  # Productivity Tips From Tim Ferriss, <7min
-    url_duration_passes_within_limit = f"https://www.youtube.com/watch?v={video_id_valid}" 
+    url_duration_passes_within_limit = (
+        f"https://www.youtube.com/watch?v={video_id_valid}"
+    )
 
     def test_fetch_youtube_transcript_returns_formatted_entries(self):
         sample_transcript = [
@@ -56,6 +59,24 @@ class TestTranscriptExtraction(unittest.TestCase):
                     str(context.exception),
                     "Could not retrieve transcript for this video. It may not have subtitles available.",
                 )
+
+    def test_extract_video_title_returns_title(self):
+        mock_yt = MagicMock()
+        mock_yt.title = "Mock Video Title"
+
+        with patch("core.transcript.YouTube", return_value=mock_yt):
+            title = extract_video_title(self.url_duration_passes_within_limit)
+
+        self.assertEqual(title, "Mock Video Title")
+
+    def test_extract_video_title_falls_back_to_video_id(self):
+        with patch(
+            "core.transcript.YouTube",
+            side_effect=Exception("No title available"),
+        ):
+            title = extract_video_title(self.url_duration_passes_within_limit)
+
+        self.assertEqual(title, self.video_id_valid)
 
     def test_load_and_save_transcript_cache_roundtrip(self):
         sample_transcript = [
