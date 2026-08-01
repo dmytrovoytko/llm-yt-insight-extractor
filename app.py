@@ -15,8 +15,16 @@ from core.exports import (
 )
 from core.generator import generate_all_outputs
 from core.prompts import ActionableIdeas, Subtopics
-from core.transcript import extract_video_id, fetch_youtube_transcript
-from core.history import get_history_store, load_history
+from core.transcript import (
+    extract_video_id,
+    extract_video_title,
+    fetch_youtube_transcript,
+)
+from core.history import (
+    get_history_store,
+    load_history,
+    save_to_history,
+)
 
 # Page config
 st.set_page_config(
@@ -43,6 +51,7 @@ SESSION_STATE_KEYS = [
     "retrieved_context",
     "subtopics",
     "actionable_ideas",
+    "video_title",
     "video_id",
     "final_output",
     "error_message",
@@ -58,14 +67,14 @@ def initialize_session_state() -> None:
 
 def run_pipeline_step_1_extract_transcript(
     youtube_url: str,
-) -> tuple[list[dict], str]:
+) -> tuple[list[dict], str, str]:
     """Step 1: Extract and validate transcript.
 
     Args:
         youtube_url: YouTube video URL.
 
     Returns:
-        Tuple of (transcript_data, status_message) on success.
+        Tuple of (transcript_data, video_title, status_message) on success.
 
     Raises:
         Exception: With error message if extraction fails.
@@ -75,6 +84,9 @@ def run_pipeline_step_1_extract_transcript(
         video_id = extract_video_id(youtube_url)
     except ValueError as e:
         raise Exception(f"Invalid YouTube URL: {str(e)}")
+
+    # Extract video title
+    video_title = extract_video_title(youtube_url)
 
     # Fetch transcript
     transcript_data = fetch_youtube_transcript(youtube_url)
@@ -93,7 +105,7 @@ def run_pipeline_step_1_extract_transcript(
         seconds = int(total_duration) % 60
 
         status_msg = f"Transcript extracted, {minutes}min {seconds}s, {total_words} words"
-        return transcript_data, status_msg
+        return transcript_data, video_title, status_msg
     else:
         raise Exception(
             "Could not retrieve transcript for this video. It may not have subtitles available."
@@ -206,10 +218,11 @@ def display_pipeline_progress(
         "🔄 Step 1: Extracting transcript...", expanded=True
     ) as step1_status:
         try:
-            transcript_data, status_msg = (
+            transcript_data, video_title, status_msg = (
                 run_pipeline_step_1_extract_transcript(youtube_url)
             )
             st.session_state.transcript_data = transcript_data
+            st.session_state.video_title = video_title
             st.session_state.pipeline_step = "step_1_complete"
 
             step1_status.update(
@@ -273,8 +286,23 @@ def display_pipeline_progress(
             st.session_state.final_output = {
                 "query": build_rag_query(area_of_life, specific_goal),
                 "retrieved_context": retrieved_context,
+                "video_title": st.session_state.video_title,
             }
             st.session_state.pipeline_step = "step_3_complete"
+
+            try:
+                save_to_history(
+                    video_url=youtube_url,
+                    video_title=st.session_state.video_title or "",
+                    area_of_life=area_of_life,
+                    goal=specific_goal,
+                    subtopics=subtopics,
+                    actionable_ideas=actionable_ideas,
+                )
+            except Exception as save_error:
+                st.warning(
+                    f"Results extracted but history could not be saved: {save_error}"
+                )
 
             step3_status.update(
                 label=f"✅ Step 3: {status_msg}", state="complete"
@@ -341,6 +369,7 @@ def create_download_buttons(
     subtopics: Subtopics,
     actionable_ideas: ActionableIdeas,
     video_id: str,
+    video_title: str = "",
     video_url: str = "",
     area_of_life: str = "",
     goal: str = "",
@@ -363,6 +392,7 @@ def create_download_buttons(
             subtopics,
             actionable_ideas,
             video_id,
+            video_title=video_title,
             video_url=video_url,
             area_of_life=area_of_life,
         )
@@ -378,6 +408,7 @@ def create_download_buttons(
         json_content = export_to_json(
             subtopics,
             actionable_ideas,
+            video_title=video_title,
             video_url=video_url,
             area_of_life=area_of_life,
             goal=goal,
@@ -417,6 +448,8 @@ def render_history_page() -> None:
         header = f"{idx}. {entry.video_url} — {entry.timestamp}"
         with st.expander(header):
             st.write("**Video URL:**", entry.video_url)
+            if getattr(entry, "video_title", ""):
+                st.write("**Video Title:**", entry.video_title)
             st.write("**Area of Life:**", entry.area_of_life)
             st.write("**Goal:**", entry.goal or "(none)")
             st.write("**Generated At:**", entry.timestamp)
@@ -511,6 +544,7 @@ def main() -> None:
         st.session_state.retrieved_context = None
         st.session_state.subtopics = None
         st.session_state.actionable_ideas = None
+        st.session_state.video_title = None
         st.session_state.video_id = None
         st.session_state.final_output = None
         st.session_state.error_message = None
@@ -539,6 +573,7 @@ def main() -> None:
                 and st.session_state.actionable_ideas
                 and st.session_state.video_id
             ):
+                st.write("**Video Title:**", st.session_state.video_title)
                 render_results_tabs(
                     st.session_state.subtopics,
                     st.session_state.actionable_ideas,
@@ -548,6 +583,7 @@ def main() -> None:
                     st.session_state.subtopics,
                     st.session_state.actionable_ideas,
                     st.session_state.video_id,
+                    video_title=st.session_state.video_title,
                     video_url=youtube_url,
                     area_of_life=area_of_life,
                     goal=specific_goal,
