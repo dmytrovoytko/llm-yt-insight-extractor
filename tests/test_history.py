@@ -368,6 +368,7 @@ class TestHistoryEntry(BaseHistoryTestCase):
             subtopics=subtopics,
             actionable_ideas=ideas,
             timestamp="2026-07-31T10:30:00",
+            llm_info="Ollama",
         )
 
         # Test model_dump

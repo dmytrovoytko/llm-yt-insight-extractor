@@ -27,7 +27,9 @@ class HistoryEntry(BaseModel):
     timestamp: str = Field(
         ..., description="ISO format timestamp of when analysis was completed"
     )
-
+    llm_info: str = Field(
+        ..., description="LLM provider: model"
+    )
 
 class HistoryStore:
     """Manages persistence of analysis history to a local JSON file."""
@@ -54,6 +56,7 @@ class HistoryStore:
         subtopics: Subtopics,
         actionable_ideas: ActionableIdeas,
         timestamp: Optional[str] = None,
+        llm_info: str = "",
     ) -> None:
         """Save an analysis result to history.
 
@@ -86,6 +89,7 @@ class HistoryStore:
             subtopics=subtopics,
             actionable_ideas=actionable_ideas,
             timestamp=timestamp,
+            llm_info=llm_info,
         )
 
         # Ensure directory exists
@@ -166,6 +170,7 @@ def save_to_history(
     subtopics: Subtopics,
     actionable_ideas: ActionableIdeas,
     timestamp: Optional[str] = None,
+    llm_info: str = "Ollama",
 ) -> None:
     """Convenience function to save an analysis result using the default store.
 
@@ -186,6 +191,7 @@ def save_to_history(
         subtopics,
         actionable_ideas,
         timestamp,
+        llm_info,
     )
 
 

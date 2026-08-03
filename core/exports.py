@@ -104,6 +104,7 @@ def export_to_markdown(
     video_title: str = "",
     video_url: str = "",
     area_of_life: str = "",
+    llm_info: str = "",
 ) -> str:
     """Export both subtopics and actionable ideas to a single markdown document.
 
@@ -119,7 +120,7 @@ def export_to_markdown(
     """
     md_lines = [
         "# YT Insight Extractor - Analysis Results\n",
-        f"_Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_\n",
+        f"_Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} via {llm_info}_\n",
     ]
 
     if video_title:
@@ -150,6 +151,7 @@ def export_to_json(
     video_url: str = "",
     area_of_life: str = "",
     goal: str = "",
+    llm_info: str = "",
     pretty: bool = True,
 ) -> str:
     """Export subtopics and actionable ideas to JSON format.
@@ -172,6 +174,7 @@ def export_to_json(
             "video_url": video_url,
             "area_of_life": area_of_life,
             "goal": goal,
+            "llm_info": llm_info,
         },
         "subtopics": json.loads(subtopics.model_dump_json()),
         "actionable_ideas": json.loads(ideas.model_dump_json()),

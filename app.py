@@ -223,7 +223,13 @@ def display_pipeline_progress(
     """
   # st.markdown("---")
   # st.subheader("⚙️ Processing Pipeline")
-  st.caption("⚙️ Processing Pipeline")
+  if st.session_state.llm_instance:
+    _provider = st.session_state.llm_instance.provider
+    _model = st.session_state.llm_instance.model
+  else:
+    _provider = "Ollama"
+    _model = DEFAULT_OLLAMA_MODEL
+  st.caption(f"⚙️ Processing Pipeline ({_provider}: {_model})")
   with st.empty(): # to make next elements replace each other = disappear
     # Step 1: Extract Transcript
     with st.status(
@@ -266,8 +272,11 @@ def display_pipeline_progress(
             )
 
             # Display chunk summary
+            # as previous statuses disapper, show extracted video title + duration info
+            _title = f"({video_title})" if video_title else ""
+            _video_info = status_msg.replace("Transcript extracted", "")
             st.success(
-                f"✨ Successfully created {len(chunks)} chunks with embeddings"
+                f"✨ Successfully created {len(chunks)} chunks with embeddings {_title}{_video_info}"
             )
 
         except Exception as e:
@@ -310,6 +319,7 @@ def display_pipeline_progress(
                     goal=specific_goal,
                     subtopics=subtopics,
                     actionable_ideas=actionable_ideas,
+                    llm_info=f"{_provider}: {_model}",
                 )
             except Exception as save_error:
                 st.warning(
@@ -348,7 +358,7 @@ def render_results_tabs(
         actionable_ideas: Extracted actionable ideas Pydantic model
         video_id: YouTube video ID for creating timestamp links
     """
-    tab1, tab2 = st.tabs(["📚 Subtopics Summary", "💡 Top 5 Actionable Ideas"])
+    tab1, tab2 = st.tabs(["📚 Subtopics Summary", "💡 Actionable Ideas"])
 
     with tab1:
         st.markdown("## Subtopics Summary\n")
@@ -364,7 +374,6 @@ def render_results_tabs(
                 st.markdown(f"**Timestamp:** {timestamp_with_link}")
 
     with tab2:
-        # st.markdown("## Top 5 Actionable Ideas\n")
         st.markdown("## Actionable Ideas\n")
         for idx, idea in enumerate(actionable_ideas.ideas, start=1):
             # Convert timestamp to clickable link
@@ -386,6 +395,7 @@ def create_download_buttons(
     video_url: str = "",
     area_of_life: str = "",
     goal: str = "",
+    llm_info: str = "",
 ) -> None:
     """Create download buttons for markdown and JSON exports.
 
@@ -396,6 +406,7 @@ def create_download_buttons(
         video_url: Original YouTube URL (optional)
         area_of_life: User's selected area of life (optional)
         goal: User's specific goal (optional)
+        llm_info: LLM provider, model
     """
     # col1, col2 = st.columns(2)
     col1, col2, col3 = st.columns([1, 1, 2]) # to reduce the gap
@@ -409,12 +420,14 @@ def create_download_buttons(
             video_title=video_title,
             video_url=video_url,
             area_of_life=area_of_life,
+            llm_info=llm_info,
         )
         st.download_button(
             label="📄 Download as Markdown (.md)",
             data=md_content,
             file_name=f"yt-insight-{area_of_life}-{video_id}.md",
             mime="text/markdown",
+            on_click="ignore", # Prevents backend script rerun
         )
 
     with col2:
@@ -426,6 +439,7 @@ def create_download_buttons(
             video_url=video_url,
             area_of_life=area_of_life,
             goal=goal,
+            llm_info=llm_info,
             pretty=True,
         )
         st.download_button(
@@ -433,6 +447,7 @@ def create_download_buttons(
             data=json_content,
             file_name=f"yt-insight-{area_of_life}-{video_id}.json",
             mime="application/json",
+            on_click="ignore", # Prevents backend script rerun
         )
 
 
@@ -582,14 +597,13 @@ def render_history_page() -> None:
 
     # Show newest first
     for idx, entry in enumerate(reversed(entries), start=1):
-        header = f"{idx}. {entry.video_title} — on {entry.area_of_life} — {entry.timestamp:.16}"
+        header = f"{idx}. {entry.video_title} — on {entry.area_of_life} — {entry.timestamp:.16} — {entry.llm_info}"
         with st.expander(header):
             st.write("**Video URL:**", entry.video_url)
             if getattr(entry, "video_title", ""):
-                st.write("**Video Title:**", entry.video_title)
-            st.write("**Area of Life:**", entry.area_of_life)
-            st.write("**Goal:**", entry.goal or "(none)")
-            st.write("**Generated At:**", entry.timestamp)
+                st.write("**Title:**", entry.video_title)
+            st.write(f"**Area of Life:** {entry.area_of_life}. ", f"**Goal:** {entry.goal}" if entry.goal else "")
+            # st.write("**Generated At:**", entry.timestamp) (already in the entry header)
 
             cols = st.columns([1, 1, 1])
             if cols[0].button("🔍 View Results", key=f"view_{idx}"):
@@ -618,6 +632,7 @@ def render_history_page() -> None:
                     video_url=entry.video_url,
                     area_of_life=entry.area_of_life,
                     goal=entry.goal,
+                    llm_info=entry.llm_info,
                 )
 
             if cols[1].button("🗑️ Delete", key=f"delete_{idx}"):
