@@ -14,7 +14,7 @@ from youtube_transcript_api._errors import (
     VideoUnavailable,
 )
 
-VALIDATE_DURATION = True
+VALIDATE_DURATION = False # True
 DURATION_TRESHOLD = 60 * 60  # 60 minutes
 
 USE_TRANSCRIPT_CACHE = True
@@ -67,6 +67,7 @@ def validate_transcript_duration(transcript: list[dict]) -> float:
     )
 
     if total_duration > DURATION_TRESHOLD:
+        # TODO instead of raising the error, trancate the trascript to DURATION_TRESHOLD, show a warning
         raise TranscriptError(
             f"For the MVP, videos must be under {DURATION_TRESHOLD//60} minutes."
         )
@@ -163,11 +164,12 @@ def fetch_youtube_transcript(
         for entry in transcript_data
     ]
 
+    if use_cache:
+        # save to cache (!before duration validation, to prevent extra API calls)
+        save_transcript_cache(video_id, formatted, cache_dir)
+
     if VALIDATE_DURATION:
         validate_transcript_duration(formatted)
-
-    if use_cache:
-        save_transcript_cache(video_id, formatted, cache_dir)
 
     return formatted
 

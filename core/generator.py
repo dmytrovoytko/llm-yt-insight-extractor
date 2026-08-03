@@ -232,10 +232,14 @@ def generate_actionable_ideas(
 
     try:
         # Generate structured output
+        # !!! model must support structured_complete
         ideas = llm_config.structured_complete(prompt, ActionableIdeas)
-        print("+structured_complete:", ideas)
+        # print("+structured_complete:", ideas)
         return ideas
     except LLMConfigError as e:
+        # TEMP debug info
+        print("!! llm_config.structured_complete ideas... prompt:", len(prompt), prompt, ActionableIdeas)
+        print(" error:", e)
         raise GenerationError(
             f"LLM failed to generate actionable ideas: {str(e)}"
         )
@@ -307,6 +311,7 @@ def generate_all_outputs(
     specific_goal: str,
     retrieved_chunks: list[dict],
     llm_config: BaseLLMConfig | None = None,
+    debug_outputs: bool = TEST_DEBUG,
 ) -> tuple[Subtopics, ActionableIdeas]:
     """Generate both subtopics and actionable ideas in sequence.
 
@@ -322,7 +327,7 @@ def generate_all_outputs(
     Raises:
         GenerationError: If either generation step fails.
     """
-    if TEST_DEBUG:
+    if debug_outputs:
         return _create_debug_outputs(area_of_life, specific_goal)
 
     if llm_config is None:
@@ -330,22 +335,43 @@ def generate_all_outputs(
             llm_config = create_llm()
         except LLMConfigError as e:
             raise GenerationError(f"Failed to initialize LLM: {str(e)}")
-    # print("+create_llm()")
 
-    print("\n...generate_subtopics():", retrieved_chunks)
+    # print("\n...generate_subtopics():", retrieved_chunks) # debug
     subtopics = generate_subtopics(
         area_of_life, specific_goal, retrieved_chunks, llm_config
     )
-    # print("+generate_subtopics()")
+    # handle edge case: area_of_life or specific_goal have no correlation with the video
+    # so we return an artificial entry explaining that
+    if subtopics.subtopics==[]:
+        subtopics = Subtopics(
+            subtopics=[
+                Subtopic(
+                    title="Nothing found",
+                    timestamp="[00:00]",
+                    summary="No relevant ideas found related to the chosen area of life/goal",
+                ),
+            ]
+        )
 
     try:
         ideas = generate_actionable_ideas(
             area_of_life, specific_goal, retrieved_chunks, llm_config
         )
-        # print("+generate_actionable_ideas() ")
+        # handle edge case: area_of_life or specific_goal have no correlation with the video
+        # so we return an artificial entry explaining that
+        if ideas.ideas==[]:
+            ideas = ActionableIdeas(
+                ideas=[
+                    ActionableIdea(
+                        title="Nothing found",
+                        description="No relevant ideas found related to the chosen area of life/goal",
+                        timestamp="[00:00]",
+                    ),
+                ]
+            )
     except Exception as e:
-        # FIXME for testing - return the error - to show at least topics
-        print("--generate_actionable_ideas() error:", e)
+        # FIXME for testing - returning the error as idea - to show at least topics
+        print("!! generate_actionable_ideas() error:", e)
         ideas = ActionableIdeas(
             ideas=[
                 ActionableIdea(

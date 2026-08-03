@@ -62,7 +62,7 @@ class BaseLLMConfig:
                 )
         except Exception as e:
             error_msg = str(e).lower()
-            print("_validate_connection error:", e)
+            print("!! _validate_connection error:", e)
             if "connection" in error_msg or "refused" in error_msg:
                 raise LLMConfigError(
                     f"Cannot connect to {self.provider} server. "
@@ -218,7 +218,7 @@ class OpenRouterLLMConfig(BaseLLMConfig):
         #     "HTTP-Referer": "https://localhost:8501", # ?8505
         #     "X-Title": "YT Insight Extractor"
         # }
-        print(f"\nOpenRouterLLMConfig: {self.model} {self.api_key}...")
+
         # self._llm = OpenAILike(
         self._llm = OpenRouter(
             model=self.model,
