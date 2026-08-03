@@ -1,12 +1,16 @@
 streamlit==1.60.0
 youtube-transcript-api==1.2.4
 llama-index==0.14.23
+llama-index-llms-anthropic==0.11.9
+llama-index-llms-ollama==0.10.1
+llama-index-llms-openai==0.7.10
+llama-index-llms-openrouter-0.5.1
+# llama-index-llms-openai-like==0.7.2
 llama-index-vector-stores-chroma==0.5.5
 # llama-index-embeddings-huggingface==0.7.0
 onnxruntime==1.28.0
 huggingface-hub==1.26.0
 
-llama-index-llms-ollama==0.10.1
 transformers==5.14.1
 pydantic==2.13.4
 chromadb==1.5.9

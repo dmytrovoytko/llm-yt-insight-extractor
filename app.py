@@ -4,6 +4,7 @@ Provides a web interface for extracting actionable insights from YouTube videos
 using RAG-powered processing pipeline.
 """
 
+import os
 import streamlit as st
 
 from core.exports import (
@@ -14,7 +15,7 @@ from core.exports import (
     export_to_markdown,
 )
 from core.generator import generate_all_outputs
-from core.prompts import ActionableIdeas, Subtopics
+from core.prompts import ActionableIdeas, Subtopics, TOP_K
 from core.transcript import (
     extract_video_id,
     extract_video_title,
@@ -24,6 +25,15 @@ from core.history import (
     get_history_store,
     load_history,
     save_to_history,
+)
+from core.llm_config import (
+    DEFAULT_OLLAMA_MODEL,
+    DEFAULT_OPENAI_MODEL,
+    DEFAULT_ANTHROPIC_MODEL,
+    # DEFAULT_HF_MODEL,
+    DEFAULT_OPENROUTER_MODEL,
+    LLMConfigError,
+    create_llm,
 )
 
 # Page config
@@ -55,8 +65,8 @@ SESSION_STATE_KEYS = [
     "video_id",
     "final_output",
     "error_message",
+    "llm_instance",
 ]
-
 
 def initialize_session_state() -> None:
     """Initialize session state variables for pipeline state management."""
@@ -165,7 +175,7 @@ def run_pipeline_step_3_rag_and_summarize(
     area_of_life: str,
     specific_goal: str,
     rag_engine,
-    top_k: int = 5,
+    top_k: int = TOP_K,
 ) -> tuple[list[dict], Subtopics, ActionableIdeas, str]:
     """Step 3: Retrieve relevant transcript context and generate structured results.
 
@@ -190,7 +200,8 @@ def run_pipeline_step_3_rag_and_summarize(
         )
 
     subtopics, actionable_ideas = generate_all_outputs(
-        area_of_life, specific_goal, results
+        area_of_life, specific_goal, results,
+        llm_config=st.session_state.llm_instance
     )
 
     status_msg = (
@@ -203,16 +214,17 @@ def run_pipeline_step_3_rag_and_summarize(
 def display_pipeline_progress(
     youtube_url: str, area_of_life: str, specific_goal: str
 ):
-    """Execute and display pipeline progress for steps 1-3.
+  """Execute and display pipeline progress for steps 1-3.
 
     Args:
         youtube_url: YouTube video URL.
         area_of_life: Selected area of life.
         specific_goal: Optional specific goal.
     """
-    st.markdown("---")
-    st.subheader("⚙️ Processing Pipeline")
-
+  # st.markdown("---")
+  # st.subheader("⚙️ Processing Pipeline")
+  st.caption("⚙️ Processing Pipeline")
+  with st.empty(): # to make next elements replace each other = disappear
     # Step 1: Extract Transcript
     with st.status(
         "🔄 Step 1: Extracting transcript...", expanded=True
@@ -318,9 +330,9 @@ def display_pipeline_progress(
             st.error(str(e))
             return
 
-    st.markdown("---")
+    # st.markdown("---")
     st.info(
-        "✅ Pipeline complete. Review retrieved context below and continue to build the LLM summary flow."
+        "✅ Pipeline complete. Review retrieved context below." #  and continue to build the LLM summary flow
     )
 
 
@@ -348,11 +360,12 @@ def render_results_tabs(
 
             with st.container(border=True):
                 st.subheader(subtopic.title)
-                st.markdown(f"**Timestamp:** {timestamp_with_link}")
                 st.write(subtopic.summary)
+                st.markdown(f"**Timestamp:** {timestamp_with_link}")
 
     with tab2:
-        st.markdown("## Top 5 Actionable Ideas\n")
+        # st.markdown("## Top 5 Actionable Ideas\n")
+        st.markdown("## Actionable Ideas\n")
         for idx, idea in enumerate(actionable_ideas.ideas, start=1):
             # Convert timestamp to clickable link
             timestamp_with_link = convert_timestamps_to_youtube_links(
@@ -361,7 +374,7 @@ def render_results_tabs(
 
             with st.container(border=True):
                 st.subheader(f"{idx}. {idea.title}")
-                st.markdown(f"**Description:** {idea.description}")
+                st.markdown(f"{idea.description}")
                 st.markdown(f"**Timestamp:** {timestamp_with_link}")
 
 
@@ -384,7 +397,8 @@ def create_download_buttons(
         area_of_life: User's selected area of life (optional)
         goal: User's specific goal (optional)
     """
-    col1, col2 = st.columns(2)
+    # col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns([1, 1, 2]) # to reduce the gap
 
     with col1:
         # Markdown export
@@ -420,6 +434,129 @@ def create_download_buttons(
             file_name=f"yt-insight-{area_of_life}-{video_id}.json",
             mime="application/json",
         )
+
+
+def render_configuration_page() -> None:
+    providers = ["Ollama", "OpenAI", "Anthropic",
+            # "HuggingFace",
+            "OpenRouter",
+    ]
+    if st.session_state.llm_instance:
+        active_index = providers.index(st.session_state.llm_instance.provider)
+    else:
+        active_index = len(providers)-1 # 0
+    # 1. Choose LLM Provider
+    provider = st.selectbox(
+        "Select LLM Provider",
+        options=providers,
+        index=active_index,
+        help="Choose the AI model provider you want to use."
+    ).lower()
+    
+    # 2. API Key Inputs (Conditional)
+    # OpenAI Key
+    openai_key = None
+    if provider == "openai":
+        env_openai_key = os.getenv("OPENAI_API_KEY", "")
+        openai_key = st.text_input(
+            "OpenAI API Key",
+            value=env_openai_key,
+            type="password",
+            help="Leave blank if already set in system environment variables."
+        )
+
+    # Anthropic Key
+    anthropic_key = None
+    if provider == "anthropic":
+        env_anthropic_key = os.getenv("ANTHROPIC_API_KEY", "")
+        anthropic_key = st.text_input(
+            "Anthropic API Key",
+            value=env_anthropic_key,
+            type="password",
+            help="Leave blank if already set in system environment variables."
+        )
+
+    # # HuggingFace Key
+    # if provider == "huggingface":
+    #     env_hf_key = os.getenv("HUGGINGFACE_API_KEY", "") or os.getenv("HF_API_KEY", "")
+    #     hf_key = st.text_input(
+    #         "Hugging Face API Token", 
+    #         value=env_hf_key, 
+    #         type="password",
+    #         help="Generate a token with 'Read' permissions in your Hugging Face settings."
+    #     )
+        
+    # OpenRouter Key
+    openrouter_key = None
+    if provider == "openrouter":
+        env_openrouter_key = os.getenv("OPENROUTER_API_KEY", "")
+        openrouter_key = st.text_input(
+            "OpenRouter API Key", 
+            value=env_openrouter_key, 
+            type="password",
+            help="Get a free API key at https://openrouter.ai/keys"
+        )
+
+
+    # 3. Model Selection
+    default_models = {
+        "ollama": DEFAULT_OLLAMA_MODEL,
+        "openai": DEFAULT_OPENAI_MODEL,
+        "anthropic": DEFAULT_ANTHROPIC_MODEL,
+        # "huggingface": DEFAULT_HF_MODEL,
+        "openrouter": DEFAULT_OPENROUTER_MODEL
+    }
+    model_name = st.text_input(
+        "Model Name",
+        value=default_models[provider],
+        help="Specify the exact model name to use."
+    )
+
+    # 4. Connection Button
+    connect_btn = st.button("⚡ Connect", use_container_width=True) # , type="primary"
+
+    if connect_btn:
+        try:
+            with st.status("Initializing LLM...", expanded=True) as status:
+                st.error("")
+                st.write(f"Validating {provider.capitalize()} configuration...")
+                
+                kwargs = {"model": model_name}
+                
+                # Pass keys if provided in UI (prioritizing UI over env for explicitness)
+                if provider == "openai" and openai_key:
+                    kwargs["api_key"] = openai_key
+                elif provider == "anthropic" and anthropic_key:
+                    kwargs["api_key"] = anthropic_key
+                # elif provider == "huggingface" and hf_:
+                #     kwargs["api_key"] = hf_key
+                elif provider == "openrouter" and openrouter_key:
+                    kwargs["api_key"] = openrouter_key
+
+                print(f"{provider}: {kwargs}")
+
+                # Create LLM instance using our factory
+                st.session_state.llm_instance = create_llm(provider=provider, **kwargs)
+                
+                st.write("Connection successful!")
+                status.update(label="Connection Successful!", state="complete")
+                
+                # # Clear chat history when switching/connecting LLMs
+                # st.session_state.messages = []
+                
+        except LLMConfigError as e:
+            st.session_state.llm_instance = None
+            st.error(f"Configuration Error: {str(e)}")
+        except Exception as e:
+            st.session_state.llm_instance = None
+            st.error(f"Unexpected Error: {str(e)}")
+
+    st.divider()
+    st.markdown("**Status:**")
+    if st.session_state.llm_instance is not None:
+        st.success(f"Connected to {provider.capitalize()} ({model_name})")
+    else:
+        st.warning("Not Connected")
 
 
 def render_history_page() -> None:
@@ -510,10 +647,16 @@ def main() -> None:
     """Main Streamlit application entry point."""
     initialize_session_state()
     # Sidebar navigation
-    page = st.sidebar.radio("Page", ["Main App", "History"])
+    page = st.sidebar.radio("Tabs", 
+            ["💡 Insights", "🕘 History", "⚙️ Configuration"],
+            label_visibility="hidden"
+    )
 
-    if page == "History":
+    if page == "🕘 History":
         render_history_page()
+        return
+    if page == "⚙️ Configuration":
+        render_configuration_page()
         return
     st.title("🎬 YT Insight Extractor")
     st.markdown(
@@ -565,7 +708,7 @@ def main() -> None:
         display_pipeline_progress(youtube_url, area_of_life, specific_goal)
 
         if st.session_state.pipeline_step == "step_3_complete":
-            st.markdown("---")
+            # st.markdown("---")
             st.subheader("✅ Extracted Results")
 
             if (
@@ -593,22 +736,22 @@ def main() -> None:
                     "Structured results are not available yet. Please rerun the pipeline or check for errors."
                 )
 
-            st.markdown("---")
-            st.subheader("📌 Retrieved RAG Context")
-            st.write("**Query:**", st.session_state.final_output["query"])
-            for idx, item in enumerate(
-                st.session_state.retrieved_context, start=1
-            ):
-                with st.expander(
-                    f"Chunk {idx} — score {item.get('score', 0.0):.3f}"
-                ):
-                    st.write(item["text"])
-                    st.write(
-                        "_Chunk start:_",
-                        f"{item.get('start_time', 0.0):.1f}s",
-                        "_end:_",
-                        f"{item.get('end_time', 0.0):.1f}s",
-                    )
+            # st.markdown("---")
+            # st.subheader("📌 Retrieved RAG Context")
+            # st.write("**Query:**", st.session_state.final_output["query"])
+            # for idx, item in enumerate(
+            #     st.session_state.retrieved_context, start=1
+            # ):
+            #     with st.expander(
+            #         f"Chunk {idx} — score {item.get('score', 0.0):.3f}"
+            #     ):
+            #         st.write(item["text"])
+            #         st.write(
+            #             "_Chunk start:_",
+            #             f"{item.get('start_time', 0.0):.1f}s",
+            #             "_end:_",
+            #             f"{item.get('end_time', 0.0):.1f}s",
+            #         )
 
 
 if __name__ == "__main__":

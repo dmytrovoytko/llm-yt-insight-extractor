@@ -7,7 +7,7 @@ from typing import Any, Type
 
 from pydantic import BaseModel, ValidationError
 
-from core.llm_config import OllamaLLMConfig, OllamaLLMError, create_ollama_llm
+from core.llm_config import BaseLLMConfig, LLMConfigError, create_llm
 from core.prompts import (
     ActionableIdea,
     ActionableIdeas,
@@ -31,7 +31,7 @@ FIELD_MAX_LENGTHS = {
     "timestamp": 20,
 }
 
-TEST_DEBUG = True
+TEST_DEBUG = False # True
 
 
 def _truncate_string(value: str, max_length: int) -> str:
@@ -146,7 +146,7 @@ def generate_subtopics(
     area_of_life: str,
     specific_goal: str,
     retrieved_chunks: list[dict],
-    llm_config: OllamaLLMConfig | None = None,
+    llm_config: BaseLLMConfig | None = None,
 ) -> Subtopics:
     """Generate structured subtopics using the Ollama LLM.
 
@@ -164,8 +164,8 @@ def generate_subtopics(
     """
     if llm_config is None:
         try:
-            llm_config = create_ollama_llm()
-        except OllamaLLMError as e:
+            llm_config = create_llm()
+        except LLMConfigError as e:
             raise GenerationError(f"Failed to initialize LLM: {str(e)}")
 
     # Format context for the prompt
@@ -180,8 +180,12 @@ def generate_subtopics(
     try:
         # Generate structured output
         subtopics = llm_config.structured_complete(prompt, Subtopics)
+        # print("+structured_complete:", subtopics)
         return subtopics
-    except OllamaLLMError as e:
+    except LLMConfigError as e:
+        # TEMP debug info
+        print("!! llm_config.structured_complete subtopics... prompt:", len(prompt), prompt, Subtopics)
+        print(" error:", e)
         raise GenerationError(f"LLM failed to generate subtopics: {str(e)}")
     except Exception as e:
         raise GenerationError(
@@ -193,7 +197,7 @@ def generate_actionable_ideas(
     area_of_life: str,
     specific_goal: str,
     retrieved_chunks: list[dict],
-    llm_config: OllamaLLMConfig | None = None,
+    llm_config: BaseLLMConfig | None = None,
 ) -> ActionableIdeas:
     """Generate structured actionable ideas using the Ollama LLM.
 
@@ -211,8 +215,8 @@ def generate_actionable_ideas(
     """
     if llm_config is None:
         try:
-            llm_config = create_ollama_llm()
-        except OllamaLLMError as e:
+            llm_config = create_llm()
+        except LLMConfigError as e:
             raise GenerationError(f"Failed to initialize LLM: {str(e)}")
 
     # Format context for the prompt
@@ -229,8 +233,9 @@ def generate_actionable_ideas(
     try:
         # Generate structured output
         ideas = llm_config.structured_complete(prompt, ActionableIdeas)
+        print("+structured_complete:", ideas)
         return ideas
-    except OllamaLLMError as e:
+    except LLMConfigError as e:
         raise GenerationError(
             f"LLM failed to generate actionable ideas: {str(e)}"
         )
@@ -301,7 +306,7 @@ def generate_all_outputs(
     area_of_life: str,
     specific_goal: str,
     retrieved_chunks: list[dict],
-    llm_config: OllamaLLMConfig | None = None,
+    llm_config: BaseLLMConfig | None = None,
 ) -> tuple[Subtopics, ActionableIdeas]:
     """Generate both subtopics and actionable ideas in sequence.
 
@@ -322,15 +327,33 @@ def generate_all_outputs(
 
     if llm_config is None:
         try:
-            llm_config = create_ollama_llm()
-        except OllamaLLMError as e:
+            llm_config = create_llm()
+        except LLMConfigError as e:
             raise GenerationError(f"Failed to initialize LLM: {str(e)}")
+    # print("+create_llm()")
 
+    print("\n...generate_subtopics():", retrieved_chunks)
     subtopics = generate_subtopics(
         area_of_life, specific_goal, retrieved_chunks, llm_config
     )
-    ideas = generate_actionable_ideas(
-        area_of_life, specific_goal, retrieved_chunks, llm_config
-    )
+    # print("+generate_subtopics()")
+
+    try:
+        ideas = generate_actionable_ideas(
+            area_of_life, specific_goal, retrieved_chunks, llm_config
+        )
+        # print("+generate_actionable_ideas() ")
+    except Exception as e:
+        # FIXME for testing - return the error - to show at least topics
+        print("--generate_actionable_ideas() error:", e)
+        ideas = ActionableIdeas(
+            ideas=[
+                ActionableIdea(
+                    title="Generate actionable ideas failed",
+                    description=str(e),
+                    timestamp="[00:00]",
+                ),
+            ]
+        )
 
     return subtopics, ideas
