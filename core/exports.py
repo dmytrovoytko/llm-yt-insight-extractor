@@ -38,7 +38,11 @@ def convert_timestamps_to_youtube_links(text: str, video_id: str) -> str:
         url = f"https://youtu.be/{video_id}?t={seconds}"
         return f"[{original[1:-1]}]({url})"
 
-    return TIMESTAMP_PATTERN.sub(_replace, text)
+    if text[0]=='[' and text[-1]==']':
+        return TIMESTAMP_PATTERN.sub(_replace, text)
+    else:
+        # restore lost brackets before converting
+        return TIMESTAMP_PATTERN.sub(_replace, f"[{text}]")
 
 
 def export_subtopics_to_markdown(subtopics: Subtopics, video_id: str) -> str:
