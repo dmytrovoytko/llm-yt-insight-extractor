@@ -4,6 +4,8 @@ import logging
 from pathlib import Path
 from huggingface_hub import hf_hub_download, list_repo_files
 
+from core.settings import DEFAULT_EMBEDDING_MODEL, DEBUG
+
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
 logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
 
@@ -13,7 +15,6 @@ ONNX_CANDIDATES = [
     "model.onnx",
 ]
 
-DEFAULT_EMBEDDING_MODEL = "Xenova/all-MiniLM-L6-v2"
 
 def download(repo, dest="models"):
     dest = Path(dest) / repo
@@ -32,9 +33,11 @@ def download(repo, dest="models"):
         dst = dest / local
         if not dst.exists():
             shutil.copy2(src, dst)
-            print(f"  saved {dst}")
+            if DEBUG:
+                print(f"  saved {dst}")
         else:
-            print(f"  exists {dst}")
+            if DEBUG:
+                print(f"  exists {dst}")
 
     onnx_ext = onnx_file + "_data"
     if onnx_ext in files:
@@ -42,9 +45,11 @@ def download(repo, dest="models"):
         dst = dest / "model.onnx_data"
         if not dst.exists():
             shutil.copy2(src, dst)
-            print(f"  saved {dst}")
+            if DEBUG:
+                print(f"  saved {dst}")
         else:
-            print(f"  exists {dst}")
+            if DEBUG:
+                print(f"  exists {dst}")
 
 
 if __name__ == "__main__":

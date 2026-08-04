@@ -14,12 +14,13 @@ from youtube_transcript_api._errors import (
     VideoUnavailable,
 )
 
-VALIDATE_DURATION = False # True
-DURATION_TRESHOLD = 60 * 60  # 60 minutes
+from core.settings import (
+    VALIDATE_DURATION, DURATION_TRESHOLD, 
+    USE_TRANSCRIPT_CACHE, TRANSCRIPT_CACHE_EXTENSION, 
+    DEBUG
+)
 
-USE_TRANSCRIPT_CACHE = True
 TRANSCRIPT_CACHE_DIR = Path("data") / ".transcript_cache"
-TRANSCRIPT_CACHE_EXTENSION = ".txt"
 
 
 class TranscriptError(RuntimeError):

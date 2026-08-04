@@ -15,7 +15,7 @@ from core.exports import (
     export_to_markdown,
 )
 from core.generator import generate_all_outputs
-from core.prompts import ActionableIdeas, Subtopics, TOP_K
+from core.prompts import ActionableIdeas, Subtopics
 from core.transcript import (
     extract_video_id,
     extract_video_title,
@@ -27,14 +27,16 @@ from core.history import (
     save_to_history,
 )
 from core.llm_config import (
-    DEFAULT_OLLAMA_MODEL,
-    DEFAULT_OPENAI_MODEL,
-    DEFAULT_ANTHROPIC_MODEL,
-    # DEFAULT_HF_MODEL,
-    DEFAULT_OPENROUTER_MODEL,
     LLMConfigError,
     create_llm,
 )
+
+from core.settings import (
+    DEFAULT_OLLAMA_MODEL, DEFAULT_OPENAI_MODEL, DEFAULT_ANTHROPIC_MODEL, DEFAULT_OPENROUTER_MODEL,
+    # DEFAULT_HF_MODEL,
+    TOP_K
+)
+
 
 # Page config
 st.set_page_config(
@@ -210,6 +212,14 @@ def run_pipeline_step_3_rag_and_summarize(
     )
     return results, subtopics, actionable_ideas, status_msg
 
+def llm_configuration(llm_instance):
+    if llm_instance:
+        _provider = llm_instance.provider
+        _model = llm_instance.model
+    else:
+        _provider = "Ollama"
+        _model = DEFAULT_OLLAMA_MODEL
+    return _provider, _model
 
 def display_pipeline_progress(
     youtube_url: str, area_of_life: str, specific_goal: str
@@ -223,12 +233,7 @@ def display_pipeline_progress(
     """
   # st.markdown("---")
   # st.subheader("⚙️ Processing Pipeline")
-  if st.session_state.llm_instance:
-    _provider = st.session_state.llm_instance.provider
-    _model = st.session_state.llm_instance.model
-  else:
-    _provider = "Ollama"
-    _model = DEFAULT_OLLAMA_MODEL
+  _provider, _model = llm_configuration(st.session_state.llm_instance)
   st.caption(f"⚙️ Processing Pipeline ({_provider}: {_model})")
   with st.empty(): # to make next elements replace each other = disappear
     # Step 1: Extract Transcript
@@ -548,8 +553,6 @@ def render_configuration_page() -> None:
                 elif provider == "openrouter" and openrouter_key:
                     kwargs["api_key"] = openrouter_key
 
-                print(f"{provider}: {kwargs}")
-
                 # Create LLM instance using our factory
                 st.session_state.llm_instance = create_llm(provider=provider, **kwargs)
                 
@@ -676,6 +679,10 @@ def main() -> None:
     st.title("🎬 YT Insight Extractor")
     st.markdown(
         "Provide a YouTube video link, choose an area of life, and optionally add a goal to generate targeted insights."
+    )
+    _provider, _model = llm_configuration(st.session_state.llm_instance)
+    st.markdown(
+        f"Current LLM: {_provider}:{_model}. Use ⚙️ Configuration to change it if needed."
     )
 
     with st.form(key="input_form"):

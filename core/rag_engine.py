@@ -14,8 +14,8 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 
 from core.chunker import TranscriptChunk
 
-# DEFAULT_EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-DEFAULT_EMBEDDING_MODEL = "Xenova/all-MiniLM-L6-v2" # lightweight model with ONNX
+from core.settings import DEFAULT_EMBEDDING_MODEL, DEBUG
+
 DEFAULT_COLLECTION_NAME = "transcript_chunks"
 
 
@@ -137,7 +137,8 @@ class RAGEngine:
             try:
                 self._client.delete_collection(name=DEFAULT_COLLECTION_NAME)
             except Exception as e:
-                print("! cleanup error:", e)
+                if DEBUG:
+                    print("! cleanup error:", e)
 
 def create_rag_engine(
     embedding_model: str = DEFAULT_EMBEDDING_MODEL,

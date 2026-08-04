@@ -13,7 +13,7 @@ from core.generator import (
     parse_actionable_ideas_output,
     parse_subtopics_output,
 )
-from core.prompts import ActionableIdea, ActionableIdeas, Subtopic, Subtopics, TOP_K
+from core.prompts import ActionableIdea, ActionableIdeas, Subtopic, Subtopics
 
 
 class TestFormatContext(unittest.TestCase):
@@ -305,7 +305,7 @@ class TestGenerateFunctions(unittest.TestCase):
 
     def test_generate_all_outputs_orchestrates_both_generations(self):
         """Verify generate_all_outputs generates both subtopics and ideas."""
-        with patch.object(generator_module, "TEST_DEBUG", False):
+        with patch.object(generator_module, "GENERATOR_TEST_DEBUG", True):
             mock_llm_config = MagicMock()
             mock_subtopics = Subtopics(
                 subtopics=[
@@ -372,7 +372,7 @@ class TestGenerateFunctions(unittest.TestCase):
 
     def test_generate_all_outputs_debug_mode_returns_fixed_outputs(self):
         """Verify debug mode returns fixed outputs without calling the LLM."""
-        self.assertFalse(generator_module.TEST_DEBUG) # True only while dev
+        self.assertFalse(generator_module.GENERATOR_TEST_DEBUG) # True only while dev
 
         mock_llm_config = MagicMock()
         subtopics, ideas = generate_all_outputs(

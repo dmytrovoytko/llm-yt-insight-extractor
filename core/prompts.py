@@ -4,7 +4,7 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
-TOP_K = 4 # 5
+from core.settings import TOP_K
 
 
 class Subtopic(BaseModel):

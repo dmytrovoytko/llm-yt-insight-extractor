@@ -9,6 +9,8 @@ from pydantic import BaseModel, Field
 
 from core.prompts import ActionableIdeas, Subtopics
 
+from core.settings import DEBUG
+
 
 class HistoryEntry(BaseModel):
     """A single entry in the analysis history."""
@@ -45,7 +47,8 @@ class HistoryStore:
                 Path(__file__).parent.parent / "data" / "history.json"
             )
         self.history_file = history_file
-        # print(f"{history_file=}") # debug
+        if DEBUG:
+            print(f"{history_file=}") # debug
 
     def save_entry(
         self,
@@ -103,7 +106,8 @@ class HistoryStore:
             else:
                 history = []
         except Exception as e:
-            print(f"! History {self.history_file} load error:", e)
+            if DEBUG:
+                print(f"! History {self.history_file} load error:", e)
             history = []
 
         # Append new entry
@@ -129,7 +133,8 @@ class HistoryStore:
             with open(self.history_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except Exception as e:
-            print(f"! History {self.history_file} load error:", e)
+            if DEBUG:
+                print(f"! History {self.history_file} load error:", e)
             data = []        
 
         if not isinstance(data, list):

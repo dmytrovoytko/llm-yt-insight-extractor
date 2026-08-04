@@ -4,8 +4,6 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from core.llm_config import (
-    DEFAULT_OLLAMA_MODEL,
-    DEFAULT_OLLAMA_HOST,
     LLMConfigError,
     OllamaLLMConfig,
     OpenAILLMConfig,
@@ -13,6 +11,7 @@ from core.llm_config import (
     create_llm,
 )
 
+from core.settings import DEFAULT_OLLAMA_MODEL, DEFAULT_OLLAMA_HOST
 
 class TestOllamaLLMConfig(unittest.TestCase):
     """Test suite for Ollama LLM configuration."""

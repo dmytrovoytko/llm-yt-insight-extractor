@@ -16,7 +16,7 @@ from core.prompts import (
     build_actionable_ideas_prompt,
     build_subtopics_prompt,
 )
-
+from core.settings import GENERATOR_TEST_DEBUG, DEBUG
 
 class GenerationError(RuntimeError):
     """Exception raised when LLM generation fails."""
@@ -30,8 +30,6 @@ FIELD_MAX_LENGTHS = {
     "description": 300,
     "timestamp": 20,
 }
-
-TEST_DEBUG = False # True
 
 
 def _truncate_string(value: str, max_length: int) -> str:
@@ -180,12 +178,13 @@ def generate_subtopics(
     try:
         # Generate structured output
         subtopics = llm_config.structured_complete(prompt, Subtopics)
-        # print("+structured_complete:", subtopics)
+        if DEBUG:
+            print("+structured_complete:", subtopics)
         return subtopics
     except LLMConfigError as e:
-        # TEMP debug info
-        print("!! llm_config.structured_complete subtopics... prompt:", len(prompt), prompt, Subtopics)
-        print(" error:", e)
+        if DEBUG:
+            print("!! llm_config.structured_complete subtopics... prompt:", len(prompt), prompt, Subtopics)
+            print(" error:", e)
         raise GenerationError(f"LLM failed to generate subtopics: {str(e)}")
     except Exception as e:
         raise GenerationError(
@@ -234,12 +233,13 @@ def generate_actionable_ideas(
         # Generate structured output
         # !!! model must support structured_complete
         ideas = llm_config.structured_complete(prompt, ActionableIdeas)
-        # print("+structured_complete:", ideas)
+        if DEBUG:
+            print("+structured_complete:", ideas)
         return ideas
     except LLMConfigError as e:
-        # TEMP debug info
-        print("!! llm_config.structured_complete ideas... prompt:", len(prompt), prompt, ActionableIdeas)
-        print(" error:", e)
+        if DEBUG:
+            print("!! llm_config.structured_complete ideas... prompt:", len(prompt), prompt, ActionableIdeas)
+            print(" error:", e)
         raise GenerationError(
             f"LLM failed to generate actionable ideas: {str(e)}"
         )
@@ -311,7 +311,7 @@ def generate_all_outputs(
     specific_goal: str,
     retrieved_chunks: list[dict],
     llm_config: BaseLLMConfig | None = None,
-    debug_outputs: bool = TEST_DEBUG,
+    debug_outputs: bool = GENERATOR_TEST_DEBUG,
 ) -> tuple[Subtopics, ActionableIdeas]:
     """Generate both subtopics and actionable ideas in sequence.
 
@@ -328,6 +328,7 @@ def generate_all_outputs(
         GenerationError: If either generation step fails.
     """
     if debug_outputs:
+        # 
         return _create_debug_outputs(area_of_life, specific_goal)
 
     if llm_config is None:
@@ -336,7 +337,8 @@ def generate_all_outputs(
         except LLMConfigError as e:
             raise GenerationError(f"Failed to initialize LLM: {str(e)}")
 
-    # print("\n...generate_subtopics():", retrieved_chunks) # debug
+    if DEBUG:
+        print("\n...generate_subtopics():", retrieved_chunks)
     subtopics = generate_subtopics(
         area_of_life, specific_goal, retrieved_chunks, llm_config
     )
@@ -371,7 +373,8 @@ def generate_all_outputs(
             )
     except Exception as e:
         # FIXME for testing - returning the error as idea - to show at least topics
-        print("!! generate_actionable_ideas() error:", e)
+        if DEBUG:
+            print("!! generate_actionable_ideas() error:", e)
         ideas = ActionableIdeas(
             ideas=[
                 ActionableIdea(

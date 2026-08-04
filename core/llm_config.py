@@ -9,21 +9,17 @@ from pydantic import BaseModel
 from llama_index.core.llms import LLM
 from llama_index.core.prompts import PromptTemplate
 from llama_index.llms.ollama import Ollama
-from llama_index.llms.openai import OpenAI # used for OpenRouter also
+from llama_index.llms.openai import OpenAI
 from llama_index.llms.openrouter import OpenRouter
 from llama_index.llms.openai_like import OpenAILike
 from llama_index.llms.anthropic import Anthropic
 # from llama_index.llms.huggingface import HuggingFaceLLM
 
-# --- Defaults ---
-DEFAULT_OLLAMA_MODEL = "llama3.2:1b"  # granite4.1:3b granite4:350m "granite3.3:2b
-DEFAULT_OLLAMA_HOST = "http://localhost:11434"
-DEFAULT_OLLAMA_TIMEOUT = 120.0
-
-DEFAULT_OPENAI_MODEL = "gpt-5-mini"
-DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-5"
-# DEFAULT_HF_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct"
-DEFAULT_OPENROUTER_MODEL = "google/gemma-4-26b-a4b-it:free"
+from core.settings import (
+    DEFAULT_OLLAMA_MODEL, DEFAULT_OLLAMA_HOST, DEFAULT_OLLAMA_TIMEOUT, 
+    DEFAULT_OPENAI_MODEL, DEFAULT_ANTHROPIC_MODEL, DEFAULT_OPENROUTER_MODEL,
+    # DEFAULT_HF_MODEL
+)
 
 class LLMConfigError(RuntimeError):
     """Base exception for LLM configuration errors."""
@@ -254,6 +250,30 @@ class AnthropicLLMConfig(BaseLLMConfig):
             **self.additional_kwargs,
         )
 
+# class HuggingFaceLLMConfig(BaseLLMConfig):
+#     """HuggingFace LLM configuration."""
+
+#     def __init__(
+#         self,
+#         model: Optional[str] = None,
+#         api_key: Optional[str] = None,
+#         **kwargs,
+#     ):
+#         self.model = model or os.getenv("HF_MODEL", DEFAULT_HF_MODEL)
+#         self.api_key = api_key or os.getenv("HUGGINGFACE_API_KEY") or os.getenv("HF_API_KEY")
+#         self.additional_kwargs = kwargs
+#         super().__init__(provider="HuggingFace")
+
+#     def _initialize_llm(self) -> None:
+#         if not self.api_key:
+#             raise LLMConfigError("HuggingFace API key is missing. Set HF_API_KEY env var.")
+#         # HuggingFaceLLM uses `model_name` instead of `model` in LlamaIndex
+#         self._llm = HuggingFaceLLM(
+#             model_name=self.model,
+#             token=self.api_key,
+#             **self.additional_kwargs,
+#         )
+
 
 def create_llm(
     provider: str = "ollama",
@@ -263,7 +283,7 @@ def create_llm(
     Factory function to create LLM configurations based on the provider.
     
     Args:
-        provider: "ollama", "openai", or "anthropic"
+        provider: "ollama", "openai", "anthropic" or "openrouter"
         **kwargs: Specific arguments for the provider's config class.
     
     Returns:
@@ -277,17 +297,12 @@ def create_llm(
         return OpenAILLMConfig(**kwargs)
     elif provider == "anthropic":
         return AnthropicLLMConfig(**kwargs)
-    # elif provider == "huggingface":
-    #     return HFLLMConfig(**kwargs)
-    #     key = api_key or os.getenv("HUGGINGFACE_API_KEY") or os.getenv("HF_API_KEY")
-    #     if not key:
-    #         raise LLMConfigError("Hugging Face API token is missing. Set it in the environment or pass it to the app.")
-    #     # HuggingFaceLLM uses `model_name` instead of `model` in LlamaIndex
-    #     llm = HuggingFaceLLM(model_name=model, token=key)        
     elif provider == "openrouter":
         return OpenRouterLLMConfig(**kwargs)
+    # elif provider == "huggingface":
+    #     return HuggingFaceLLMConfig(**kwargs)
     else:
         raise LLMConfigError(
             f"Unsupported LLM provider: '{provider}'. "
-            "Supported providers: 'ollama', 'openai', 'anthropic'."
+            "Supported providers: 'ollama', 'openai', 'anthropic', 'openrouter'."
         )
