@@ -5,8 +5,7 @@ from __future__ import annotations
 import re
 from typing import NamedTuple
 
-DEFAULT_CHUNK_WORDS = 300
-DEFAULT_OVERLAP_WORDS = 50
+from core.settings import DEFAULT_CHUNK_WORDS, DEFAULT_OVERLAP_WORDS
 
 
 class TranscriptChunk(NamedTuple):

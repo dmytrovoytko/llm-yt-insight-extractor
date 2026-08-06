@@ -17,6 +17,10 @@ GENERATOR_TEST_DEBUG = False # True only for dev to test UI faster - returns fix
 # Embedding
 DEFAULT_EMBEDDING_MODEL = "Xenova/all-MiniLM-L6-v2" # lightweight model with ONNX
 
+# Chunking
+DEFAULT_CHUNK_WORDS = 300
+DEFAULT_OVERLAP_WORDS = 50
+
 # Transcripts
 VALIDATE_DURATION = False # True
 DURATION_TRESHOLD = 60 * 60  # 60 minutes

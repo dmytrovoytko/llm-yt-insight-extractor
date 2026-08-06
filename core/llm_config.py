@@ -1,4 +1,4 @@
-"""LLM configuration module supporting Ollama, OpenAI, and Anthropic models."""
+"""LLM configuration module supporting Ollama, OpenAI, Anthropic, and OpenRouter models."""
 
 from __future__ import annotations
 
@@ -11,14 +11,15 @@ from llama_index.core.prompts import PromptTemplate
 from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 from llama_index.llms.openrouter import OpenRouter
-from llama_index.llms.openai_like import OpenAILike
+# from llama_index.llms.openai_like import OpenAILike
 from llama_index.llms.anthropic import Anthropic
 # from llama_index.llms.huggingface import HuggingFaceLLM
 
 from core.settings import (
     DEFAULT_OLLAMA_MODEL, DEFAULT_OLLAMA_HOST, DEFAULT_OLLAMA_TIMEOUT, 
     DEFAULT_OPENAI_MODEL, DEFAULT_ANTHROPIC_MODEL, DEFAULT_OPENROUTER_MODEL,
-    # DEFAULT_HF_MODEL
+    # DEFAULT_HF_MODEL,
+    DEBUG,
 )
 
 class LLMConfigError(RuntimeError):
@@ -58,7 +59,8 @@ class BaseLLMConfig:
                 )
         except Exception as e:
             error_msg = str(e).lower()
-            print("!! _validate_connection error:", e)
+            if DEBUG:
+                print("!! _validate_connection error:", e)
             if "connection" in error_msg or "refused" in error_msg:
                 raise LLMConfigError(
                     f"Cannot connect to {self.provider} server. "
@@ -66,7 +68,7 @@ class BaseLLMConfig:
                 )
             elif "not found" in error_msg or "model" in error_msg:
                 raise LLMConfigError(
-                    f"Model not found on {self.provider}. Please check your model name."
+                    f"Looks like specified model not found on {self.provider}. Please check your model name."
                 )
             elif "api key" in error_msg or "authentication" in error_msg:
                 raise LLMConfigError(

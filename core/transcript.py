@@ -51,7 +51,9 @@ def extract_video_title(youtube_url: str) -> str:
         yt = YouTube(youtube_url) # , use_po_token=True # try when Youtube detects requests as "bot"
         return yt.title
     except Exception as e:
-        print("! extract_video_title error:", e)
+        # TODO Return/Show warning if title extraction error
+        if DEBUG:
+            print("! extract_video_title error:", e)
 
     return video_id
 
