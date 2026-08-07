@@ -6,6 +6,10 @@ using RAG-powered processing pipeline.
 
 import os
 import streamlit as st
+import time
+import datetime
+import pandas as pd
+import plotly.express as px
 
 from core.exports import (
     convert_timestamps_to_youtube_links,
@@ -113,10 +117,11 @@ def run_pipeline_step_1_extract_transcript(
         total_words = sum(
             len(entry["text"].split()) for entry in transcript_data
         )
-        minutes = int(total_duration) // 60
+        hours = int(total_duration) // 60 // 60
+        minutes = int(total_duration) // 60 - hours * 60
         seconds = int(total_duration) % 60
 
-        status_msg = f"Transcript extracted, {minutes}min {seconds}s, {total_words} words"
+        status_msg = f"Transcript extracted, {hours:02d}:{minutes:02d}:{seconds:02d}, {total_words} words"
         return transcript_data, video_title, status_msg
     else:
         raise Exception(
@@ -212,7 +217,7 @@ def run_pipeline_step_3_rag_and_summarize(
     )
     return results, subtopics, actionable_ideas, status_msg
 
-def llm_configuration(llm_instance):
+def llm_configuration(llm_instance=None):
     if llm_instance:
         _provider = llm_instance.provider
         _model = llm_instance.model
@@ -237,6 +242,7 @@ def display_pipeline_progress(
   st.caption(f"⚙️ Processing Pipeline ({_provider}: {_model})")
   with st.empty(): # to make next elements replace each other = disappear
     # Step 1: Extract Transcript
+    start_time = time.perf_counter()
     with st.status(
         "🔄 Step 1: Extracting transcript...", expanded=True
     ) as step1_status:
@@ -316,6 +322,10 @@ def display_pipeline_progress(
             }
             st.session_state.pipeline_step = "step_3_complete"
 
+            # log processing duration
+            end_time = time.perf_counter()
+            processing_time = int(end_time - start_time + 0.5) # floor
+            
             try:
                 save_to_history(
                     video_url=youtube_url,
@@ -325,6 +335,7 @@ def display_pipeline_progress(
                     subtopics=subtopics,
                     actionable_ideas=actionable_ideas,
                     llm_info=f"{_provider}: {_model}",
+                    processing_time=processing_time,
                 )
             except Exception as save_error:
                 st.warning(
@@ -347,7 +358,7 @@ def display_pipeline_progress(
 
     # st.markdown("---")
     st.info(
-        "✅ Pipeline complete. Review retrieved context below." #  and continue to build the LLM summary flow
+        f"✅ Pipeline complete in {processing_time} sec. Review retrieved context below." #  and continue to build the LLM summary flow
     )
 
 
@@ -533,7 +544,7 @@ def render_configuration_page() -> None:
     )
 
     # 4. Connection Button
-    connect_btn = st.button("⚡ Connect", use_container_width=True) # , type="primary"
+    connect_btn = st.button("⚡ Connect", width='stretch') # , type="primary"
 
     if connect_btn:
         try:
@@ -600,7 +611,7 @@ def render_history_page() -> None:
 
     # Show newest first
     for idx, entry in enumerate(reversed(entries), start=1):
-        header = f"{idx}. {entry.video_title} — on {entry.area_of_life} — {entry.timestamp:.16} — {entry.llm_info}"
+        header = f"{idx}. {entry.video_title} — on {entry.area_of_life} — {entry.timestamp:.16} — {entry.llm_info} in {entry.processing_time} sec"
         with st.expander(header):
             st.write("**Video URL:**", entry.video_url)
             if getattr(entry, "video_title", ""):
@@ -661,17 +672,238 @@ def render_history_page() -> None:
                 st.rerun()
 
 
+
+def render_barchart(df, column, subject, orientation, bins=[], labels=[]) -> None:
+
+    if bins:
+        # Create a copy to avoid SettingWithCopyWarning on the original dataframe
+        plot_df = df.copy()
+        
+        # Categorize column values into bins
+        plot_df[f"{column}_bucket"] = pd.cut(
+            plot_df[column], 
+            bins=bins, 
+            labels=labels, 
+            include_lowest=True
+        )
+        
+        # Count records per bin and ensure all labels are present (even if count is 0)
+        area_counts = plot_df[f"{column}_bucket"].value_counts().reindex(labels).reset_index()
+        area_counts.columns = [subject, 'Number of Records']
+
+        # Create Vertical Bar Chart
+        fig = px.bar(
+            area_counts,
+            x=subject,
+            y='Number of Records',
+            text='Number of Records',
+            title=f"{subject} Distribution",
+            color='Number of Records',
+            color_continuous_scale='Blues'
+        )
+    else:
+        area_counts = (
+            df[column]
+            .value_counts()
+            .reset_index()
+        )
+        area_counts = area_counts.sort_values(by="count", ascending=False)
+        # rename (column, count) to look understandable on chart
+        area_counts.columns = [subject, 'Number of Records']
+
+        fig = px.bar(
+            area_counts,
+            x='Number of Records', # "count",
+            y=subject,
+            orientation=orientation,
+            text='Number of Records', # "count",
+            # TODO instead of renaming try using labels={"count": "Total Records", column: subject}, 
+            title=f"{subject} Distribution",
+            color=subject, # column,
+            color_discrete_sequence=px.colors.qualitative.Set2,
+        )
+
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        showlegend=False,
+        height=350,
+        xaxis=dict(dtick=1),
+        margin=dict(l=20, r=20, t=30, b=20),
+    )
+
+    st.plotly_chart(fig, width='stretch')
+
+
+def render_piechart(df, column: str, subject: str, label_map: dict ={}, red_green: bool =False):
+    """Visualize a column distribution as a pie chart."""
+
+    if not len(df):
+        st.info(f"No records available yet.")
+        return
+
+    if column not in df.columns or df[column].empty:
+        st.info(f"No '{column}' found.")
+        return
+
+    # Count occurrences of each value
+    area_counts = df[column].value_counts().reset_index()
+    area_counts.columns = [column, "count"]
+
+    color_discrete_map = {}
+    if label_map:
+        # Map technical values to user-friendly labels
+        area_counts[f"{column}_label"] = area_counts[column].map(
+            lambda x: label_map.get(x, str(x))
+        )
+        if red_green:
+            color_discrete_map={
+                list(label_map.keys())[0]: "#e74c3c",
+                list(label_map.keys())[1]: "#2ecc71",
+            }
+
+    # Create Pie / Donut Chart
+    fig = px.pie(
+        area_counts,
+        values="count",
+        names=label_map or column, #f"{column}_label",
+        title=f"{subject} Distribution",
+        color=column, # f"{column}_label",
+        color_discrete_map=color_discrete_map,
+        hole=0.4,  # Makes it a donut chart for better presentation
+    )
+
+    if label_map:
+        fig.update_traces(textinfo="label+percent", textposition='inside', textfont_size=14)
+    else:
+        fig.update_traces(textinfo="value+percent", textposition='inside', textfont_size=14)
+
+    fig.update_layout(
+        showlegend=False,
+        height=350,
+        margin=dict(l=20, r=20, t=30, b=20)
+    )
+    st.plotly_chart(fig, width='stretch')
+
+def render_report_dashboard() -> None:
+    st.title("📊 Analytics Dashboard")
+
+    store = get_history_store()
+    try:
+        entries = store.load_history()
+    except Exception as e:
+        st.error(f"Failed to load history: {e}")
+        return
+
+    if not entries:
+        st.info(
+            "No history available yet. Extract some insights to create history entries."
+        )
+        return
+    else:
+        df = pd.DataFrame([entry.model_dump() for entry in entries])
+
+        df["area_of_life"] = df["area_of_life"].astype(str)
+        df["goal"] = df["goal"].fillna("").astype(str)
+        df["llm_info"] = df["llm_info"].fillna("").astype(str)
+        df["processing_time"] = pd.to_numeric(
+            df["processing_time"], errors="coerce"
+        ).fillna(0)
+
+        # ---------------------------------------------------------------------
+        # Scorecards Calculation
+        # ---------------------------------------------------------------------
+        total_records = len(df)
+        specified_goals_count = df["goal"].apply(lambda x: len(x.strip()) > 0).sum()
+        goal_percentage = (
+            (specified_goals_count / total_records * 100) if total_records > 0 else 0
+        )
+
+        min_proc_time = df["processing_time"].min()
+        max_proc_time = df["processing_time"].max()
+        avg_proc_time = df["processing_time"].mean()
+
+        # Scorecards Display
+        st.subheader("Key Performance Indicators")
+        col_sc1, col_sc2, col_sc3 = st.columns(3)
+
+        with col_sc1:
+            st.metric(
+                label="Scorecard 1: Total Records",
+                value=f"{total_records}",
+                delta="Active Items",
+            )
+
+        with col_sc2:
+            st.metric(
+                label="Scorecard 2: Specified Goal Rate",
+                value=f"{goal_percentage:.1f}%",
+                delta=f"{specified_goals_count} of {total_records} specified",
+            )
+
+        with col_sc3:
+            st.metric(
+                label="Scorecard 3: Processing Time (Avg / Min / Max)",
+                value=f"{avg_proc_time:.1f} sec",
+                delta=f"Min: {min_proc_time}s | Max: {max_proc_time}s",
+                delta_color="off",
+            )
+
+        st.markdown("---")
+
+        st.subheader(f"📈 Distribution by Area of Life and ⭕ Goal set / not")
+        
+        tab1, tab2 = st.columns([3, 1])
+
+        # Chart 1: area_of_life distribution (horizontal bar chart)
+        with tab1:
+            render_barchart(df, column="area_of_life", subject="Area of Life", orientation="h")
+
+        # Chart 2: area_of_life distribution (pie chart)
+        df['goal_set'] = df['goal'] != ""
+        with tab2:
+            render_piechart(df, column="goal_set", subject="Goal set / not", 
+                            label_map={False: "Goal not set", True: "Goal set"}
+            )
+
+        
+        st.subheader(f"📈 Distribution by used LLM and Processing Time")
+
+        # Chart 3: llm_info distribution (horizontal bar chart)
+        render_barchart(df, column="llm_info", subject="Used LLM", orientation="h")
+        
+        # Define bins and human-readable labels
+        bins = [0, 30, 60, 90, 120, 360]
+        labels = ['0-30s', '31-60s', '61-90s', '91-120s', '121-360s']
+        # Chart 4: processing_time distribution (vertical bar chart)
+        render_barchart(df, column="processing_time", subject="Processing Time", orientation="v", bins=bins, labels=labels)
+
+
+        # ---------------------------------------------------------------------
+        # Raw Records Inspector
+        # ---------------------------------------------------------------------
+        # with st.expander("🔍 View Raw Records & Feedback Data"):
+        with st.expander("🔍 View Raw Records"):
+            st.write("### All Records")
+            st.dataframe(
+                df[["timestamp", "area_of_life", "goal", "llm_info", "processing_time"]],
+                width='stretch',
+            )
+                
+
 def main() -> None:
     """Main Streamlit application entry point."""
     initialize_session_state()
     # Sidebar navigation
     page = st.sidebar.radio("Tabs", 
-            ["💡 Insights", "🕘 History", "⚙️ Configuration"],
+            ["💡 Insights", "🕘 History", "📊 Report Dashboard", "⚙️ Configuration"],
             label_visibility="hidden"
     )
 
     if page == "🕘 History":
         render_history_page()
+        return
+    if page == "📊 Report Dashboard":
+        render_report_dashboard()
         return
     if page == "⚙️ Configuration":
         render_configuration_page()
