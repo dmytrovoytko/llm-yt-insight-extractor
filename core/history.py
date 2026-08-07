@@ -29,8 +29,14 @@ class HistoryEntry(BaseModel):
     timestamp: str = Field(
         ..., description="ISO format timestamp of when analysis was completed"
     )
-    llm_info: str = Field(
-        ..., description="LLM provider: model"
+    llm_info: str | None = Field(
+        default="Ollama", description="LLM provider:model"
+    )
+    processing_time: int | None = Field(
+        default=0, description="Processing time in seconds"
+    )
+    user_feedback: int | None = Field(
+        default=0, description="User's feedback: thumbs up +1, thumbs down -1, otherwise 0"
     )
 
 class HistoryStore:
@@ -60,6 +66,8 @@ class HistoryStore:
         actionable_ideas: ActionableIdeas,
         timestamp: Optional[str] = None,
         llm_info: str = "",
+        processing_time: int = 0,
+        user_feedback: int = 0,
     ) -> None:
         """Save an analysis result to history.
 
@@ -93,6 +101,8 @@ class HistoryStore:
             actionable_ideas=actionable_ideas,
             timestamp=timestamp,
             llm_info=llm_info,
+            processing_time=processing_time,
+            user_feedback=user_feedback,
         )
 
         # Ensure directory exists
@@ -176,6 +186,8 @@ def save_to_history(
     actionable_ideas: ActionableIdeas,
     timestamp: Optional[str] = None,
     llm_info: str = "Ollama",
+    processing_time: int = 0,
+    user_feedback: int = 0,
 ) -> None:
     """Convenience function to save an analysis result using the default store.
 
@@ -186,6 +198,8 @@ def save_to_history(
         subtopics: Extracted subtopics
         actionable_ideas: Extracted actionable ideas
         timestamp: ISO format timestamp (default: current time)
+        llm_info: LLM provider/model used for this analysis
+        processing_time: processing time in sec
     """
     store = get_history_store()
     store.save_entry(
@@ -197,6 +211,8 @@ def save_to_history(
         actionable_ideas,
         timestamp,
         llm_info,
+        processing_time,
+        user_feedback,
     )
 
 

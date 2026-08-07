@@ -369,6 +369,8 @@ class TestHistoryEntry(BaseHistoryTestCase):
             actionable_ideas=ideas,
             timestamp="2026-07-31T10:30:00",
             llm_info="Ollama",
+            processing_time=0,
+            user_feedback=0,
         )
 
         # Test model_dump
