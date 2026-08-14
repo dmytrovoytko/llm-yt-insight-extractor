@@ -3,7 +3,8 @@
 Provides a web interface for extracting actionable insights from YouTube videos
 using RAG-powered processing pipeline.
 """
-
+import logging
+import sys
 import os
 import streamlit as st
 import time
@@ -41,6 +42,15 @@ from core.settings import (
     TOP_K
 )
 
+# logging settings to target the terminal (standard output)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    stream=sys.stdout
+)
+
+# a specific logger instance for this script
+logger = logging.getLogger(__name__)
 
 # Page config
 st.set_page_config(
@@ -72,6 +82,7 @@ SESSION_STATE_KEYS = [
     "final_output",
     "error_message",
     "llm_instance",
+    "feedback_clicked",
 ]
 
 def initialize_session_state() -> None:
@@ -337,6 +348,7 @@ def display_pipeline_progress(
                     llm_info=f"{_provider}: {_model}",
                     processing_time=processing_time,
                 )
+                st.session_state.pipeline_step = "history_saved"
             except Exception as save_error:
                 st.warning(
                     f"Results extracted but history could not be saved: {save_error}"
@@ -360,6 +372,78 @@ def display_pipeline_progress(
     st.info(
         f"✅ Pipeline complete in {processing_time} sec. Review retrieved context below." #  and continue to build the LLM summary flow
     )
+
+def save_user_feedback(feedback_value: int =0, entries: list =[], idx: int =0, cur_feedback: int =0):
+    if feedback_value != 0:
+        logger.info(f"save_user_feedback: {feedback_value=} {idx=} {cur_feedback=}")
+        try:
+            if not entries:
+                # clicked below just generated results - need to read history
+                store = get_history_store()
+                try:
+                    entries = list(store.load_history())
+                except Exception as e:
+                    st.error(f"Failed to load history: {e}")
+                    return
+
+                if not entries:
+                    st.info(
+                        "No history available yet. Run an analysis to create history entries."
+                    )
+                    return
+                idx = 1 # == latest
+            else:
+                # clicked from History page in View results
+                store = get_history_store() # TEMP FIXME receive as a parameter
+
+            # TODO this part should be in core.history ~ update_last_entry()
+            all_entries = list(entries)
+            # Compute index in original order
+            replace_index = len(entries) - idx
+            # remove last entry - we'll re-add it updated
+            cur_entry = all_entries.pop(replace_index)
+            cur_entry.user_feedback = feedback_value
+            all_entries.insert(replace_index, cur_entry) # inserting to the same position
+            logger.info(f"\n{cur_entry=}\n{feedback_value=}\n{len(all_entries)=}")
+            # Write back
+            store.history_file.parent.mkdir(parents=True, exist_ok=True)
+            with open(store.history_file, "w", encoding="utf-8") as f:
+                import json as _json
+
+                _json.dump(
+                    [e.model_dump() for e in all_entries], f, indent=2
+                )
+            
+            icon = "👍" if feedback_value==1 else "👎"
+            st.success(f"{icon} Your feedback saved!") #  with timestamp: `{cur_entry.timestamp}`
+        except Exception as save_error:
+            logger.error(f"!!! save_user_feedback: {save_error}")
+            st.warning(
+                f"History could not be saved: {save_error}"
+            )
+
+def render_feedback_buttons(entries: list =[], idx: int =0, cur_feedback: int =0) -> None:
+    # ! idx starts with 1
+    icon = "👍" if cur_feedback==1 else "👎" if cur_feedback==-1 else "--"
+    st.write(f"#### Rate this entry (now {icon})")
+
+    btn_col1, btn_col2, _ = st.columns([1, 1, 2])
+
+    # Thumbs Up Button
+    with btn_col1:
+        thumbs_up = st.button("👍 Good / Useful", width='stretch', type="primary", 
+                                # key=f"feedback-{idx}-up", 
+                                on_click=save_user_feedback, args=(+1,), 
+                                kwargs={"entries": entries, "idx": idx, "cur_feedback": cur_feedback},
+        )
+
+    # Thumbs Down Button
+    with btn_col2:
+        thumbs_down = st.button("👎 Needs Improvement", width='stretch', 
+                                # key=f"feedback-{idx}-down", 
+                                on_click=save_user_feedback, args=(-1,), 
+                                kwargs={"entries": entries, "idx": idx, "cur_feedback": cur_feedback},
+        )
 
 
 def render_results_tabs(
@@ -389,6 +473,8 @@ def render_results_tabs(
                 st.write(subtopic.summary)
                 st.markdown(f"**Timestamp:** {timestamp_with_link}")
 
+        # render_feedback_buttons() # if we want separate feedback on subtopics
+
     with tab2:
         st.markdown("## Actionable Ideas\n")
         for idx, idea in enumerate(actionable_ideas.ideas, start=1):
@@ -401,6 +487,8 @@ def render_results_tabs(
                 st.subheader(f"{idx}. {idea.title}")
                 st.markdown(f"{idea.description}")
                 st.markdown(f"**Timestamp:** {timestamp_with_link}")
+                
+        # render_feedback_buttons() # if we want separate feedback on actionable ideas
 
 
 def create_download_buttons(
@@ -648,8 +736,10 @@ def render_history_page() -> None:
                     goal=entry.goal,
                     llm_info=entry.llm_info,
                 )
+                render_feedback_buttons(entries, idx, entry.user_feedback)
 
             if cols[1].button("🗑️ Delete", key=f"delete_{idx}"):
+                # TODO this part should be in core.history ~ delete_entry()
                 # Deleting a single entry requires rewriting history
                 all_entries = list(entries)
                 # Compute index in original order
@@ -670,7 +760,6 @@ def render_history_page() -> None:
                 store.clear_history()
                 st.success("History cleared.")
                 st.rerun()
-
 
 
 def render_barchart(df, column, subject, orientation, bins=[], labels=[]) -> None:
@@ -755,17 +844,20 @@ def render_piechart(df, column: str, subject: str, label_map: dict ={}, red_gree
         area_counts[f"{column}_label"] = area_counts[column].map(
             lambda x: label_map.get(x, str(x))
         )
+        names = f"{column}_label"
         if red_green:
             color_discrete_map={
                 list(label_map.keys())[0]: "#e74c3c",
                 list(label_map.keys())[1]: "#2ecc71",
             }
+    else:
+        names = column
 
     # Create Pie / Donut Chart
     fig = px.pie(
         area_counts,
         values="count",
-        names=label_map or column, #f"{column}_label",
+        names=names, # f"{column}_label", # label_map, # or column
         title=f"{subject} Distribution",
         color=column, # f"{column}_label",
         color_discrete_map=color_discrete_map,
@@ -773,7 +865,9 @@ def render_piechart(df, column: str, subject: str, label_map: dict ={}, red_gree
     )
 
     if label_map:
-        fig.update_traces(textinfo="label+percent", textposition='inside', textfont_size=14)
+        fig.update_traces(textinfo="label+percent", textposition='inside', textfont_size=14,
+            hovertemplate="%{label}<br>%{value} entries<br>%{percent}"
+            )
     else:
         fig.update_traces(textinfo="value+percent", textposition='inside', textfont_size=14)
 
@@ -783,6 +877,7 @@ def render_piechart(df, column: str, subject: str, label_map: dict ={}, red_gree
         margin=dict(l=20, r=20, t=30, b=20)
     )
     st.plotly_chart(fig, width='stretch')
+
 
 def render_report_dashboard() -> None:
     st.title("📊 Analytics Dashboard")
@@ -865,18 +960,24 @@ def render_report_dashboard() -> None:
                             label_map={False: "Goal not set", True: "Goal set"}
             )
 
-        
         st.subheader(f"📈 Distribution by used LLM and Processing Time")
 
+        tab1, tab2 = st.columns([3, 1])
         # Chart 3: llm_info distribution (horizontal bar chart)
-        render_barchart(df, column="llm_info", subject="Used LLM", orientation="h")
+        with tab1:
+            render_barchart(df, column="llm_info", subject="Used LLM", orientation="h")
+
+        # Chart 4: user_feedback distribution (pie chart)
+        with tab2:
+            render_piechart(df, column="user_feedback", subject="User feedback", 
+                            label_map={0: "No feedback", -1: "Needs Improvement", +1: "Useful"}
+            )
         
         # Define bins and human-readable labels
         bins = [0, 30, 60, 90, 120, 360]
         labels = ['0-30s', '31-60s', '61-90s', '91-120s', '121-360s']
-        # Chart 4: processing_time distribution (vertical bar chart)
+        # Chart 5: processing_time distribution (vertical bar chart)
         render_barchart(df, column="processing_time", subject="Processing Time", orientation="v", bins=bins, labels=labels)
-
 
         # ---------------------------------------------------------------------
         # Raw Records Inspector
@@ -885,7 +986,7 @@ def render_report_dashboard() -> None:
         with st.expander("🔍 View Raw Records"):
             st.write("### All Records")
             st.dataframe(
-                df[["timestamp", "area_of_life", "goal", "llm_info", "processing_time"]],
+                df[["timestamp", "area_of_life", "goal", "llm_info", "processing_time", "user_feedback"]],
                 width='stretch',
             )
                 
@@ -961,7 +1062,7 @@ def main() -> None:
         # Run the pipeline for steps 1-3
         display_pipeline_progress(youtube_url, area_of_life, specific_goal)
 
-        if st.session_state.pipeline_step == "step_3_complete":
+        if st.session_state.pipeline_step in ["step_3_complete", "history_saved"]:
             # st.markdown("---")
             st.subheader("✅ Extracted Results")
 
@@ -985,6 +1086,7 @@ def main() -> None:
                     area_of_life=area_of_life,
                     goal=specific_goal,
                 )
+                render_feedback_buttons()
             else:
                 st.warning(
                     "Structured results are not available yet. Please rerun the pipeline or check for errors."
