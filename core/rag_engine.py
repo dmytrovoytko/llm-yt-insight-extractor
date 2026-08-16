@@ -14,7 +14,7 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 
 from core.chunker import TranscriptChunk
 
-from core.settings import DEFAULT_EMBEDDING_MODEL, DEBUG
+from core.settings import DEFAULT_EMBEDDING_MODEL, DEBUG, TOP_K_FIRST_STAGE, TOP_K
 
 DEFAULT_COLLECTION_NAME = "transcript_chunks"
 
@@ -94,11 +94,12 @@ class RAGEngine:
 
         return len(documents)
 
-    def retrieve(self, query: str, top_k: int = 5) -> list[dict]:
+    def retrieve(self, query: str, mandatory_keyword: str = "", top_k: int = TOP_K) -> list[dict]:
         """Query the vector store to retrieve relevant chunks.
 
         Args:
             query: Query string combining "Area of Life" and optional goal.
+            mandatory_keyword: Optional mandatory keyword.
             top_k: Number of top results to retrieve (default: 5).
 
         Returns:
@@ -108,7 +109,7 @@ class RAGEngine:
             return []
 
         # Create a simple retriever for vector similarity search
-        retriever = self._index.as_retriever(similarity_top_k=top_k)
+        retriever = self._index.as_retriever(similarity_top_k=TOP_K_FIRST_STAGE)
 
         # Retrieve relevant nodes
         nodes = retriever.retrieve(query)
@@ -125,6 +126,54 @@ class RAGEngine:
                 "score": node.score or 0.0,
             }
             results.append(result)
+
+        # Re-ranking
+        results = self.rerank(results, mandatory_keyword, top_k)
+
+        return results
+
+    def rerank(self, candidates: list[dict], mandatory_keyword: str = "", top_k: int = TOP_K) -> list[dict]:
+        """Re-rank candidates after retrieving relevant chunks from the vector store.
+
+        Args:
+            candidates: List of dicts.
+            mandatory_keyword: Optional mandatory keyword.
+            top_k: Number of top results to return (default: 5).
+
+        Returns:
+            List of dicts with 'text', 'start_time', 'end_time', 'score'.
+        """
+
+        # TODO re-rank by algorithm, TEMP just cut for now
+        if mandatory_keyword:
+            mandatory_keyword = mandatory_keyword.lower()
+            # TODO split by comma? TEMP for now consider as 1 word, not a list
+
+            # we can't just remove all chunks that don't include a keyword:
+            #  - it can be present in 1 chunk and elaborated in the next
+            # for i in range(len(candidates), 0, -1):
+            #     if not mandatory_keyword.lower() in candidates[i-1].lower():
+            #         candidates.pop(i-1)
+
+            # but we can prevent LLM processing if no candidate include mandatory_keyword
+            filtered = [chunk for chunk in candidates if mandatory_keyword in chunk['text'].lower()]
+            if len(filtered)==0:
+                return []
+            else:
+                # TODO
+                # prioritize candidates where mandatory_keyword present
+                pass
+
+        if len(candidates)>top_k:
+            results = candidates[:top_k]
+            if mandatory_keyword and filtered:
+                # TEMP TODO
+                filtered2 = [chunk for chunk in results if mandatory_keyword in chunk['text'].lower()]
+                if len(filtered2)==0:
+                    # prioritize 1 candidate where mandatory_keyword present (instead of the last element)
+                    results = results[:len(results)-1] + [filtered[0]]
+        else:
+            results = candidates
 
         return results
 

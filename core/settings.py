@@ -8,14 +8,19 @@ DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-5"
 DEFAULT_OPENROUTER_MODEL = "google/gemma-4-26b-a4b-it:free"
 # DEFAULT_HF_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct"
 
+EVALUATION_LLM = ('OpenRouter', DEFAULT_OPENROUTER_MODEL)
+
 # RAG 
-TOP_K = 4 # 5
+TOP_K_FIRST_STAGE = 10 # First-stage candidates (chunks # by vector similarity)
+TOP_K = 4 # 5 # Second-stage candidates -  to keep after reranking - for processing and output
 
 # Generator
 GENERATOR_TEST_DEBUG = False # True only for dev to test UI faster - returns fixed outputs without calling LLM
 
 # Embedding
 DEFAULT_EMBEDDING_MODEL = "Xenova/all-MiniLM-L6-v2" # lightweight model with ONNX
+# DEFAULT_RERANKING_MODEL = "cross-encoder/ms-marco-MiniLM-L6-v2" # lightweight model with ONNX
+DEFAULT_RERANKING_MODEL = "Xenova/ms-marco-MiniLM-L-6-v2" # lightweight model with ONNX
 
 # Chunking
 DEFAULT_CHUNK_WORDS = 300

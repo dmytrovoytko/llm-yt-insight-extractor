@@ -39,8 +39,12 @@ from core.llm_config import (
 from core.settings import (
     DEFAULT_OLLAMA_MODEL, DEFAULT_OPENAI_MODEL, DEFAULT_ANTHROPIC_MODEL, DEFAULT_OPENROUTER_MODEL,
     # DEFAULT_HF_MODEL,
-    TOP_K
+    TOP_K, 
 )
+
+# TEMP local
+DEBUG = True
+
 
 # logging settings to target the terminal (standard output)
 logging.basicConfig(
@@ -192,6 +196,7 @@ def build_rag_query(area_of_life: str, specific_goal: str) -> str:
 def run_pipeline_step_3_rag_and_summarize(
     area_of_life: str,
     specific_goal: str,
+    mandatory_keyword: str,
     rag_engine,
     top_k: int = TOP_K,
 ) -> tuple[list[dict], Subtopics, ActionableIdeas, str]:
@@ -200,6 +205,7 @@ def run_pipeline_step_3_rag_and_summarize(
     Args:
         area_of_life: Selected area of life.
         specific_goal: Optional specific goal.
+        mandatory_keyword: Optional mandatory keyword.
         rag_engine: Initialized RAG engine.
         top_k: Number of top chunks to retrieve.
 
@@ -210,7 +216,7 @@ def run_pipeline_step_3_rag_and_summarize(
         Exception: If retrieval or generation fails.
     """
     query = build_rag_query(area_of_life, specific_goal)
-    results = rag_engine.retrieve(query, top_k=top_k)
+    results = rag_engine.retrieve(query, mandatory_keyword, top_k=TOP_K) # including re-ranking
 
     if not results:
         raise Exception(
@@ -238,7 +244,7 @@ def llm_configuration(llm_instance=None):
     return _provider, _model
 
 def display_pipeline_progress(
-    youtube_url: str, area_of_life: str, specific_goal: str
+    youtube_url: str, area_of_life: str, specific_goal: str, mandatory_keyword: str
 ):
   """Execute and display pipeline progress for steps 1-3.
 
@@ -321,6 +327,7 @@ def display_pipeline_progress(
             ) = run_pipeline_step_3_rag_and_summarize(
                 area_of_life,
                 specific_goal,
+                mandatory_keyword,
                 st.session_state.rag_engine,
             )
             st.session_state.retrieved_context = retrieved_context
@@ -1015,7 +1022,7 @@ def main() -> None:
     )
     _provider, _model = llm_configuration(st.session_state.llm_instance)
     st.markdown(
-        f"Current LLM: {_provider}:{_model}. Use ⚙️ Configuration to change it if needed."
+        f"Current LLM: {_provider}:{_model}. Use ⚙️ Configuration page to change it if needed."
     )
 
     with st.form(key="input_form"):
@@ -1029,7 +1036,16 @@ def main() -> None:
             "Your specific goal (optional)",
             placeholder="E.g. improve focus, build better habits, learn negotiation",
         )
+        mandatory_keyword = st.text_input(
+            "Your mandatory keyword as a strict content filter (i.e. quick stop, optional)",
+            placeholder="E.g. focus, habit, negotiation (at least 4 chars)",
+        )
+
         submit_button = st.form_submit_button("🚀 Process")
+
+        if mandatory_keyword and len(mandatory_keyword)<4:
+            st.error("Please enter a longer (4+ chars) mandatory keyword before processing (or empty).")
+            return
 
     if submit_button:
         if not youtube_url:
@@ -1060,7 +1076,7 @@ def main() -> None:
         # st.write("**Specific Goal:**", specific_goal or "(none)")
 
         # Run the pipeline for steps 1-3
-        display_pipeline_progress(youtube_url, area_of_life, specific_goal)
+        display_pipeline_progress(youtube_url, area_of_life, specific_goal, mandatory_keyword)
 
         if st.session_state.pipeline_step in ["step_3_complete", "history_saved"]:
             # st.markdown("---")
@@ -1092,22 +1108,23 @@ def main() -> None:
                     "Structured results are not available yet. Please rerun the pipeline or check for errors."
                 )
 
-            # st.markdown("---")
-            # st.subheader("📌 Retrieved RAG Context")
-            # st.write("**Query:**", st.session_state.final_output["query"])
-            # for idx, item in enumerate(
-            #     st.session_state.retrieved_context, start=1
-            # ):
-            #     with st.expander(
-            #         f"Chunk {idx} — score {item.get('score', 0.0):.3f}"
-            #     ):
-            #         st.write(item["text"])
-            #         st.write(
-            #             "_Chunk start:_",
-            #             f"{item.get('start_time', 0.0):.1f}s",
-            #             "_end:_",
-            #             f"{item.get('end_time', 0.0):.1f}s",
-            #         )
+            if DEBUG:
+                st.markdown("---")
+                st.subheader("📌 Retrieved RAG Context")
+                st.write("**Query:**", st.session_state.final_output["query"])
+                for idx, item in enumerate(
+                    st.session_state.retrieved_context, start=1
+                ):
+                    with st.expander(
+                        f"Chunk {idx} — score {item.get('score', 0.0):.3f}"
+                    ):
+                        st.write(item["text"])
+                        st.write(
+                            "_Chunk start:_",
+                            f"{item.get('start_time', 0.0):.1f}s",
+                            "_end:_",
+                            f"{item.get('end_time', 0.0):.1f}s",
+                        )
 
 
 if __name__ == "__main__":
