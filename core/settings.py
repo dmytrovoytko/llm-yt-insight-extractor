@@ -19,7 +19,6 @@ GENERATOR_TEST_DEBUG = False # True only for dev to test UI faster - returns fix
 
 # Embedding
 DEFAULT_EMBEDDING_MODEL = "Xenova/all-MiniLM-L6-v2" # lightweight model with ONNX
-# DEFAULT_RERANKING_MODEL = "cross-encoder/ms-marco-MiniLM-L6-v2" # lightweight model with ONNX
 DEFAULT_RERANKING_MODEL = "Xenova/ms-marco-MiniLM-L-6-v2" # lightweight model with ONNX
 
 # Chunking

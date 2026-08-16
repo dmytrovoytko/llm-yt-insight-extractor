@@ -4,6 +4,9 @@ import onnxruntime as ort
 from tokenizers import Tokenizer
 from llama_index.core.embeddings import BaseEmbedding
 from llama_index.core import Settings
+import re
+
+TIMESTAMP_PATTERN = r"\[\d{2}:\d{2}(?::\d{2})?\]"
 
 class OnnxMiniLMEmbedding(BaseEmbedding):
 
@@ -33,28 +36,6 @@ class OnnxMiniLMEmbedding(BaseEmbedding):
     def _get_embedding(self, text: str) -> List[float]:
         encoded = self._encode(text)
         return encoded.tolist()
-
-        # encoded = self.tokenizer.encode(text)
-        # input_ids = np.array([encoded.ids], dtype=np.int64)
-        # input_ids = np.array([encoded.ids], dtype=np.int64)
-        # attention_mask = np.array([encoded.attention_mask], dtype=np.int64)
-        # token_type_ids = np.array([encoded.type_ids], dtype=np.int64)
-
-        # # Run ONNX inference
-        # ort_inputs = {
-        #     "input_ids": input_ids,
-        #     "attention_mask": attention_mask,
-        #     "token_type_ids": token_type_ids
-        # }
-        # ort_outputs = self.session.run(None, ort_inputs)
-        
-        # # Mean pooling and normalization
-        # embeddings = self._mean_pooling(ort_outputs, attention_mask)
-        # vector = embeddings[0]
-        # norm = np.linalg.norm(vector)
-        # if norm > 0:
-        #     vector = vector / norm
-        # return vector.tolist()
 
     async def _aget_embedding(self, text: str) -> List[float]:
         return self._get_embedding(text)
@@ -94,3 +75,45 @@ class OnnxMiniLMEmbedding(BaseEmbedding):
         if normalize:
             pooled = pooled / np.linalg.norm(pooled, axis=1, keepdims=True)
         return pooled
+
+
+class CrossEncoderReranker:
+    def __init__(self, model_name: str, **kwargs: Any) -> None:
+        path = f"models/{model_name}"
+        model_path = str(path + "/model.onnx")
+        tokenizer_path = str(path + "/tokenizer.json")
+        self.session = ort.InferenceSession(model_path, providers=["CPUExecutionProvider"])
+        self.tokenizer = Tokenizer.from_file(tokenizer_path)
+        self.tokenizer.enable_padding()
+        self.tokenizer.enable_truncation(max_length=384)
+        self.input_names = {inp.name for inp in self.session.get_inputs()}
+
+    def score(self, query: str, passages: list[str]) -> np.ndarray:
+        encoded = self.tokenizer.encode_batch([(query, p) for p in passages])
+        feed = {}
+        if "input_ids" in self.input_names:
+            feed["input_ids"] = np.array([e.ids for e in encoded], dtype=np.int64)
+        if "attention_mask" in self.input_names:
+            feed["attention_mask"] = np.array(
+                [e.attention_mask for e in encoded], dtype=np.int64
+            )
+        if "token_type_ids" in self.input_names:
+            feed["token_type_ids"] = np.array(
+                [e.type_ids for e in encoded], dtype=np.int64
+            )
+        logits = self.session.run(None, feed)[0]
+        return logits.reshape(-1)
+
+    def rerank(self, query: str, docs: list[dict], text_key) -> list[dict]:
+        if not docs:
+            return docs
+        # clean text from timestamps
+        scores = self.score(query, [re.sub(TIMESTAMP_PATTERN, "", doc[text_key]) for doc in docs])
+        order = np.argsort(-scores)
+        ranked = []
+        for rank_pos, idx in enumerate(order):
+            doc = dict(docs[idx])
+            doc["rerank_score"] = float(scores[idx])
+            print(f'\nRERANK: {idx} {doc["start_time"]}: {doc["score"]} -> {doc["rerank_score"]}')
+            ranked.append(doc)
+        return ranked

@@ -86,6 +86,7 @@ SESSION_STATE_KEYS = [
     "final_output",
     "error_message",
     "llm_instance",
+    "use_reranking",
     "feedback_clicked",
 ]
 
@@ -197,6 +198,7 @@ def run_pipeline_step_3_rag_and_summarize(
     area_of_life: str,
     specific_goal: str,
     mandatory_keyword: str,
+    use_reranking: bool,
     rag_engine,
     top_k: int = TOP_K,
 ) -> tuple[list[dict], Subtopics, ActionableIdeas, str]:
@@ -216,7 +218,7 @@ def run_pipeline_step_3_rag_and_summarize(
         Exception: If retrieval or generation fails.
     """
     query = build_rag_query(area_of_life, specific_goal)
-    results = rag_engine.retrieve(query, mandatory_keyword, top_k=TOP_K) # including re-ranking
+    results = rag_engine.retrieve(query, mandatory_keyword, use_reranking=use_reranking, top_k=TOP_K) 
 
     if not results:
         raise Exception(
@@ -328,6 +330,7 @@ def display_pipeline_progress(
                 area_of_life,
                 specific_goal,
                 mandatory_keyword,
+                st.session_state.use_reranking,
                 st.session_state.rag_engine,
             )
             st.session_state.retrieved_context = retrieved_context
@@ -570,7 +573,7 @@ def render_configuration_page() -> None:
     if st.session_state.llm_instance:
         active_index = providers.index(st.session_state.llm_instance.provider)
     else:
-        active_index = len(providers)-1 # 0
+        active_index = len(providers)-1 # OpenRouter
     # 1. Choose LLM Provider
     provider = st.selectbox(
         "Select LLM Provider",
@@ -1041,7 +1044,17 @@ def main() -> None:
             placeholder="E.g. focus, habit, negotiation (at least 4 chars)",
         )
 
-        submit_button = st.form_submit_button("🚀 Process")
+        col1, col2 = st.columns([2, 1])
+
+        with col1:
+            use_reranking = st.checkbox("Use re-ranking", value=st.session_state.use_reranking)
+            if use_reranking:
+                st.session_state.use_reranking = True
+            else:
+                st.session_state.use_reranking = False
+
+        with col2:
+            submit_button = st.form_submit_button("🚀 Process", width="stretch")
 
         if mandatory_keyword and len(mandatory_keyword)<4:
             st.error("Please enter a longer (4+ chars) mandatory keyword before processing (or empty).")

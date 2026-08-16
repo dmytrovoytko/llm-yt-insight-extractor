@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 from huggingface_hub import hf_hub_download, list_repo_files
 
-from core.settings import DEFAULT_EMBEDDING_MODEL, DEBUG
+from core.settings import DEFAULT_EMBEDDING_MODEL, DEFAULT_RERANKING_MODEL, DEBUG
 
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
 logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
@@ -54,3 +54,4 @@ def download(repo, dest="models"):
 
 if __name__ == "__main__":
     download(DEFAULT_EMBEDDING_MODEL)
+    download(DEFAULT_RERANKING_MODEL)
