@@ -82,7 +82,7 @@ def export_actionable_ideas_to_markdown(
     Returns:
         Formatted markdown string
     """
-    md_lines = ["# Top 5 Actionable Ideas\n"]
+    md_lines = ["# Actionable Ideas\n"]
 
     for idx, idea in enumerate(ideas.ideas, start=1):
         # Convert timestamp to clickable link

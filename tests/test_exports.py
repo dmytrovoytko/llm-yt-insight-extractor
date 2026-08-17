@@ -133,7 +133,7 @@ class TestExportsMarkdownGeneration(unittest.TestCase):
         """Test exporting actionable ideas to markdown format."""
         md = export_actionable_ideas_to_markdown(self.ideas, TEST_VIDEO_ID)
 
-        self.assertIn("# Top 5 Actionable Ideas", md)
+        self.assertIn("# Actionable Ideas", md)
         self.assertIn("## 1. Start meditation", md)
         self.assertIn("## 5. Find partner", md)
         self.assertIn("Daily practice.", md)
@@ -160,7 +160,7 @@ class TestExportsMarkdownGeneration(unittest.TestCase):
 
         # Check for both sections
         self.assertIn("# Subtopics Summary", md)
-        self.assertIn("# Top 5 Actionable Ideas", md)
+        self.assertIn("# Actionable Ideas", md)
         self.assertIn("## Introduction", md)
         self.assertIn("## 1. Start meditation", md)
 
