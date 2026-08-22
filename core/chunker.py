@@ -143,11 +143,12 @@ if __name__ == "__main__":
         save_transcript_cache,
         validate_transcript_duration,
     )
+    from core.settings import DEFAULT_YOUTUBE_URL
 
-    url = "https://www.youtube.com/watch?v=TrvLEgPpV8s"  # Productivity Tips From Tim Ferriss, <7min
+    url = DEFAULT_YOUTUBE_URL
     video_id = extract_video_id(url)
     print(f"{video_id=}")
     transcript_data = fetch_youtube_transcript(url)
-    # print(f"{transcript_data=}")
+    print(f"{len(transcript_data)=}")
     chunks = chunk_transcript(transcript_data)
     print(f"\n{chunks=}")

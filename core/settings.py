@@ -1,7 +1,7 @@
 # LLM Defaults
 DEFAULT_OLLAMA_MODEL = "llama3.2:1b"  # granite4.1:3b granite4:350m "granite3.3:2b
 DEFAULT_OLLAMA_HOST = "http://localhost:11434"
-DEFAULT_OLLAMA_TIMEOUT = 120.0
+DEFAULT_OLLAMA_TIMEOUT = 300.0
 
 DEFAULT_OPENAI_MODEL = "gpt-5-mini"
 DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-5"
@@ -34,3 +34,5 @@ TRANSCRIPT_CACHE_EXTENSION = ".txt"
 # Debug messages
 DEBUG = False # True
 
+# app 
+DEFAULT_YOUTUBE_URL = "https://www.youtube.com/watch?v=TrvLEgPpV8s" # Productivity Tips From Tim Ferriss, <7min

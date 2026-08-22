@@ -17,7 +17,8 @@ from youtube_transcript_api._errors import (
 from core.settings import (
     VALIDATE_DURATION, DURATION_TRESHOLD, 
     USE_TRANSCRIPT_CACHE, TRANSCRIPT_CACHE_EXTENSION, 
-    DEBUG
+    DEBUG,
+    DEFAULT_YOUTUBE_URL
 )
 
 TRANSCRIPT_CACHE_DIR = Path("data") / ".transcript_cache"
@@ -179,7 +180,7 @@ def fetch_youtube_transcript(
 
 if __name__ == "__main__":
     # quick transcript extraction test
-    url = "https://www.youtube.com/watch?v=TrvLEgPpV8s"  # Productivity Tips From Tim Ferriss, <7min
+    url = DEFAULT_YOUTUBE_URL
     video_id = extract_video_id(url)
     print(f"{video_id=}")
     transcript_data = fetch_youtube_transcript(url)

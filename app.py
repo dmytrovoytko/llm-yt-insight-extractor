@@ -39,7 +39,8 @@ from core.llm_config import (
 from core.settings import (
     DEFAULT_OLLAMA_MODEL, DEFAULT_OPENAI_MODEL, DEFAULT_ANTHROPIC_MODEL, DEFAULT_OPENROUTER_MODEL,
     # DEFAULT_HF_MODEL,
-    TOP_K, 
+    DEFAULT_YOUTUBE_URL,
+    TOP_K,
 )
 
 # TEMP local
