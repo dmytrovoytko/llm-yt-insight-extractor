@@ -12,13 +12,48 @@ There is an abundance of high-quality, long-form educational content on YouTube.
 
 ## 💡 Solution
 
-This assistant uses a Retrieval-Augmented Generation (RAG) pipeline driven by local LLMs (via Ollama). By providing a YouTube link and a specific personal development goal, the app extracts the transcript, chunks it with timestamp overlaps, and saves it into a vector database. A streamlined LangChain pipeline then queries this database against the user's prompt to generate a chronologically tabbed summary of subtopics and a formatted list of actionable ideas—with clickable video timestamps.
+This assistant uses a Retrieval-Augmented Generation (RAG) pipeline driven by local LLMs (via Ollama). By providing a YouTube link and a specific personal development goal, the app extracts the transcript, chunks it with timestamp overlaps, and saves it into a vector database. A streamlined LlamaIndex pipeline (simple chain, no agents) then queries this vector store against the user's area of life and goal to generate a structured summary of subtopics and a formatted list of actionable ideas—with clickable video timestamps.
 
 > YouTube Transcript API: Unfortunately, YouTube has started blocking most IPs that are known to belong to cloud providers (like AWS, Google Cloud Platform, Azure, etc.), which means you will most likely run into RequestBlocked or IpBlocked exceptions when deploying your code to any cloud solutions. Same can happen to the IP of your self-hosted solution, if you are doing too many requests. 
 
+## ✨ Features
+
+-   **💡 Insights page:** staged processing UI (extract transcript → chunk & vectorize → RAG & summarize) with per-step status
+-   Subtopic summaries and actionable ideas with **clickable YouTube timestamps** (`[mm:ss](https://youtu.be/...)`)
+-   **🕘 History:** every run is saved locally (JSON) with 👍/👎 feedback; view, export, or delete past results
+-   **📊 Report Dashboard:** usage KPIs — total runs, goals set, avg/min/max processing time, distributions by area of life, LLM, and feedback
+-   **⚙️ Configuration:** switch LLM provider/model at runtime (Ollama, OpenAI, Anthropic, OpenRouter — BYOK)
+-   Optional **cross-encoder re-ranking** of retrieved chunks and a strict **mandatory keyword** content filter
+-   Export results as **Markdown** or **JSON**
+
 ## 🏗️ Solution Architecture
 
-...
+```
+YouTube URL
+   │
+   ▼
+[1] Transcript extraction ── core/transcript.py
+   │                         (youtube-transcript-api + pytubefix title; local cache in data/.transcript_cache/)
+   ▼
+[2] Timestamp chunking ───── core/chunker.py
+   │                         ([mm:ss]-prefixed chunks with configurable word overlap)
+   ▼
+[3] Embedding ────────────── core/embedder.py + core/hf_download.py
+   │                         (ONNX all-MiniLM-L6-v2 via onnxruntime/tokenizers)
+   ▼
+[4] In-memory vector store ─ core/rag_engine.py
+   │                         (ChromaDB wrapped by llama_index.vector_stores.chroma)
+   ▼
+[5] Retrieval ────────────── top-k vector similarity over query = Area of Life + Goal,
+   │                         optional ms-marco cross-encoder re-rank and mandatory-keyword filter
+   ▼
+[6] Structured generation ── core/generator.py
+   │                         (Pydantic schemas from core/prompts.py; LLM providers via core/llm_config.py)
+   ▼
+Results UI: subtopics & ideas tabs with clickable timestamps · history store (core/history.py) · exports (core/exports.py)
+```
+
+Each stage is a small, independently testable module in `core/`; `app.py` orchestrates them into the staged pipeline shown in the UI.
 
 ##  :toolbox: Technical Stack
 
@@ -31,10 +66,10 @@ This assistant uses a Retrieval-Augmented Generation (RAG) pipeline driven by lo
 -   **LLM Providers/Models Supported:**
     - Model must support structured outputs (JSON Schema)
     - Local: Ollama (Llama3.2:1b, IBM Granite 4)
-    - Cloud: OpenRouter (`google/gemma-4-26b-a4b-it` as default)
+    - Cloud: OpenRouter (`google/gemma-4-26b-a4b-it:free` as default)
     - Cloud: OpenAI (`gpt-5-mini` as default)
     - Cloud: Anthropic (`claude-sonnet-5` as default)
--   **Central Configuration via `settings.py`):**
+-   **Central Configuration via `settings.py`:**
     - App-wide settings and defaults.
     - Production LLM provider/model defaults, can be changed in UI.
 -   **Framework:** LlamaIndex (Simple Chain, no Agents for MVP)
@@ -89,11 +124,23 @@ I tested several lightweight LLMs from Ollama and found that the following model
 
 ### :hammer_and_wrench: Setup
 
-Install exact Python dependencies from `requirements.txt` and do not install `sentence-transformers` for this MVP. The project uses `all-MiniLM-L6-v2` through `llama-index.embeddings.huggingface` and relies on the `transformers` library instead of `sentence-transformers`.
+Install exact Python dependencies from `requirements.txt` and do **not** install `sentence-transformers` for this MVP. Embeddings run locally as ONNX models via `onnxruntime` and `tokenizers` — no Torch required. The model files (`Xenova/all-MiniLM-L6-v2` embeddings, `Xenova/ms-marco-MiniLM-L-6-v2` reranker) are downloaded from the Hugging Face Hub by `core/hf_download.py`.
 
 ```bash
 pip install -r requirements.txt
+python3 onnx_download.py   # fetch ONNX embedding + reranker models into models/
 ```
+
+### 🖥️ One-command local run
+
+`run_local.sh` automates a full local setup: loads `.env`, installs/starts Ollama, pulls `$OLLAMA_MODEL`, creates a virtualenv, installs dependencies, downloads the ONNX models (`onnx_download.py`), and starts Streamlit on port 8501.
+
+```bash
+cp .env.example .env   # adjust values if needed
+bash run_local.sh
+```
+
+Then open http://localhost:8501.
 
 ### 🐳 Docker & Docker Compose
 
@@ -119,7 +166,21 @@ http://localhost:8501
 
 The app connects to Ollama through the compose service name `ollama` at `http://ollama:11434`.
 
+## ⚙️ Configuration
 
+All settings come from environment variables (see `.env.example`). Defaults also live in `core/settings.py`, and the provider/model can be switched at runtime on the app's ⚙️ Configuration page.
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `USE_OLLAMA` | Consumed by `run_local.sh`: install/start Ollama and pull the model | `true` |
+| `OLLAMA_HOST` | Ollama server URL (`http://ollama:11434` under docker compose) | `http://localhost:11434` |
+| `OLLAMA_MODEL` | Default local model | `llama3.2:1b` |
+| `OLLAMA_TIMEOUT` | Ollama request timeout (seconds) | `300` |
+| `OPENAI_API_KEY` / `OPENAI_MODEL` | BYOK OpenAI access | `gpt-5-mini` |
+| `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | BYOK Anthropic access | `claude-sonnet-5` |
+| `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` | BYOK OpenRouter access | `google/gemma-4-26b-a4b-it:free` |
+
+Note: `.env` is loaded automatically by `run_local.sh` and by docker compose; for manual runs, export the variables yourself.
 
 ## 🧪 Testing
 
