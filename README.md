@@ -72,7 +72,7 @@ Each stage is a small, independently testable module under `core/`; `app.py` orc
 - **Frontend:** Streamlit
 - **Transcript extraction:** `youtube-transcript-api` (Python library)
 - **Vector store:** ChromaDB (in-memory, `llama_index.vector_stores.chroma`)
-- **Embedding model:** `all-MiniLM-L6-v2` via `llama_index.core.embeddings`, `onnxruntime`, `tokenizers` (lightweight, no `sentence-transformers` / Torch)
+- **Embedding model:** `all-MiniLM-L6-v2` via `llama_index.core.embeddings`, `onnxruntime`, `tokenizers` (lightweight, no `sentence-transformers` / Torch - to make the app lightweight)
 - **LLM Engine:** support of multiple providers (local, cloud) - for RAG & Summarization
 - **LLM providers / models:**
   - Model must support structured outputs (JSON Schema / function calling)
@@ -168,10 +168,9 @@ bash run_compose.sh
 
 ![Docker compose 2](screenshots/docker-2.png)
 
-
 Then open http://localhost:8501.
 
-> Project can be tested in **GitHub CodeSpaces** - the easiest option, and free. Just  **use 4-core - 16GB RAM machine type**. 
+> Project can be tested in **GitHub CodeSpaces** - the [easiest option](screenshots/docker-2.png), and free. Just  **use 4-core - 16GB RAM machine type**. 
 
 ### 🚀 Smoke test
 
@@ -212,7 +211,7 @@ Application-level toggles (in `core/settings.py`, prompt version in `core/prompt
 
 > `.env` is loaded automatically by `run_local.sh` and by `docker compose`; for manual runs, `export` the variables yourself.
 > 
-Web app UI configuration:
+Web app UI configuration: choose LLM provider (successful and failed connection demo):
 
 ![Configuration](screenshots/configuration-2.png)
 
@@ -280,7 +279,7 @@ The Report Dashboard aggregates these across runs.
 
 Retrieval and prompts are evaluated offline on cached transcripts — no YouTube calls, no running LLM required. Reports are checked in under `docs/`.
 
-**Retrieval (`scripts/eval_retrieval.py` → `docs/retrieval_eval.md`)** — 8 queries × 6 configs (48 rows) on `TrvLEgPpV8s` (7 chunks), same chunking and `top_k=4` throughout:
+**Retrieval (`scripts/eval_retrieval.py` → [`docs/retrieval_eval.md`](docs/retrieval_eval.md))** — 8 queries × 6 configs (48 rows) on `TrvLEgPpV8s` (7 chunks), same chunking and `top_k=4` throughout:
 
 | Config | Keyword hit rate | Timestamp valid | Diversity |
 |---|---:|---:|---:|
@@ -293,7 +292,7 @@ Retrieval and prompts are evaluated offline on cached transcripts — no YouTube
 
 Takeaway: the keyword filter is the dominant lever (0.031 → 0.250); hybrid ties C on the TF stand-in and stays available via the UI mode selector. Re-run with `python scripts/eval_retrieval.py --cache-id <VIDEO_ID>` (add `--use-production` for live embeddings when deps + models are present).
 
-**LLM prompts (`scripts/eval_llm.py` → `docs/llm_eval.md`)** — v1 (production) vs v2 (challenger: focus-area emphasis for subtopics, mandatory first-step for ideas). Offline mode re-scores recent `data/history.json` entries on `json_valid_rate`, `count_in_range_rate`, `timestamp_valid_rate`, `avg_keyword_coverage`, `first_step_rate`; live mode (`--with-llm`) regenerates with both prompts, plus optional LLM-as-a-judge (`--judge` via `EVALUATION_LLM` in `core/settings.py`). v1 stays the default (`DEFAULT_PROMPT_VERSION = "v1"`); the v1 contract is pinned by `tests/test_prompts_versions.py`.
+**LLM prompts (`scripts/eval_llm.py` → [`docs/llm_eval.md`](docs/llm_eval.md))** — v1 (production) vs v2 (challenger: focus-area emphasis for subtopics, mandatory first-step for ideas). Offline mode re-scores recent `data/history.json` entries on `json_valid_rate`, `count_in_range_rate`, `timestamp_valid_rate`, `avg_keyword_coverage`, `first_step_rate`; live mode (`--with-llm`) regenerates with both prompts, plus optional LLM-as-a-judge (`--judge` via `EVALUATION_LLM` in `core/settings.py`). v1 stays the default (`DEFAULT_PROMPT_VERSION = "v1"`); the v1 contract is pinned by `tests/test_prompts_versions.py`.
 
 ```bash
 python scripts/eval_retrieval.py --cache-id TrvLEgPpV8s
