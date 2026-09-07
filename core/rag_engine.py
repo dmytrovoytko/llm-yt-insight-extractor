@@ -9,6 +9,13 @@ from llama_index.core import Settings, VectorStoreIndex
 from llama_index.core.schema import Document
 # from llama_index.embeddings.huggingface import HuggingFaceEmbedding # heavy, requires Torch
 from core.embedder import OnnxMiniLMEmbedding, CrossEncoderReranker
+from core.hybrid import (
+    DEFAULT_HYBRID_MODE,
+    HYBRID_MODES,
+    keyword_score,
+    normalize_mode,
+    rrf_fuse,
+)
 
 from llama_index.vector_stores.chroma import ChromaVectorStore
 
@@ -16,7 +23,7 @@ from core.chunker import TranscriptChunk
 
 from core.settings import (
     DEFAULT_EMBEDDING_MODEL, DEFAULT_RERANKING_MODEL,
-    DEBUG, TOP_K_FIRST_STAGE, TOP_K
+    DEBUG, RETRIEVAL_MODE, TOP_K_FIRST_STAGE, TOP_K
 )
 
 DEFAULT_COLLECTION_NAME = "transcript_chunks"
@@ -97,13 +104,25 @@ class RAGEngine:
 
         return len(documents)
 
-    def retrieve(self, query: str, mandatory_keyword: str = "", use_reranking: bool = False, top_k: int = TOP_K) -> list[dict]:
+    def retrieve(
+        self,
+        query: str,
+        mandatory_keyword: str = "",
+        use_reranking: bool = False,
+        top_k: int = TOP_K,
+        mode: str = DEFAULT_HYBRID_MODE,
+    ) -> list[dict]:
         """Query the vector store to retrieve relevant chunks.
 
         Args:
             query: Query string combining "Area of Life" and optional goal.
             mandatory_keyword: Optional mandatory keyword.
-            top_k: Number of top results to retrieve (default: 5).
+            use_reranking: If True, apply the cross-encoder rerank pass.
+            top_k: Number of top results to return (default: ``TOP_K``).
+            mode: Retrieval mode — one of ``"vector"`` (default),
+                ``"keyword"``, or ``"hybrid"`` (RRF over the first-stage
+                vector order and a lexical re-rank of the same candidates).
+                See ``core/hybrid.py`` for definitions.
 
         Returns:
             List of dicts with 'text', 'start_time', 'end_time', 'score'.
@@ -111,13 +130,15 @@ class RAGEngine:
         if self._index is None:
             return []
 
-        # Create a simple retriever for vector similarity search
-        retriever = self._index.as_retriever(similarity_top_k=TOP_K_FIRST_STAGE)
+        mode = normalize_mode(mode)
 
-        # Retrieve relevant nodes
+        # Create a simple retriever for vector similarity search.
+        # This is the first-stage candidate generator for all modes;
+        # the per-mode logic just decides how to *re-rank* those candidates.
+        retriever = self._index.as_retriever(similarity_top_k=TOP_K_FIRST_STAGE)
         nodes = retriever.retrieve(query)
 
-        # Convert nodes to result dicts
+        # Convert nodes to result dicts.
         results = []
         for node in nodes:
             result = {
@@ -130,9 +151,39 @@ class RAGEngine:
             }
             results.append(result)
 
+        if mode == "keyword":
+            # Sort the same candidates by lexical overlap with the query.
+            scored = [
+                (i, keyword_score(query, r["text"]), r) for i, r in enumerate(results)
+            ]
+            scored.sort(key=lambda t: t[1], reverse=True)
+            results = [r for _, _, r in scored]
+        elif mode == "hybrid":
+            # RRF fusion of the original vector order and a keyword order
+            # over the same candidates. We use chunk_id as the stable key
+            # so the fused ordering is deterministic across runs.
+            vector_order = [r["chunk_id"] for r in results]
+            scored = sorted(
+                enumerate(results),
+                key=lambda t: keyword_score(query, t[1]["text"]),
+                reverse=True,
+            )
+            keyword_order = [r["chunk_id"] for _, r in scored]
+            fused_ids = rrf_fuse(vector_order, keyword_order)
+            by_id = {r["chunk_id"]: r for r in results}
+            results = [by_id[cid] for cid in fused_ids if cid in by_id]
+        # else mode == "vector": keep the original vector order.
+
         if use_reranking:
-            # Re-ranking
+            # Re-ranking (which also applies the mandatory-keyword filter)
             results = self.rerank(query, results, mandatory_keyword)
+        elif mandatory_keyword:
+            # Without rerank, apply the keyword filter directly here.
+            # (When rerank runs, it performs this filtering internally.)
+            needle = mandatory_keyword.lower()
+            kept = [r for r in results if needle in r["text"].lower()]
+            if kept:
+                results = kept
 
         results = results[:top_k]
         return results

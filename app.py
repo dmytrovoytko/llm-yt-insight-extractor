@@ -40,8 +40,10 @@ from core.settings import (
     DEFAULT_OLLAMA_MODEL, DEFAULT_OPENAI_MODEL, DEFAULT_ANTHROPIC_MODEL, DEFAULT_OPENROUTER_MODEL,
     # DEFAULT_HF_MODEL,
     DEFAULT_YOUTUBE_URL,
+    RETRIEVAL_MODE,
     TOP_K,
 )
+from core.hybrid import HYBRID_MODES, normalize_mode
 
 # TEMP local
 DEBUG = True
@@ -88,6 +90,7 @@ SESSION_STATE_KEYS = [
     "error_message",
     "llm_instance",
     "use_reranking",
+    "retrieval_mode",
     "feedback_clicked",
 ]
 
@@ -203,6 +206,7 @@ def run_pipeline_step_3_rag_and_summarize(
     mandatory_keyword: str,
     use_reranking: bool,
     rag_engine,
+    retrieval_mode: str = RETRIEVAL_MODE,
     top_k: int = TOP_K,
 ) -> tuple[list[dict], Subtopics, ActionableIdeas, str]:
     """Step 3: Retrieve relevant transcript context and generate structured results.
@@ -211,7 +215,9 @@ def run_pipeline_step_3_rag_and_summarize(
         area_of_life: Selected area of life.
         specific_goal: Optional specific goal.
         mandatory_keyword: Optional mandatory keyword.
+        use_reranking: Whether to apply the cross-encoder rerank pass.
         rag_engine: Initialized RAG engine.
+        retrieval_mode: One of ``"vector"`` (default), ``"keyword"``, ``"hybrid"``.
         top_k: Number of top chunks to retrieve.
 
     Returns:
@@ -221,7 +227,14 @@ def run_pipeline_step_3_rag_and_summarize(
         Exception: If retrieval or generation fails.
     """
     query = build_rag_query(area_of_life, specific_goal)
-    results = rag_engine.retrieve(query, mandatory_keyword, use_reranking=use_reranking, top_k=TOP_K) 
+    mode = normalize_mode(retrieval_mode)
+    results = rag_engine.retrieve(
+        query,
+        mandatory_keyword,
+        use_reranking=use_reranking,
+        top_k=TOP_K,
+        mode=mode,
+    )
 
     if not results:
         raise Exception(
@@ -350,6 +363,7 @@ def display_pipeline_progress(
                 mandatory_keyword,
                 st.session_state.use_reranking,
                 st.session_state.rag_engine,
+                retrieval_mode=st.session_state.retrieval_mode,
             )
             st.session_state.retrieved_context = retrieved_context
             st.session_state.subtopics = subtopics
@@ -1058,11 +1072,6 @@ def main() -> None:
             "Your specific goal (optional)",
             placeholder="E.g. improve focus, build better habits, learn negotiation",
         )
-        mandatory_keyword = st.text_input(
-            "Your mandatory keyword as a strict content filter (i.e. quick stop, optional)",
-            max_chars=20, 
-            placeholder="E.g. focus, habit, negotiation (at least 4 chars)",
-        )
 
         if youtube_url: # and youtube_url != DEFAULT_YOUTUBE_URL:
             try:
@@ -1070,16 +1079,46 @@ def main() -> None:
             except ValueError as e:
                 st.error(f"Invalid YouTube URL: {str(e)}")
 
-        col1, col2 = st.columns([2, 1])
+        col1, col2 = st.columns([1, 1])
 
         with col1:
+            mandatory_keyword = st.text_input(
+                "Your mandatory keyword as a strict content filter (i.e. quick stop, optional)",
+                max_chars=20, 
+                placeholder="E.g. focus, habit, negotiation (at least 4 chars)",
+            )
+            # Align right the checkbox below 
+            st.html(
+                """
+                <style>
+                div[data-testid="stCheckbox"] > label {
+                    flex-direction: row-reverse;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+                </style>
+                """,
+            )
             use_reranking = st.checkbox("Use re-ranking", value=st.session_state.use_reranking)
             if use_reranking:
                 st.session_state.use_reranking = True
             else:
                 st.session_state.use_reranking = False
 
+
         with col2:
+            current_mode = normalize_mode(st.session_state.retrieval_mode)
+            retrieval_mode = st.selectbox(
+                "Retrieval mode",
+                options=list(HYBRID_MODES),
+                index=list(HYBRID_MODES).index(current_mode),
+                help=(
+                    "vector: embeddings only (default). "
+                    "keyword: lexical token overlap. "
+                    "hybrid: reciprocal-rank fusion of both — best of the two."
+                ),
+            )
+            st.session_state.retrieval_mode = normalize_mode(retrieval_mode)
             submit_button = st.form_submit_button("🚀 Process", width="stretch")
 
         if mandatory_keyword and len(mandatory_keyword)<4:
