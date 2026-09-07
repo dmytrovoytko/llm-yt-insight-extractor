@@ -36,6 +36,9 @@ class Subtopics(BaseModel):
     #     min_items=1,
     #     max_items=5,
     # )
+    
+    def __len__(self) -> int:
+        return len(self.subtopics)
 
 
 class ActionableIdea(BaseModel):
@@ -67,6 +70,9 @@ class ActionableIdeas(BaseModel):
     #     min_items=1, # we strive for 5, 1 - still ok 
     #     max_items=5,
     # )
+    
+    def __len__(self) -> int:
+        return len(self.ideas)
 
 
 # Prompt templates for LLM generation

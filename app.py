@@ -120,6 +120,8 @@ def run_pipeline_step_1_extract_transcript(
 
     # Extract video title
     video_title = extract_video_title(youtube_url)
+    if video_title == video_id:
+        video_title = f"(title not extracted) {video_id}"
 
     # Fetch transcript
     transcript_data = fetch_youtube_transcript(youtube_url)
@@ -226,9 +228,24 @@ def run_pipeline_step_3_rag_and_summarize(
             "No relevant context could be retrieved from the transcript."
         )
 
-    subtopics, actionable_ideas = generate_all_outputs(
+    subtopics, _ = generate_all_outputs(
         area_of_life, specific_goal, results,
-        llm_config=st.session_state.llm_instance
+        llm_config=st.session_state.llm_instance,
+        content="subtopics"
+    )
+    logger.info(f" generated {type(subtopics)} {subtopics}")
+    st.success(
+        f" Retrieved {len(results)}, generated: {len(subtopics)} subtopics. Generating actionable ideas..."
+    )
+
+    _, actionable_ideas = generate_all_outputs(
+        area_of_life, specific_goal, results,
+        llm_config=st.session_state.llm_instance,
+        content="ideas"
+    )
+    logger.info(f" Retrieved {len(results)}, generated {type(actionable_ideas)} {actionable_ideas}")
+    st.success(
+        f" ... generated: {len(actionable_ideas)} actionable ideas."
     )
 
     status_msg = (
@@ -574,7 +591,7 @@ def render_configuration_page() -> None:
     if st.session_state.llm_instance:
         active_index = providers.index(st.session_state.llm_instance.provider)
     else:
-        active_index = len(providers)-1 # OpenRouter
+        active_index = 0 if os.getenv("USE_OLLAMA", False) else len(providers)-1 # OpenRouter
     # 1. Choose LLM Provider
     provider = st.selectbox(
         "Select LLM Provider",
@@ -1005,6 +1022,7 @@ def render_report_dashboard() -> None:
 def main() -> None:
     """Main Streamlit application entry point."""
     initialize_session_state()
+
     # Sidebar navigation
     page = st.sidebar.radio("Tabs", 
             ["💡 Insights", "🕘 History", "📊 Report Dashboard", "⚙️ Configuration"],
@@ -1033,7 +1051,7 @@ def main() -> None:
         youtube_url = st.text_input(
             "YouTube URL",
             placeholder="https://www.youtube.com/watch?v=...",
-            value="https://www.youtube.com/watch?v=TrvLEgPpV8s",  # Initial Value
+            value=DEFAULT_YOUTUBE_URL,  # Initial Value
         )
         area_of_life = st.selectbox("Area of Life", AVAILABLE_AREAS)
         specific_goal = st.text_input(
@@ -1042,8 +1060,15 @@ def main() -> None:
         )
         mandatory_keyword = st.text_input(
             "Your mandatory keyword as a strict content filter (i.e. quick stop, optional)",
+            max_chars=20, 
             placeholder="E.g. focus, habit, negotiation (at least 4 chars)",
         )
+
+        if youtube_url: # and youtube_url != DEFAULT_YOUTUBE_URL:
+            try:
+                st.session_state.video_id = extract_video_id(youtube_url)
+            except ValueError as e:
+                st.error(f"Invalid YouTube URL: {str(e)}")
 
         col1, col2 = st.columns([2, 1])
 
