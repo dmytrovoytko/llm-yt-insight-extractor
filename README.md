@@ -1,32 +1,36 @@
 # YT Insight Extractor
 
-**Focus your learning. Extract exactly what you need from top podcasts and turn it into your personal growth plan.**
+**Focus your learning. Extract exactly what you need from top podcasts and turn it into a personal growth plan.**
 
-## 📌 Intro
+> **TL;DR** — Paste a YouTube link, pick an Area of Life, optionally add a Goal. The app extracts the transcript, chunks it with timestamp overlap, embeds it locally (ONNX), retrieves the most relevant passages, and asks an LLM to produce a structured summary of subtopics plus a list of actionable ideas — each with a clickable YouTube timestamp.
 
-YT Insight Extractor is an AI-powered local assistant built in Python and Streamlit. It transforms long-form YouTube interviews (like Tim Ferriss, Andrew Huberman, or Diary of a CEO) into structured, actionable knowledge. Instead of spending hours listening to a 3-hour podcast to find advice relevant to your specific goals, this app distills the video into targeted subtopics, summaries, and a concrete action plan.
+![Insights page](screenshots/yt-insight-extractor-1.png)
 
-## ⚠️ Problem Statement
+---
 
-There is an abundance of high-quality, long-form educational content on YouTube. However, extracting practical, personalized value from 2-to-3-hour interviews is highly inefficient. Listeners often have specific areas of life they want to improve, but are forced to consume the entire video, taking extensive notes to find the few actionable insights that apply to them.
+## Why this project
 
-## 💡 Solution
+There is an abundance of high-quality, long-form educational content on YouTube (Tim Ferriss, Andrew Huberman, Diary of a CEO, etc.). Extracting practical, personalized value from a 2-to-3-hour interview is highly inefficient: listeners with specific goals are forced to consume the whole video just to surface the few insights that apply to them.
 
-This assistant uses a Retrieval-Augmented Generation (RAG) pipeline driven by local LLMs (via Ollama). By providing a YouTube link and a specific personal development goal, the app extracts the transcript, chunks it with timestamp overlaps, and saves it into a vector database. A streamlined LlamaIndex pipeline (simple chain, no agents) then queries this vector store against the user's area of life and goal to generate a structured summary of subtopics and a formatted list of actionable ideas—with clickable video timestamps.
+YT Insight Extractor turns those long interviews into a small, structured set of subtopic summaries and actionable ideas, anchored to the exact moment in the video where each point was made.
 
-> YouTube Transcript API: Unfortunately, YouTube has started blocking most IPs that are known to belong to cloud providers (like AWS, Google Cloud Platform, Azure, etc.), which means you will most likely run into RequestBlocked or IpBlocked exceptions when deploying your code to any cloud solutions. Same can happen to the IP of your self-hosted solution, if you are doing too many requests. 
+> **Heads up on transcripts:** YouTube has started blocking IPs known to belong to cloud providers (AWS, GCP, Azure, etc.). If you deploy this to the cloud or make too many requests from a self-hosted box, you may see `RequestBlocked` / `IpBlocked` from `youtube-transcript-api`. Run it locally, or proxy through a residential IP.
 
-## ✨ Features
+---
 
--   **💡 Insights page:** staged processing UI (extract transcript → chunk & vectorize → RAG & summarize) with per-step status
--   Subtopic summaries and actionable ideas with **clickable YouTube timestamps** (`[mm:ss](https://youtu.be/...)`)
--   **🕘 History:** every run is saved locally (JSON) with 👍/👎 feedback; view, export, or delete past results
--   **📊 Report Dashboard:** usage KPIs — total runs, goals set, avg/min/max processing time, distributions by area of life, LLM, and feedback
--   **⚙️ Configuration:** switch LLM provider/model at runtime (Ollama, OpenAI, Anthropic, OpenRouter — BYOK)
--   Optional **cross-encoder re-ranking** of retrieved chunks and a strict **mandatory keyword** content filter
--   Export results as **Markdown** or **JSON**
+## Features
 
-## 🏗️ Solution Architecture
+- **Insights page** — staged processing UI (`extract transcript → chunk & vectorize → RAG & summarize`) with per-step status.
+- Subtopic summaries and actionable ideas with **clickable YouTube timestamps** in the form `[mm:ss](https://youtu.be/...)`.
+- **History** — every run is saved locally as JSON with 👍/👎 feedback per tab; view, export, or delete past results.
+- **Report Dashboard** — usage KPIs: total runs, goals set, avg/min/max processing time, distributions by Area of Life, LLM, and feedback.
+- **Configuration** — switch LLM provider/model at runtime (Ollama, OpenAI, Anthropic, OpenRouter — BYOK).
+- Optional **cross-encoder re-ranking** of retrieved chunks and a strict **mandatory-keyword** content filter (toggle in `core/settings.py`).
+- Export results as **Markdown** or **JSON**.
+
+---
+
+## Architecture
 
 ```
 YouTube URL
@@ -53,37 +57,47 @@ YouTube URL
 Results UI: subtopics & ideas tabs with clickable timestamps · history store (core/history.py) · exports (core/exports.py)
 ```
 
-Each stage is a small, independently testable module in `core/`; `app.py` orchestrates them into the staged pipeline shown in the UI.
+Each stage is a small, independently testable module under `core/`; `app.py` orchestrates them into the staged pipeline shown in the UI.
 
-##  :toolbox: Technical Stack
+---
 
--   **Python:** 3.14
--   **Frontend:** Streamlit
--   **Transcript Extraction:** `youtube-transcript-api` (Python Library)
--   **Database/Vector Store:** ChromaDB (in-memory, `llama_index.vector_stores.chroma`))
--   **Embedding Model:** `all-MiniLM-L6-v2` via `llama_index.core.embeddings`, `onnxruntime`, `tokenizers` (lightweight, no `sentence-transformers` with `torch`)
--   **LLM Engine:** support of multiple providers (local, cloud) - for RAG & Summarization
--   **LLM Providers/Models Supported:**
-    - Model must support structured outputs (JSON Schema)
-    - Local: Ollama (Llama3.2:1b, IBM Granite 4)
-    - Cloud: OpenRouter (`google/gemma-4-26b-a4b-it:free` as default)
-    - Cloud: OpenAI (`gpt-5-mini` as default)
-    - Cloud: Anthropic (`claude-sonnet-5` as default)
--   **Central Configuration via `settings.py`:**
-    - App-wide settings and defaults.
-    - Production LLM provider/model defaults, can be changed in UI.
--   **Framework:** LlamaIndex (Simple Chain, no Agents for MVP)
--   **Persistence:** Local History (local JSON store)
+## :toolbox: Tech stack
 
+- **Python:** 3.12+/3.14 tested
+- **Frontend:** Streamlit
+- **Transcript extraction:** `youtube-transcript-api` (Python library)
+- **Vector store:** ChromaDB (in-memory, `llama_index.vector_stores.chroma`)
+- **Embedding model:** `all-MiniLM-L6-v2` via `llama_index.core.embeddings`, `onnxruntime`, `tokenizers` (lightweight, no `sentence-transformers` / Torch)
+- **LLM Engine:** support of multiple providers (local, cloud) - for RAG & Summarization
+- **LLM providers / models:**
+  - Model must support structured outputs (JSON Schema / function calling)
+  - Local: Ollama — `llama3.2:1b` (default), `granite4` family (RAG/summarization only, structured outputs often fail)
+  - Cloud: OpenRouter — `google/gemma-2-9b-it:free` (default)
+  - Cloud: OpenAI — `gpt-4o-mini` (default)
+  - Cloud: Anthropic — `claude-3-5-sonnet-latest` (default)
+- **Central configuration:** `core/settings.py` (app-wide defaults; production LLM provider/model can be overridden in the UI)
+- **Framework:** LlamaIndex — simple chain, no agents (MVP scope)
+- **Persistence:** local JSON history store
 
-## Project Structure
+---
+
+## Project structure
 
 ```
 llm-yt-insight-extractor/
 │
 ├── app.py                    # Streamlit UI, history management, export, reports
 ├── requirements.txt          # Pinned dependencies
-├── .env.example              # Environment variables (Ollama URL, API_KEYs etc)
+├── .env.example              # Environment variables (Ollama URL, API keys, etc.)
+│
+├── onnx_download.py          # Fetches ONNX embedding + reranker models into models/
+├── run_local.sh              # One-command local runner (Ollama + venv + Streamlit)
+├── run_compose.sh            # One-command docker compose runner (Ollama + App)
+├── Dockerfile                # Single-container image (runs ollama + app)
+├── Dockerfile.compose        # Docker container image for docker compose
+├── docker-compose.yml        # Canonical deployment: app + ollama services
+├── entrypoint.sh             # Container entrypoint
+├── entrypoint-compose.sh     # Container entrypoint for compose
 │
 ├── .streamlit/
 │   └── config.toml
@@ -101,74 +115,62 @@ llm-yt-insight-extractor/
 │   ├── history.py            # Persistence of generated content history
 │   └── exports.py            # Markdown and JSON generators
 │
-├── tests/                    #  
-│   └── test-*.py             # Unittest tests for modules
+├── tests/                    # Unittest tests for modules
+│   └── test-*.py
 │
 ├── data/
-│   ├── .transcript_cache/    # Local transcript cache storage for testing
+│   ├── .transcript_cache/    # Local transcript cache
 │   └── history.json          # Local session history
 │
-├── models/                   # Local embedding model files
+├── models/                   # Local ONNX embedding + reranker files
 │
 └── README.md
 ```
 
-## Ollama models for Local LLM Setup
+---
 
-I tested several lightweight LLMs from Ollama and found that the following models work well for this MVP:
+## Quick start
 
-- `ibm/granite` 3.3/4/4.1 often fail to produce structured outputs, but can be used for RAG and summarization in general.
-- `llama3.2:1b` is the best choice for structured outputs and is used as default in this MVP. It is fast enough, lightweight, and produces structured outputs.
-
-## 🚀 Instructions to reproduce
-
-### :hammer_and_wrench: Setup
-
-Install exact Python dependencies from `requirements.txt` and do **not** install `sentence-transformers` for this MVP. Embeddings run locally as ONNX models via `onnxruntime` and `tokenizers` — no Torch required. The model files (`Xenova/all-MiniLM-L6-v2` embeddings, `Xenova/ms-marco-MiniLM-L-6-v2` reranker) are downloaded from the Hugging Face Hub by `core/hf_download.py`.
+### 🖥️ A. Local (Python + Ollama)
 
 ```bash
-pip install -r requirements.txt
-python3 onnx_download.py   # fetch ONNX embedding + reranker models into models/
-```
-
-### 🖥️ One-command local run
-
-`run_local.sh` automates a full local setup: loads `.env`, installs/starts Ollama, pulls `$OLLAMA_MODEL`, creates a virtualenv, installs dependencies, downloads the ONNX models (`onnx_download.py`), and starts Streamlit on port 8501.
-
-```bash
-cp .env.example .env   # adjust values if needed
-bash run_local.sh
+cp .env.example .env              # adjust values if needed
+bash run_local.sh                 # installs/starts Ollama, creates venv, pulls model, downloads ONNX models, starts Streamlit on :8501
 ```
 
 Then open http://localhost:8501.
 
-### 🐳 Docker & Docker Compose
+### 🐳 B. Docker (canonical path — `docker-compose.yml`)
 
-This repository includes a `Dockerfile` and `docker-compose.yml` for local deployment with Ollama.
-
-Copy `.env.example` to `.env` and adjust values if needed.
+This is the supported Docker path. It runs the Streamlit app and Ollama as two separate services; the app talks to Ollama via the compose-internal DNS name `ollama` at `http://ollama:11434`.
 
 ```bash
-cp .env.example .env
+cp .env.example .env              # adjust values if needed
+# docker compose -f docker-compose.yml up --build
+bash run_compose.sh
 ```
 
-Start both services with:
+![Docker compose 1](screenshots/docker-1.png)
 
-```bash
-docker compose up --build
-```
+![Docker compose 2](screenshots/docker-1.png)
 
-Then open:
 
-```bash
-http://localhost:8501
-```
+Then open http://localhost:8501.
 
-The app connects to Ollama through the compose service name `ollama` at `http://ollama:11434`.
+> If you want a single-container build instead, `Dockerfile` is provided (it runs `ollama serve` inside the app container via `entrypoint.sh`). The compose path is preferred because it isolates the model server and survives app rebuilds.
+
+### 🚀 Smoke test
+
+1. Launch the app (local or Docker compose).
+2. In the URL field, use the default sample: `https://www.youtube.com/watch?v=TrvLEgP8s` (a short Tim Ferriss productivity clip), or paste your variant.
+3. Pick `Productivity` from **Area of Life**, leave Goal empty, click **Run**.
+4. Expect ~20-90 s for the staged pipeline to complete and 3-5 subtopics to appear with clickable timestamps. Completion time depends on your compute power, otherwise use cloud provider via Configuration page.
+
+---
 
 ## ⚙️ Configuration
 
-All settings come from environment variables (see `.env.example`). Defaults also live in `core/settings.py`, and the provider/model can be switched at runtime on the app's ⚙️ Configuration page.
+All settings come from environment variables (see `.env.example`). Application-level defaults (chunking, top-k, validation thresholds) live in `core/settings.py`. The provider/model can be switched at runtime on the app's Configuration page.
 
 | Variable | Purpose | Default |
 |---|---|---|
@@ -176,43 +178,130 @@ All settings come from environment variables (see `.env.example`). Defaults also
 | `OLLAMA_HOST` | Ollama server URL (`http://ollama:11434` under docker compose) | `http://localhost:11434` |
 | `OLLAMA_MODEL` | Default local model | `llama3.2:1b` |
 | `OLLAMA_TIMEOUT` | Ollama request timeout (seconds) | `300` |
-| `OPENAI_API_KEY` / `OPENAI_MODEL` | BYOK OpenAI access | `gpt-5-mini` |
-| `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | BYOK Anthropic access | `claude-sonnet-5` |
-| `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` | BYOK OpenRouter access | `google/gemma-4-26b-a4b-it:free` |
+| `OPENAI_API_KEY` / `OPENAI_MODEL` | BYOK OpenAI access | `gpt-4o-mini` |
+| `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | BYOK Anthropic access | `claude-3-5-sonnet-latest` |
+| `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` | BYOK OpenRouter access | `google/gemma-2-9b-it:free` |
 
-Note: `.env` is loaded automatically by `run_local.sh` and by docker compose; for manual runs, export the variables yourself.
+Application-level toggles (in `core/settings.py`, not env):
 
-## 🧪 Testing
+| Setting | Purpose | Default |
+|---|---|---|
+| `VALIDATE_DURATION` | Reject videos longer than `DURATION_TRESHOLD` upfront | `False` |
+| `DURATION_TRESHOLD` | Max accepted video length (seconds) | `3600` (60 min) |
+| `TOP_K_FIRST_STAGE` | First-stage vector candidates | `10` |
+| `TOP_K` | Chunks kept after re-ranking | `4` |
+| `DEFAULT_CHUNK_WORDS` | Chunk size in words | `300` |
+| `DEFAULT_OVERLAP_WORDS` | Overlap between consecutive chunks | `50` |
+| `USE_TRANSCRIPT_CACHE` | Cache fetched transcripts in `data/.transcript_cache/` | `True` |
 
-Use command below to run all tests:
+> `.env` is loaded automatically by `run_local.sh` and by `docker compose`; for manual runs, `export` the variables yourself.
+> 
+Web app UI configuration:
+
+![Configuration](screenshots/configuration-1.png)
+
+---
+
+## Design decisions
+
+A few notes on the trade-offs I picked, in case you're evaluating this as a portfolio piece:
+
+- **LlamaIndex, simple chain (no agents).** The pipeline is a deterministic, six-step RAG flow with structured outputs. Agents would add latency and non-determinism without changing the deliverable. The MVP deliberately stays a chain; an agent layer is a post-MVP item.
+- **In-memory ChromaDB.** Each run is short-lived, the video is small (≤ 60 min), and persistence is handled by the History store. Avoiding an on-disk vector DB removes a moving part and makes the app trivially restartable.
+- **ONNX `all-MiniLM-L6-v2` over `sentence-transformers`.** The latter pulls in PyTorch, which is ~800 MB. ONNX + `tokenizers` keeps the runtime small enough to run on a CPU-only laptop and inside a container.
+- **Cross-encoder re-ranking is opt-in.** It measurably improves relevance on noisy transcripts but adds ~1-2 s per query and another model download. The toggle lives in `core/settings.py` (`USE_RERANKING`-style flag) and is off by default.
+- **Mandatory-keyword filter.** A safety net for the rare case where vector retrieval returns a chunk that doesn't actually contain the user's chosen Area of Life term. Stops obviously off-topic context from reaching the LLM.
+- **Local-first default (`llama3.2:1b`).** It's the smallest model I've found that consistently honors the JSON-Schema output the pipeline requires. IBM Granite models are great for free-form summarization but their structured-output adherence is unreliable as of writing.
+
+---
+
+## How it works
+
+1. **Extract transcript** via `youtube-transcript-api`; cache by video ID in `data/.transcript_cache/`.
+2. **Chunk** into `[mm:ss]`-prefixed blocks (`DEFAULT_CHUNK_WORDS`, `DEFAULT_OVERLAP_WORDS`).
+3. **Embed** chunks with ONNX `all-MiniLM-L6-v2`; build an in-memory ChromaDB index.
+4. **Retrieve** `TOP_K_FIRST_STAGE` chunks by vector similarity against `Area of Life + Goal`; re-rank to `TOP_K`; optionally apply the mandatory-keyword filter.
+5. **Generate** structured output (Pydantic schemas from `core/prompts.py`); stream results into the two UI tabs.
+6. **Persist** the run (transcript length, timing breakdown, model used, feedback buttons) to `data/history.json`.
+
+---
+
+## Sample output
+
+After a successful run, the History page shows a row like:
+
+| Field | Example |
+|---|---|
+| Video ID | `TrvLEgP8s` |
+| Area of Life | `Productivity` |
+| Goal | (empty) |
+| LLM | `Ollama: llama3.2:1b` |
+| Total time | `28.4 s` |
+| Subtopics | 4 |
+| Actionable ideas | 5 |
+| Feedback | 👍 / 👎 / unset |
+
+![History Subtopics](screenshots/history-1.png)
+
+![History Ideas](screenshots/history-2.png)
+
+The Report Dashboard aggregates these across runs.
+
+![Report dashboard 1](screenshots/dashboard-1.png)
+
+![Report dashboard 2](screenshots/dashboard-2.png)
+
+---
+
+## Testing
+
+Run the full suite:
 
 ```bash
 python -m unittest discover -s tests/
 ```
 
-or run a specific test file:
+Or a single module:
 
 ```bash
 python -m unittest tests/test_llm_config.py
 ```
 
-## Next steps
+---
 
-I plan to:
-- add LLM-as-a-Judge functionality to validate the quality of generated summaries and actionable ideas.
-- fine-tune the prompt templates for better relevances and hallucination reduction.
-- test other lightweight Ollama models with structured outputs.
+## FAQ / Troubleshooting
 
-Stay tuned!
+- **"My IP gets blocked when fetching transcripts."** YouTube rate-limits / blocks IPs that look like cloud providers. Run locally, or proxy through a residential IP. Cached transcripts in `data/.transcript_cache/` are reused.
+- **"I get a 404 / model-not-found on the default cloud model."** Cloud providers rotate model names. Check `.env.example` for the current defaults; this README tracks the same values.
+- **"How do I enable the 60-minute video cap?"** Set `VALIDATE_DURATION = True` in `core/settings.py`. The PRD defines the cap; the MVP ships with it off so longer videos can still be processed for testing.
+- **"How do I use a different embedding or reranker model?"** Update `DEFAULT_EMBEDDING_MODEL` / `DEFAULT_RERANKING_MODEL` in `core/settings.py` and re-run `python onnx_download.py`. If the model is gated on the Hugging Face Hub, also set `HF_API_KEY` / `HUGGINGFACE_API_KEY` in `.env`.
+- **"Ollama times out on the first run."** The first request to a freshly-pulled model includes model load time. Increase `OLLAMA_TIMEOUT` (default `300`).
+
+---
+
+## Roadmap
+
+**Lessons learned so far**
+- The structured-output requirement is the single biggest constraint on model choice. "Free-form summarization" and "structured summarization" are two very different problems for small local models.
+- Cross-encoder re-ranking helps most on long, topically diverse transcripts; for short clips the marginal gain rarely justifies the latency.
+
+**Next steps**
+- Add an **LLM-as-a-Judge** evaluation flow to score summary faithfulness and answer relevance against the History store.
+- Add a **challenger prompt** alongside the production prompt and an A/B comparison view.
+- Test more lightweight Ollama models (e.g., newer Granite, Gemma-4) against `llama3.2:1b` on structured outputs.
+
+---
+
+## Contributing
+
+Fork → branch → PR. Please add or update tests in `tests/` for any change to `core/`. Before opening a PR, run `python -m unittest discover -s tests/` and make sure it passes.
+
+---
 
 ## Support
 
-🙏 Thank you for your attention and time!
+If you hit an issue following these instructions (or something is unclear), please open an [Issue](/issues) — feedback, questions, and suggestions are welcome. PRs are also encouraged.
 
-- If you experience any issue while following this instruction (or something left unclear), please add it to [Issues](/issues), I'll be glad to help/fix. And your feedback, questions & suggestions are welcome as well!
-- Feel free to fork and submit pull requests.
+If you find this project helpful, your ⭐️star⭐️ on [the repo](https://github.com/dmytrovoytko/llm-yt-insight-extractor) helps others discover it. Thank you! 🙏
 
-If you find this project helpful, please ⭐️star⭐️ my repo 
-https://github.com/dmytrovoytko/llm-yt-insight-extractor to help other people discover it 🙏
-
-Made with ❤️ in Ukraine 🇺🇦 Dmytro Voytko
+Made with ❤️ in Ukraine 🇺🇦 by Dmytro Voytko.
