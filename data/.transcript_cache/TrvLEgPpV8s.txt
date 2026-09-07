@@ -1,0 +1,877 @@
+[
+  {
+    "text": "hey folks Tim Ferris here author of The",
+    "start": 0.359,
+    "duration": 4.721
+  },
+  {
+    "text": "4-Hour Work Week tools of Titans Etc you",
+    "start": 2.2,
+    "duration": 5.0
+  },
+  {
+    "text": "might imagine that all my days are good",
+    "start": 5.08,
+    "duration": 5.16
+  },
+  {
+    "text": "days I wake up and I conquer anxiety and",
+    "start": 7.2,
+    "duration": 5.2
+  },
+  {
+    "text": "doubt lack of clarity with a mental",
+    "start": 10.24,
+    "duration": 4.279
+  },
+  {
+    "text": "karate chop and I just annihilate the",
+    "start": 12.4,
+    "duration": 5.0
+  },
+  {
+    "text": "day hitting home runs every single pitch",
+    "start": 14.519,
+    "duration": 4.241
+  },
+  {
+    "text": "that's thrown my way that's not really",
+    "start": 17.4,
+    "duration": 3.52
+  },
+  {
+    "text": "how it works usually I wake up I'm a",
+    "start": 18.76,
+    "duration": 4.48
+  },
+  {
+    "text": "little groggy maybe I got bad sleep had",
+    "start": 20.92,
+    "duration": 5.08
+  },
+  {
+    "text": "too much wine who knows and stumble",
+    "start": 23.24,
+    "duration": 4.76
+  },
+  {
+    "text": "through my day occasionally I have a",
+    "start": 26.0,
+    "duration": 5.199
+  },
+  {
+    "text": "good day and that is quite frankly",
+    "start": 28.0,
+    "duration": 6.0
+  },
+  {
+    "text": "enough for me and let me explain some of",
+    "start": 31.199,
+    "duration": 5.321
+  },
+  {
+    "text": "the questions I ask some of the coping",
+    "start": 34.0,
+    "duration": 4.96
+  },
+  {
+    "text": "mechanisms I use when the day gets off",
+    "start": 36.52,
+    "duration": 4.24
+  },
+  {
+    "text": "on the wrong foot for whatever reason",
+    "start": 38.96,
+    "duration": 4.04
+  },
+  {
+    "text": "maybe I find myself at lunch or after",
+    "start": 40.76,
+    "duration": 3.92
+  },
+  {
+    "text": "lunch feeling like I haven't",
+    "start": 43.0,
+    "duration": 4.239
+  },
+  {
+    "text": "accomplished anything what do I do in",
+    "start": 44.68,
+    "duration": 6.48
+  },
+  {
+    "text": "such cases well the first is really a",
+    "start": 47.239,
+    "duration": 7.32
+  },
+  {
+    "text": "question that I use many many uh many",
+    "start": 51.16,
+    "duration": 5.6
+  },
+  {
+    "text": "many times throughout a given say week",
+    "start": 54.559,
+    "duration": 5.0
+  },
+  {
+    "text": "or month and that is which of these if",
+    "start": 56.76,
+    "duration": 4.759
+  },
+  {
+    "text": "I'm looking at my to-do list much of",
+    "start": 59.559,
+    "duration": 4.16
+  },
+  {
+    "text": "which is probably undone in a case like",
+    "start": 61.519,
+    "duration": 4.6
+  },
+  {
+    "text": "this which one of these if accomplished",
+    "start": 63.719,
+    "duration": 4.44
+  },
+  {
+    "text": "would make everything else easier or",
+    "start": 66.119,
+    "duration": 3.841
+  },
+  {
+    "text": "irrelevant so I'll say it again which",
+    "start": 68.159,
+    "duration": 4.201
+  },
+  {
+    "text": "one of these if checked off would make",
+    "start": 69.96,
+    "duration": 5.0
+  },
+  {
+    "text": "everything else easier or irrelevant",
+    "start": 72.36,
+    "duration": 4.2
+  },
+  {
+    "text": "meaning less important or completely",
+    "start": 74.96,
+    "duration": 5.04
+  },
+  {
+    "text": "unimportant all right the other question",
+    "start": 76.56,
+    "duration": 5.44
+  },
+  {
+    "text": "that you can use which is more or less",
+    "start": 80.0,
+    "duration": 5.159
+  },
+  {
+    "text": "the same is which of these if checked",
+    "start": 82.0,
+    "duration": 6.079
+  },
+  {
+    "text": "off would leave me satisfied with my day",
+    "start": 85.159,
+    "duration": 6.32
+  },
+  {
+    "text": "right which one of these third question",
+    "start": 88.079,
+    "duration": 5.04
+  },
+  {
+    "text": "and eventually you will come up with an",
+    "start": 91.479,
+    "duration": 3.0
+  },
+  {
+    "text": "answer that is",
+    "start": 93.119,
+    "duration": 4.761
+  },
+  {
+    "text": "actionable is which of these if done",
+    "start": 94.479,
+    "duration": 6.68
+  },
+  {
+    "text": "creates more time for me next week and",
+    "start": 97.88,
+    "duration": 5.16
+  },
+  {
+    "text": "it could be next month could be tomorrow",
+    "start": 101.159,
+    "duration": 4.201
+  },
+  {
+    "text": "but next week I find to be useful as a",
+    "start": 103.04,
+    "duration": 5.439
+  },
+  {
+    "text": "timeline and this will generally point",
+    "start": 105.36,
+    "duration": 5.68
+  },
+  {
+    "text": "to some type of process or system that",
+    "start": 108.479,
+    "duration": 5.0
+  },
+  {
+    "text": "you can improve so okay maybe you're not",
+    "start": 111.04,
+    "duration": 4.92
+  },
+  {
+    "text": "going to hit a certain Milestone or ship",
+    "start": 113.479,
+    "duration": 5.041
+  },
+  {
+    "text": "a certain article or something as a",
+    "start": 115.96,
+    "duration": 4.759
+  },
+  {
+    "text": "finished work process product but you",
+    "start": 118.52,
+    "duration": 4.4
+  },
+  {
+    "text": "can improve a system or a process will",
+    "start": 120.719,
+    "duration": 4.32
+  },
+  {
+    "text": "actually probably have a higher Roi over",
+    "start": 122.92,
+    "duration": 4.64
+  },
+  {
+    "text": "time and affect many many other",
+    "start": 125.039,
+    "duration": 6.041
+  },
+  {
+    "text": "individual projects okay so a which one",
+    "start": 127.56,
+    "duration": 5.96
+  },
+  {
+    "text": "of these if if accomplished would make",
+    "start": 131.08,
+    "duration": 4.32
+  },
+  {
+    "text": "everything else easier or relevant",
+    "start": 133.52,
+    "duration": 3.799
+  },
+  {
+    "text": "number two which one of these would",
+    "start": 135.4,
+    "duration": 3.479
+  },
+  {
+    "text": "leave me satisfied with my entire day if",
+    "start": 137.319,
+    "duration": 3.081
+  },
+  {
+    "text": "it was the only thing I I accomplished",
+    "start": 138.879,
+    "duration": 3.36
+  },
+  {
+    "text": "on this list today and then last which",
+    "start": 140.4,
+    "duration": 3.72
+  },
+  {
+    "text": "one of these will create more time for",
+    "start": 142.239,
+    "duration": 4.121
+  },
+  {
+    "text": "me next week or more time for other",
+    "start": 144.12,
+    "duration": 5.16
+  },
+  {
+    "text": "people for that matter and then uh I",
+    "start": 146.36,
+    "duration": 6.76
+  },
+  {
+    "text": "would also say that you don't have to be",
+    "start": 149.28,
+    "duration": 6.56
+  },
+  {
+    "text": "super super productive every day and",
+    "start": 153.12,
+    "duration": 5.64
+  },
+  {
+    "text": "maybe if you're in some type of Zero Sum",
+    "start": 155.84,
+    "duration": 4.8
+  },
+  {
+    "text": "game you've chosen to be a venture back",
+    "start": 158.76,
+    "duration": 4.119
+  },
+  {
+    "text": "startup where everyone or I shouldn't",
+    "start": 160.64,
+    "duration": 4.36
+  },
+  {
+    "text": "say everyone but you have three or four",
+    "start": 162.879,
+    "duration": 5.521
+  },
+  {
+    "text": "nearly identical companies all clawing",
+    "start": 165.0,
+    "duration": 5.48
+  },
+  {
+    "text": "for market share and it's some type of",
+    "start": 168.4,
+    "duration": 3.88
+  },
+  {
+    "text": "network effect based business who knows",
+    "start": 170.48,
+    "duration": 3.64
+  },
+  {
+    "text": "in such a case okay maybe you've signed",
+    "start": 172.28,
+    "duration": 4.44
+  },
+  {
+    "text": "up for the full contact sport that is",
+    "start": 174.12,
+    "duration": 5.0
+  },
+  {
+    "text": "the Venture back startup world too bad",
+    "start": 176.72,
+    "duration": 4.32
+  },
+  {
+    "text": "you have ADR weeks from here until it",
+    "start": 179.12,
+    "duration": 4.0
+  },
+  {
+    "text": "either succeeds or it blows to pieces in",
+    "start": 181.04,
+    "duration": 5.32
+  },
+  {
+    "text": "a supernova of capital destruction aside",
+    "start": 183.12,
+    "duration": 7.88
+  },
+  {
+    "text": "from that if you are say a writer uh a",
+    "start": 186.36,
+    "duration": 7.0
+  },
+  {
+    "text": "an entrepreneur even CEO I know plenty",
+    "start": 191.0,
+    "duration": 4.4
+  },
+  {
+    "text": "of CEOs certainly fall in this category",
+    "start": 193.36,
+    "duration": 4.12
+  },
+  {
+    "text": "you're not going to be super productive",
+    "start": 195.4,
+    "duration": 4.24
+  },
+  {
+    "text": "and on point every day and that's okay",
+    "start": 197.48,
+    "duration": 3.96
+  },
+  {
+    "text": "so it's not as though you have to have a",
+    "start": 199.64,
+    "duration": 5.2
+  },
+  {
+    "text": "minimum number of hours each day within",
+    "start": 201.44,
+    "duration": 5.2
+  },
+  {
+    "text": "which you are hyperproductive in fact I",
+    "start": 204.84,
+    "duration": 3.319
+  },
+  {
+    "text": "know a lot of people who will go through",
+    "start": 206.64,
+    "duration": 3.12
+  },
+  {
+    "text": "periods of being very very unproductive",
+    "start": 208.159,
+    "duration": 5.481
+  },
+  {
+    "text": "Ive for say handful of days maybe a",
+    "start": 209.76,
+    "duration": 5.52
+  },
+  {
+    "text": "handful of weeks if they're on a",
+    "start": 213.64,
+    "duration": 3.84
+  },
+  {
+    "text": "deadline and just stuck in a rut as it",
+    "start": 215.28,
+    "duration": 4.599
+  },
+  {
+    "text": "relates to say music writing or anything",
+    "start": 217.48,
+    "duration": 5.08
+  },
+  {
+    "text": "else you don't have to get a lot of",
+    "start": 219.879,
+    "duration": 5.0
+  },
+  {
+    "text": "things right if you pick the right thing",
+    "start": 222.56,
+    "duration": 3.56
+  },
+  {
+    "text": "so this comes back and I'm not going to",
+    "start": 224.879,
+    "duration": 2.44
+  },
+  {
+    "text": "be labor the point but read the",
+    "start": 226.12,
+    "duration": 3.319
+  },
+  {
+    "text": "effective executive by Peter Ducker what",
+    "start": 227.319,
+    "duration": 4.681
+  },
+  {
+    "text": "you do matters a lot more than how much",
+    "start": 229.439,
+    "duration": 5.841
+  },
+  {
+    "text": "you do or how well you do things if you",
+    "start": 232.0,
+    "duration": 4.84
+  },
+  {
+    "text": "pick the right targets you can get a",
+    "start": 235.28,
+    "duration": 3.44
+  },
+  {
+    "text": "very very high Roi because you have an",
+    "start": 236.84,
+    "duration": 3.599
+  },
+  {
+    "text": "Archimedes lever what does that mean",
+    "start": 238.72,
+    "duration": 3.84
+  },
+  {
+    "text": "aredes lover means in this particular",
+    "start": 240.439,
+    "duration": 4.561
+  },
+  {
+    "text": "context that you're choosing say",
+    "start": 242.56,
+    "duration": 4.92
+  },
+  {
+    "text": "projects and goals that have beneficial",
+    "start": 245.0,
+    "duration": 4.56
+  },
+  {
+    "text": "side effects even if they don't turn out",
+    "start": 247.48,
+    "duration": 4.16
+  },
+  {
+    "text": "as planned so you're choosing say and",
+    "start": 249.56,
+    "duration": 3.679
+  },
+  {
+    "text": "this is very much borrowed from Scott",
+    "start": 251.64,
+    "duration": 4.599
+  },
+  {
+    "text": "Adams who created Dilbert which projects",
+    "start": 253.239,
+    "duration": 5.361
+  },
+  {
+    "text": "and so on can I commit myself",
+    "start": 256.239,
+    "duration": 5.801
+  },
+  {
+    "text": "to through which I will develop skills",
+    "start": 258.6,
+    "duration": 5.64
+  },
+  {
+    "text": "and relationships that persist even if",
+    "start": 262.04,
+    "duration": 4.8
+  },
+  {
+    "text": "they fail from the outside world right",
+    "start": 264.24,
+    "duration": 5.04
+  },
+  {
+    "text": "so if I do a podcast and I commit to six",
+    "start": 266.84,
+    "duration": 4.16
+  },
+  {
+    "text": "episodes even if that podcast goes",
+    "start": 269.28,
+    "duration": 3.88
+  },
+  {
+    "text": "nowhere which is how I thought about it",
+    "start": 271.0,
+    "duration": 3.759
+  },
+  {
+    "text": "which skills and relationships can I",
+    "start": 273.16,
+    "duration": 3.039
+  },
+  {
+    "text": "develop in the process of doing six",
+    "start": 274.759,
+    "duration": 3.0
+  },
+  {
+    "text": "episodes that will make the exercise",
+    "start": 276.199,
+    "duration": 3.56
+  },
+  {
+    "text": "worth it all right and it will transcend",
+    "start": 277.759,
+    "duration": 4.841
+  },
+  {
+    "text": "that that's also one of the tricks and",
+    "start": 279.759,
+    "duration": 5.0
+  },
+  {
+    "text": "if you find yourself Say by midafternoon",
+    "start": 282.6,
+    "duration": 3.96
+  },
+  {
+    "text": "feeling really unproductive you done",
+    "start": 284.759,
+    "duration": 3.481
+  },
+  {
+    "text": "nothing productive for the day you can't",
+    "start": 286.56,
+    "duration": 2.88
+  },
+  {
+    "text": "quite figure out how to work your way",
+    "start": 288.24,
+    "duration": 4.92
+  },
+  {
+    "text": "out of it what I've found myself doing",
+    "start": 289.44,
+    "duration": 5.4
+  },
+  {
+    "text": "uh as perhaps just a self-imposed",
+    "start": 293.16,
+    "duration": 4.36
+  },
+  {
+    "text": "therapy is saying okay maybe today isn't",
+    "start": 294.84,
+    "duration": 4.4
+  },
+  {
+    "text": "achievement day today is just going to",
+    "start": 297.52,
+    "duration": 3.959
+  },
+  {
+    "text": "be gratitude and appreciation day so let",
+    "start": 299.24,
+    "duration": 4.2
+  },
+  {
+    "text": "me go for a walk let me notice the small",
+    "start": 301.479,
+    "duration": 3.56
+  },
+  {
+    "text": "things let me do a nice thing for",
+    "start": 303.44,
+    "duration": 3.16
+  },
+  {
+    "text": "someone in line and buy coffee for the",
+    "start": 305.039,
+    "duration": 3.201
+  },
+  {
+    "text": "person behind me at Starbucks whatever",
+    "start": 306.6,
+    "duration": 5.2
+  },
+  {
+    "text": "it might be and focus on the other side",
+    "start": 308.24,
+    "duration": 5.76
+  },
+  {
+    "text": "of the coin which I think is equally",
+    "start": 311.8,
+    "duration": 4.44
+  },
+  {
+    "text": "important for contentment and any form",
+    "start": 314.0,
+    "duration": 4.639
+  },
+  {
+    "text": "of well-being or happiness and that is",
+    "start": 316.24,
+    "duration": 4.48
+  },
+  {
+    "text": "appreciating what you have so if you",
+    "start": 318.639,
+    "duration": 5.081
+  },
+  {
+    "text": "can't get what you want you can practice",
+    "start": 320.72,
+    "duration": 5.84
+  },
+  {
+    "text": "wanting what you have and as fortune",
+    "start": 323.72,
+    "duration": 5.72
+  },
+  {
+    "text": "cookie as that may sound I think that if",
+    "start": 326.56,
+    "duration": 4.96
+  },
+  {
+    "text": "you can't be happy with what you have",
+    "start": 329.44,
+    "duration": 4.039
+  },
+  {
+    "text": "you will never get anything that will",
+    "start": 331.52,
+    "duration": 4.08
+  },
+  {
+    "text": "make you happy so you have to practice",
+    "start": 333.479,
+    "duration": 4.321
+  },
+  {
+    "text": "both achievement and if you're flubbing",
+    "start": 335.6,
+    "duration": 4.24
+  },
+  {
+    "text": "that for the day you're just like whiff",
+    "start": 337.8,
+    "duration": 4.56
+  },
+  {
+    "text": "whiff okay airball and you're just not",
+    "start": 339.84,
+    "duration": 5.32
+  },
+  {
+    "text": "making it happen okay maybe that is a",
+    "start": 342.36,
+    "duration": 5.04
+  },
+  {
+    "text": "sign from the universe or whatever power",
+    "start": 345.16,
+    "duration": 4.52
+  },
+  {
+    "text": "you want to choose that you can take the",
+    "start": 347.4,
+    "duration": 4.04
+  },
+  {
+    "text": "day and focus on gratitude because that",
+    "start": 349.68,
+    "duration": 5.079
+  },
+  {
+    "text": "has a uh much less of a stress",
+    "start": 351.44,
+    "duration": 5.72
+  },
+  {
+    "text": "associated with it in terms of past fail",
+    "start": 354.759,
+    "duration": 3.761
+  },
+  {
+    "text": "that is something you can always make",
+    "start": 357.16,
+    "duration": 3.08
+  },
+  {
+    "text": "the most of even if you only have a few",
+    "start": 358.52,
+    "duration": 3.72
+  },
+  {
+    "text": "hours left in the day so those are a few",
+    "start": 360.24,
+    "duration": 4.16
+  },
+  {
+    "text": "of the things that I do when the day",
+    "start": 362.24,
+    "duration": 4.079
+  },
+  {
+    "text": "gets off on the wrong foot or I feel",
+    "start": 364.4,
+    "duration": 5.0
+  },
+  {
+    "text": "like I am getting absolutely [\u00a0__\u00a0] all",
+    "start": 366.319,
+    "duration": 5.44
+  },
+  {
+    "text": "done with my day so hopefully that helps",
+    "start": 369.4,
+    "duration": 3.44
+  },
+  {
+    "text": "good",
+    "start": 371.759,
+    "duration": 3.44
+  },
+  {
+    "text": "luck thanks for watching the video I",
+    "start": 372.84,
+    "duration": 4.56
+  },
+  {
+    "text": "have more tips and tactics and",
+    "start": 375.199,
+    "duration": 4.481
+  },
+  {
+    "text": "actionable stuff to share every week I",
+    "start": 377.4,
+    "duration": 4.079
+  },
+  {
+    "text": "send out an exclusive newsletter called",
+    "start": 379.68,
+    "duration": 3.959
+  },
+  {
+    "text": "five bullet Friday it's totally free",
+    "start": 381.479,
+    "duration": 3.801
+  },
+  {
+    "text": "takes about 5 minutes to read it",
+    "start": 383.639,
+    "duration": 4.4
+  },
+  {
+    "text": "includes what I'm reading what type of",
+    "start": 385.28,
+    "duration": 4.44
+  },
+  {
+    "text": "tips I've received from worldclass",
+    "start": 388.039,
+    "duration": 4.241
+  },
+  {
+    "text": "experts weird gadgets and gizmos that I",
+    "start": 389.72,
+    "duration": 5.759
+  },
+  {
+    "text": "found from say Japan or God knows where",
+    "start": 392.28,
+    "duration": 6.16
+  },
+  {
+    "text": "all sorts of really really esoteric but",
+    "start": 395.479,
+    "duration": 4.321
+  },
+  {
+    "text": "valuable stuff that you probably",
+    "start": 398.44,
+    "duration": 3.0
+  },
+  {
+    "text": "wouldn't find yourself so check it out",
+    "start": 399.8,
+    "duration": 6.36
+  },
+  {
+    "text": "five buet Friday right here",
+    "start": 401.44,
+    "duration": 4.72
+  }
+]

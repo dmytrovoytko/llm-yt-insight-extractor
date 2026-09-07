@@ -1,0 +1,4272 @@
+[
+  {
+    "text": "Welcome to Huberman Lab Essentials,",
+    "start": 0.0,
+    "duration": 4.36
+  },
+  {
+    "text": "[music] where we revisit past episodes",
+    "start": 1.964,
+    "duration": 4.236
+  },
+  {
+    "text": "for the most potent and actionable",
+    "start": 4.36,
+    "duration": 4.08
+  },
+  {
+    "text": "science-based tools for mental health,",
+    "start": 6.2,
+    "duration": 5.64
+  },
+  {
+    "text": "physical health, and performance.",
+    "start": 8.44,
+    "duration": 5.24
+  },
+  {
+    "text": "I'm Andrew Huberman, and I'm a professor",
+    "start": 11.84,
+    "duration": 4.24
+  },
+  {
+    "text": "of neurobiology and ophthalmology at",
+    "start": 13.68,
+    "duration": 4.6
+  },
+  {
+    "text": "Stanford School of Medicine. Today we",
+    "start": 16.08,
+    "duration": 3.64
+  },
+  {
+    "text": "are going to discuss your brain",
+    "start": 18.28,
+    "duration": 3.36
+  },
+  {
+    "text": "chemistry and how to control and",
+    "start": 19.72,
+    "duration": 4.2
+  },
+  {
+    "text": "optimize your brain chemistry for all",
+    "start": 21.64,
+    "duration": 4.16
+  },
+  {
+    "text": "aspects of mental health, physical",
+    "start": 23.92,
+    "duration": 3.76
+  },
+  {
+    "text": "health, and performance. The important",
+    "start": 25.8,
+    "duration": 3.92
+  },
+  {
+    "text": "thing to know is that your brain and",
+    "start": 27.68,
+    "duration": 4.96
+  },
+  {
+    "text": "your spinal cord and the rest of your",
+    "start": 29.72,
+    "duration": 4.92
+  },
+  {
+    "text": "so-called nervous system",
+    "start": 32.64,
+    "duration": 4.24
+  },
+  {
+    "text": "control all the organs of your body and",
+    "start": 34.64,
+    "duration": 4.4
+  },
+  {
+    "text": "that all the organs of your body feed",
+    "start": 36.88,
+    "duration": 4.2
+  },
+  {
+    "text": "back, meaning they communicate through",
+    "start": 39.04,
+    "duration": 3.92
+  },
+  {
+    "text": "chemicals and other means to your",
+    "start": 41.08,
+    "duration": 3.2
+  },
+  {
+    "text": "nervous system.",
+    "start": 42.96,
+    "duration": 4.4
+  },
+  {
+    "text": "And vitally important is the fact that",
+    "start": 44.28,
+    "duration": 6.08
+  },
+  {
+    "text": "which neural circuits are active and",
+    "start": 47.36,
+    "duration": 5.16
+  },
+  {
+    "text": "which neural circuits are likely to be",
+    "start": 50.36,
+    "duration": 5.4
+  },
+  {
+    "text": "less active at any given moment depends",
+    "start": 52.52,
+    "duration": 6.44
+  },
+  {
+    "text": "on two major categories of chemicals. It",
+    "start": 55.76,
+    "duration": 6.6
+  },
+  {
+    "text": "depends on hormones and it depends on",
+    "start": 58.96,
+    "duration": 5.599
+  },
+  {
+    "text": "so-called neuromodulators.",
+    "start": 62.36,
+    "duration": 4.08
+  },
+  {
+    "text": "And the four neuromodulators that we're",
+    "start": 64.559,
+    "duration": 3.481
+  },
+  {
+    "text": "going to talk about today that are of",
+    "start": 66.44,
+    "duration": 5.56
+  },
+  {
+    "text": "the utmost importance for your goals are",
+    "start": 68.04,
+    "duration": 5.24
+  },
+  {
+    "text": "dopamine,",
+    "start": 72.0,
+    "duration": 3.72
+  },
+  {
+    "text": "epinephrine, also called adrenaline,",
+    "start": 73.28,
+    "duration": 5.52
+  },
+  {
+    "text": "serotonin, and acetylcholine. There are",
+    "start": 75.72,
+    "duration": 4.76
+  },
+  {
+    "text": "many features of how neuromodulators",
+    "start": 78.8,
+    "duration": 3.84
+  },
+  {
+    "text": "work, but for sake of today's",
+    "start": 80.48,
+    "duration": 4.64
+  },
+  {
+    "text": "discussion, we only need to focus on two",
+    "start": 82.64,
+    "duration": 4.04
+  },
+  {
+    "text": "of those features. And those are",
+    "start": 85.12,
+    "duration": 4.76
+  },
+  {
+    "text": "fast-acting features and longer, slower",
+    "start": 86.68,
+    "duration": 5.24
+  },
+  {
+    "text": "features or what we call baseline",
+    "start": 89.88,
+    "duration": 4.32
+  },
+  {
+    "text": "features. Now, perhaps surprisingly, I'd",
+    "start": 91.92,
+    "duration": 4.2
+  },
+  {
+    "text": "like to focus on the slow actions of the",
+    "start": 94.2,
+    "duration": 4.64
+  },
+  {
+    "text": "neuromodulators first because those slow",
+    "start": 96.12,
+    "duration": 4.8
+  },
+  {
+    "text": "actions of the neuromodulators are",
+    "start": 98.84,
+    "duration": 4.04
+  },
+  {
+    "text": "happening in you and in me and in",
+    "start": 100.92,
+    "duration": 4.76
+  },
+  {
+    "text": "everyone right now, and they set the",
+    "start": 102.88,
+    "duration": 5.6
+  },
+  {
+    "text": "backdrop, the context in which the",
+    "start": 105.68,
+    "duration": 4.84
+  },
+  {
+    "text": "various tools to manipulate dopamine,",
+    "start": 108.48,
+    "duration": 5.16
+  },
+  {
+    "text": "epinephrine, serotonin, or acetylcholine",
+    "start": 110.52,
+    "duration": 4.6
+  },
+  {
+    "text": "will work.",
+    "start": 113.64,
+    "duration": 3.12
+  },
+  {
+    "text": "What do I mean by the context or the",
+    "start": 115.12,
+    "duration": 4.68
+  },
+  {
+    "text": "backdrop, or the baseline? Well,",
+    "start": 116.76,
+    "duration": 5.4
+  },
+  {
+    "text": "it's fair to say that most people are",
+    "start": 119.8,
+    "duration": 4.04
+  },
+  {
+    "text": "awake during the daytime and asleep at",
+    "start": 122.16,
+    "duration": 4.0
+  },
+  {
+    "text": "night. So, schedules of sleep and",
+    "start": 123.84,
+    "duration": 4.68
+  },
+  {
+    "text": "wakefulness will vary, but in general,",
+    "start": 126.16,
+    "duration": 4.28
+  },
+  {
+    "text": "everybody, regardless of whether or not",
+    "start": 128.52,
+    "duration": 4.0
+  },
+  {
+    "text": "you're nocturnal, or you're so-called",
+    "start": 130.44,
+    "duration": 3.84
+  },
+  {
+    "text": "diurnal, you're awake during the day,",
+    "start": 132.52,
+    "duration": 3.76
+  },
+  {
+    "text": "pretty much everybody follows a schedule",
+    "start": 134.28,
+    "duration": 7.16
+  },
+  {
+    "text": "in which from 0 to 9 hours after waking,",
+    "start": 136.28,
+    "duration": 6.96
+  },
+  {
+    "text": "that is, from the time you wake up until",
+    "start": 141.44,
+    "duration": 4.56
+  },
+  {
+    "text": "about 9 hours later,",
+    "start": 143.24,
+    "duration": 5.6
+  },
+  {
+    "text": "the neuromodulators dopamine and",
+    "start": 146.0,
+    "duration": 5.72
+  },
+  {
+    "text": "epinephrine tend to be at their highest",
+    "start": 148.84,
+    "duration": 6.119
+  },
+  {
+    "text": "levels that they will be at any point in",
+    "start": 151.72,
+    "duration": 6.2
+  },
+  {
+    "text": "the 24-hour period, in any period of the",
+    "start": 154.959,
+    "duration": 3.841
+  },
+  {
+    "text": "day.",
+    "start": 157.92,
+    "duration": 3.88
+  },
+  {
+    "text": "So, we can call this 0 to 9 hour period",
+    "start": 158.8,
+    "duration": 4.88
+  },
+  {
+    "text": "phase one of the day, just for",
+    "start": 161.8,
+    "duration": 3.64
+  },
+  {
+    "text": "simplicity. And I've referred to this",
+    "start": 163.68,
+    "duration": 4.56
+  },
+  {
+    "text": "before in a previous episode, but not in",
+    "start": 165.44,
+    "duration": 5.64
+  },
+  {
+    "text": "this exact context. From 9 to about 16",
+    "start": 168.24,
+    "duration": 5.16
+  },
+  {
+    "text": "hours is what we will call phase two,",
+    "start": 171.08,
+    "duration": 4.92
+  },
+  {
+    "text": "and that's when dopamine and epinephrine",
+    "start": 173.4,
+    "duration": 5.24
+  },
+  {
+    "text": "levels tend to subside a bit compared to",
+    "start": 176.0,
+    "duration": 5.56
+  },
+  {
+    "text": "the earlier phase one part of the day,",
+    "start": 178.64,
+    "duration": 6.56
+  },
+  {
+    "text": "and serotonin levels start to increase.",
+    "start": 181.56,
+    "duration": 6.0
+  },
+  {
+    "text": "And then, phase three of the 24-hour",
+    "start": 185.2,
+    "duration": 4.68
+  },
+  {
+    "text": "cycle, which is from about, and again,",
+    "start": 187.56,
+    "duration": 4.2
+  },
+  {
+    "text": "about, these are approximates, from",
+    "start": 189.88,
+    "duration": 4.28
+  },
+  {
+    "text": "about 17 hours after waking until about",
+    "start": 191.76,
+    "duration": 6.24
+  },
+  {
+    "text": "24 hours after waking, is phase three of",
+    "start": 194.16,
+    "duration": 5.6
+  },
+  {
+    "text": "the day. We're not going to focus too",
+    "start": 198.0,
+    "duration": 4.68
+  },
+  {
+    "text": "much on phase three today, because phase",
+    "start": 199.76,
+    "duration": 5.88
+  },
+  {
+    "text": "three of the 24-hour cycle, that 17 to",
+    "start": 202.68,
+    "duration": 4.96
+  },
+  {
+    "text": "24-hour period, is one in which you",
+    "start": 205.64,
+    "duration": 3.8
+  },
+  {
+    "text": "ought to be deeply asleep, whether or",
+    "start": 207.64,
+    "duration": 3.4
+  },
+  {
+    "text": "not you're nocturnal or diurnal. So,",
+    "start": 209.44,
+    "duration": 4.12
+  },
+  {
+    "text": "we're mainly going to focus on",
+    "start": 211.04,
+    "duration": 4.36
+  },
+  {
+    "text": "what we're calling phase one and phase",
+    "start": 213.56,
+    "duration": 4.0
+  },
+  {
+    "text": "two. Phase one being this dopamine,",
+    "start": 215.4,
+    "duration": 4.44
+  },
+  {
+    "text": "epinephrine dominated phase of our day,",
+    "start": 217.56,
+    "duration": 3.959
+  },
+  {
+    "text": "and phase two being this more",
+    "start": 219.84,
+    "duration": 4.399
+  },
+  {
+    "text": "serotonergic, or serotonin dominated",
+    "start": 221.519,
+    "duration": 4.161
+  },
+  {
+    "text": "portion of the day. And then, you might",
+    "start": 224.239,
+    "duration": 3.761
+  },
+  {
+    "text": "say, \"Well, what about acetylcholine?\"",
+    "start": 225.68,
+    "duration": 3.8
+  },
+  {
+    "text": "Forgot about acetylcholine? Well, we",
+    "start": 228.0,
+    "duration": 2.76
+  },
+  {
+    "text": "didn't forget about acetylcholine.",
+    "start": 229.48,
+    "duration": 4.84
+  },
+  {
+    "text": "Acetylcholine is under control more in",
+    "start": 230.76,
+    "duration": 6.52
+  },
+  {
+    "text": "terms of what we happen to be doing at",
+    "start": 234.32,
+    "duration": 4.16
+  },
+  {
+    "text": "any given moment, whether or not we're",
+    "start": 237.28,
+    "duration": 2.88
+  },
+  {
+    "text": "focusing or not focusing, whether or not",
+    "start": 238.48,
+    "duration": 3.8
+  },
+  {
+    "text": "we're learning or not learning.",
+    "start": 240.16,
+    "duration": 3.6
+  },
+  {
+    "text": "And here I'm referring to acetylcholine",
+    "start": 242.28,
+    "duration": 3.48
+  },
+  {
+    "text": "specifically in the context of the brain",
+    "start": 243.76,
+    "duration": 4.32
+  },
+  {
+    "text": "and thinking because as some of you are",
+    "start": 245.76,
+    "duration": 4.32
+  },
+  {
+    "text": "probably shouting out there, right? If",
+    "start": 248.08,
+    "duration": 3.879
+  },
+  {
+    "text": "you're exercise physiologist or you know",
+    "start": 250.08,
+    "duration": 3.76
+  },
+  {
+    "text": "anything about how the brain controls",
+    "start": 251.959,
+    "duration": 3.401
+  },
+  {
+    "text": "movement,",
+    "start": 253.84,
+    "duration": 3.72
+  },
+  {
+    "text": "acetylcholine is used at the nerve to",
+    "start": 255.36,
+    "duration": 4.48
+  },
+  {
+    "text": "muscle synapse, right? So, neurons don't",
+    "start": 257.56,
+    "duration": 4.88
+  },
+  {
+    "text": "just control other neurons electrically.",
+    "start": 259.84,
+    "duration": 4.32
+  },
+  {
+    "text": "The way you're able to move in fact is",
+    "start": 262.44,
+    "duration": 2.92
+  },
+  {
+    "text": "because neurons are controlling the",
+    "start": 264.16,
+    "duration": 4.4
+  },
+  {
+    "text": "electric activity of muscles,",
+    "start": 265.36,
+    "duration": 4.44
+  },
+  {
+    "text": "literally the contraction of muscle",
+    "start": 268.56,
+    "duration": 3.24
+  },
+  {
+    "text": "fibers, and that",
+    "start": 269.8,
+    "duration": 4.24
+  },
+  {
+    "text": "control is exerted through the release",
+    "start": 271.8,
+    "duration": 3.84
+  },
+  {
+    "text": "of acetylcholine. So, acetylcholine is",
+    "start": 274.04,
+    "duration": 2.92
+  },
+  {
+    "text": "working at muscles as well, but we're",
+    "start": 275.64,
+    "duration": 3.6
+  },
+  {
+    "text": "not focused on that today. We're focused",
+    "start": 276.96,
+    "duration": 3.2
+  },
+  {
+    "text": "on",
+    "start": 279.24,
+    "duration": 3.48
+  },
+  {
+    "text": "what we can do during phase one of the",
+    "start": 280.16,
+    "duration": 4.28
+  },
+  {
+    "text": "day and what we can do during phase two",
+    "start": 282.72,
+    "duration": 4.56
+  },
+  {
+    "text": "of the day to control the specific",
+    "start": 284.44,
+    "duration": 4.8
+  },
+  {
+    "text": "neuromodulators, dopamine, epinephrine,",
+    "start": 287.28,
+    "duration": 4.16
+  },
+  {
+    "text": "serotonin, and acetylcholine toward",
+    "start": 289.24,
+    "duration": 4.96
+  },
+  {
+    "text": "particular end goals. So, again, it's",
+    "start": 291.44,
+    "duration": 5.36
+  },
+  {
+    "text": "really important to understand what the",
+    "start": 294.2,
+    "duration": 5.56
+  },
+  {
+    "text": "backdrop of these neuromodulators is,",
+    "start": 296.8,
+    "duration": 4.96
+  },
+  {
+    "text": "the so-called baseline, and that they",
+    "start": 299.76,
+    "duration": 4.4
+  },
+  {
+    "text": "vary across the day if you're going to",
+    "start": 301.76,
+    "duration": 4.44
+  },
+  {
+    "text": "be able to leverage tools to optimize",
+    "start": 304.16,
+    "duration": 3.92
+  },
+  {
+    "text": "your brain chemistry. Before we dive",
+    "start": 306.2,
+    "duration": 4.24
+  },
+  {
+    "text": "into the more pointed directed effects",
+    "start": 308.08,
+    "duration": 5.44
+  },
+  {
+    "text": "of specific tools on neuromodulators,",
+    "start": 310.44,
+    "duration": 4.52
+  },
+  {
+    "text": "I'd like to have just briefly mention",
+    "start": 313.52,
+    "duration": 3.48
+  },
+  {
+    "text": "hormones because they are also important",
+    "start": 314.96,
+    "duration": 4.76
+  },
+  {
+    "text": "for understanding the background and the",
+    "start": 317.0,
+    "duration": 5.52
+  },
+  {
+    "text": "context and these baseline levels of",
+    "start": 319.72,
+    "duration": 5.88
+  },
+  {
+    "text": "neuromodulators. Hormones have many",
+    "start": 322.52,
+    "duration": 5.64
+  },
+  {
+    "text": "different effects on the brain and body,",
+    "start": 325.6,
+    "duration": 4.36
+  },
+  {
+    "text": "and not unlike neuromodulators, some of",
+    "start": 328.16,
+    "duration": 3.8
+  },
+  {
+    "text": "those effects are very fast, some of",
+    "start": 329.96,
+    "duration": 3.84
+  },
+  {
+    "text": "them are very slow. Today we want to",
+    "start": 331.96,
+    "duration": 3.2
+  },
+  {
+    "text": "think about hormones as they relate to",
+    "start": 333.8,
+    "duration": 3.52
+  },
+  {
+    "text": "these neuromodulators, the dopamine,",
+    "start": 335.16,
+    "duration": 3.759
+  },
+  {
+    "text": "serotonin, epinephrine, and",
+    "start": 337.32,
+    "duration": 5.04
+  },
+  {
+    "text": "acetylcholine. And in general,",
+    "start": 338.919,
+    "duration": 6.441
+  },
+  {
+    "text": "testosterone tends to collaborate with",
+    "start": 342.36,
+    "duration": 5.72
+  },
+  {
+    "text": "and increase the action of dopamine.",
+    "start": 345.36,
+    "duration": 4.32
+  },
+  {
+    "text": "That's not always the case, but in",
+    "start": 348.08,
+    "duration": 4.16
+  },
+  {
+    "text": "general, when testosterone goes up,",
+    "start": 349.68,
+    "duration": 4.4
+  },
+  {
+    "text": "dopamine goes up.",
+    "start": 352.24,
+    "duration": 5.56
+  },
+  {
+    "text": "In general, when corticosteroids like",
+    "start": 354.08,
+    "duration": 6.08
+  },
+  {
+    "text": "cortisol and some related steroid",
+    "start": 357.8,
+    "duration": 5.24
+  },
+  {
+    "text": "hormones increase, epinephrine levels go",
+    "start": 360.16,
+    "duration": 5.12
+  },
+  {
+    "text": "up. And in general, when hormones like",
+    "start": 363.04,
+    "duration": 6.4
+  },
+  {
+    "text": "oxytocin or prolactin are increased,",
+    "start": 365.28,
+    "duration": 6.8
+  },
+  {
+    "text": "levels of serotonin go up. And then we",
+    "start": 369.44,
+    "duration": 5.84
+  },
+  {
+    "text": "have poor old lonely acetylcholine off",
+    "start": 372.08,
+    "duration": 4.32
+  },
+  {
+    "text": "on its own. But it's not poor and",
+    "start": 375.28,
+    "duration": 2.36
+  },
+  {
+    "text": "lonely, it actually has incredibly",
+    "start": 376.4,
+    "duration": 2.6
+  },
+  {
+    "text": "potent effects on its own. So it's",
+    "start": 377.64,
+    "duration": 2.64
+  },
+  {
+    "text": "really that it just doesn't need much",
+    "start": 379.0,
+    "duration": 4.04
+  },
+  {
+    "text": "help from the hormone systems, or at",
+    "start": 380.28,
+    "duration": 4.36
+  },
+  {
+    "text": "least not the steroid hormone systems,",
+    "start": 383.04,
+    "duration": 3.84
+  },
+  {
+    "text": "in order to have its tremendous effects.",
+    "start": 384.64,
+    "duration": 4.32
+  },
+  {
+    "text": "If you understand these four",
+    "start": 386.88,
+    "duration": 4.36
+  },
+  {
+    "text": "neuromodulators and you understand that",
+    "start": 388.96,
+    "duration": 4.12
+  },
+  {
+    "text": "while there are many tools ranging from",
+    "start": 391.24,
+    "duration": 3.72
+  },
+  {
+    "text": "pharmacologic to behavioral that can tap",
+    "start": 393.08,
+    "duration": 3.4
+  },
+  {
+    "text": "into these neuromodulator systems that",
+    "start": 394.96,
+    "duration": 3.08
+  },
+  {
+    "text": "can kind of press on the gas of",
+    "start": 396.48,
+    "duration": 4.4
+  },
+  {
+    "text": "dopamine, pull back on serotonin, and so",
+    "start": 398.04,
+    "duration": 6.36
+  },
+  {
+    "text": "on. Well, then you can create a sort of",
+    "start": 400.88,
+    "duration": 6.08
+  },
+  {
+    "text": "kit, a grab bag of things that you can",
+    "start": 404.4,
+    "duration": 5.56
+  },
+  {
+    "text": "use in any context, or I should say that",
+    "start": 406.96,
+    "duration": 5.24
+  },
+  {
+    "text": "you can look to depending on the context",
+    "start": 409.96,
+    "duration": 4.48
+  },
+  {
+    "text": "you're in, and create the states of body",
+    "start": 412.2,
+    "duration": 4.32
+  },
+  {
+    "text": "and mind that you want. Now, once again,",
+    "start": 414.44,
+    "duration": 4.28
+  },
+  {
+    "text": "painting with a somewhat broad brush,",
+    "start": 416.52,
+    "duration": 4.84
+  },
+  {
+    "text": "but nonetheless an accurate brush, we",
+    "start": 418.72,
+    "duration": 6.28
+  },
+  {
+    "text": "can say that dopamine, when elevated",
+    "start": 421.36,
+    "duration": 5.88
+  },
+  {
+    "text": "above baseline,",
+    "start": 425.0,
+    "duration": 5.48
+  },
+  {
+    "text": "tends to increase states of motivation,",
+    "start": 427.24,
+    "duration": 6.2
+  },
+  {
+    "text": "both mental and physical motivation,",
+    "start": 430.48,
+    "duration": 6.24
+  },
+  {
+    "text": "drive, and to some extent focus.",
+    "start": 433.44,
+    "duration": 5.56
+  },
+  {
+    "text": "Epinephrine and a closely related",
+    "start": 436.72,
+    "duration": 5.32
+  },
+  {
+    "text": "molecule called norepinephrine,",
+    "start": 439.0,
+    "duration": 4.84
+  },
+  {
+    "text": "and again, I want to emphasize that",
+    "start": 442.04,
+    "duration": 4.04
+  },
+  {
+    "text": "epinephrine is adrenaline and adrenaline",
+    "start": 443.84,
+    "duration": 5.079
+  },
+  {
+    "text": "is epinephrine. Norepinephrine is",
+    "start": 446.08,
+    "duration": 5.0
+  },
+  {
+    "text": "noradrenaline and noradrenaline is",
+    "start": 448.919,
+    "duration": 3.561
+  },
+  {
+    "text": "norepinephrine, but today we're going to",
+    "start": 451.08,
+    "duration": 3.2
+  },
+  {
+    "text": "just simply talk about epinephrine and",
+    "start": 452.48,
+    "duration": 3.96
+  },
+  {
+    "text": "norepinephrine.",
+    "start": 454.28,
+    "duration": 4.52
+  },
+  {
+    "text": "That category of neuromodulator is",
+    "start": 456.44,
+    "duration": 5.64
+  },
+  {
+    "text": "mainly responsible for generating our",
+    "start": 458.8,
+    "duration": 8.0
+  },
+  {
+    "text": "energy, our level of fuel and baseline",
+    "start": 462.08,
+    "duration": 7.4
+  },
+  {
+    "text": "level of forward center of mass, as I",
+    "start": 466.8,
+    "duration": 4.72
+  },
+  {
+    "text": "like to call it. When epinephrine levels",
+    "start": 469.48,
+    "duration": 4.16
+  },
+  {
+    "text": "are high, we tend to feel agitated, we",
+    "start": 471.52,
+    "duration": 3.52
+  },
+  {
+    "text": "tend to feel like we want to move, we",
+    "start": 473.64,
+    "duration": 3.56
+  },
+  {
+    "text": "tend to feel like we can't shut down our",
+    "start": 475.04,
+    "duration": 4.16
+  },
+  {
+    "text": "thinking and our anticipation of what's",
+    "start": 477.2,
+    "duration": 3.4
+  },
+  {
+    "text": "going to happen next. And when",
+    "start": 479.2,
+    "duration": 3.56
+  },
+  {
+    "text": "epinephrine levels are very, very low,",
+    "start": 480.6,
+    "duration": 4.2
+  },
+  {
+    "text": "we actually have less physical energy,",
+    "start": 482.76,
+    "duration": 4.44
+  },
+  {
+    "text": "we tend to have less mental energy in",
+    "start": 484.8,
+    "duration": 4.48
+  },
+  {
+    "text": "terms of generating thoughts very",
+    "start": 487.2,
+    "duration": 3.92
+  },
+  {
+    "text": "quickly, and so on and so forth. Now,",
+    "start": 489.28,
+    "duration": 4.44
+  },
+  {
+    "text": "the neuromodulator serotonin",
+    "start": 491.12,
+    "duration": 4.08
+  },
+  {
+    "text": "creates a number of different states in",
+    "start": 493.72,
+    "duration": 4.08
+  },
+  {
+    "text": "the brain and body, but for sake of",
+    "start": 495.2,
+    "duration": 4.08
+  },
+  {
+    "text": "today's discussion, we're going to think",
+    "start": 497.8,
+    "duration": 3.64
+  },
+  {
+    "text": "about the predominant states that it",
+    "start": 499.28,
+    "duration": 4.52
+  },
+  {
+    "text": "creates, and those are states of",
+    "start": 501.44,
+    "duration": 5.32
+  },
+  {
+    "text": "contentness, being happy, feeling fairly",
+    "start": 503.8,
+    "duration": 6.0
+  },
+  {
+    "text": "relaxed, feeling soothed, and to some",
+    "start": 506.76,
+    "duration": 5.959
+  },
+  {
+    "text": "extent even some relief from pain or",
+    "start": 509.8,
+    "duration": 5.119
+  },
+  {
+    "text": "lack of pain.",
+    "start": 512.719,
+    "duration": 4.32
+  },
+  {
+    "text": "Serotonin is associated with a feeling",
+    "start": 514.919,
+    "duration": 4.841
+  },
+  {
+    "text": "of satiety, of having enough of what we",
+    "start": 517.039,
+    "duration": 5.361
+  },
+  {
+    "text": "already have. And acetylcholine, we can",
+    "start": 519.76,
+    "duration": 5.52
+  },
+  {
+    "text": "say, is mainly",
+    "start": 522.4,
+    "duration": 6.32
+  },
+  {
+    "text": "associated with states of focus.",
+    "start": 525.28,
+    "duration": 5.08
+  },
+  {
+    "text": "And we can go a step further and say",
+    "start": 528.72,
+    "duration": 3.72
+  },
+  {
+    "text": "that it's mainly associated with steps",
+    "start": 530.36,
+    "duration": 4.32
+  },
+  {
+    "text": "of focus as they relate to learning and",
+    "start": 532.44,
+    "duration": 4.399
+  },
+  {
+    "text": "encoding new information, so-called",
+    "start": 534.68,
+    "duration": 3.68
+  },
+  {
+    "text": "neuroplasticity.",
+    "start": 536.839,
+    "duration": 2.481
+  },
+  {
+    "text": "So, let's say you want to be more",
+    "start": 538.36,
+    "duration": 2.68
+  },
+  {
+    "text": "motivated, you want to be more in",
+    "start": 539.32,
+    "duration": 3.92
+  },
+  {
+    "text": "pursuit of goals, and you want to have",
+    "start": 541.04,
+    "duration": 4.64
+  },
+  {
+    "text": "more energy and to be more focused.",
+    "start": 543.24,
+    "duration": 4.16
+  },
+  {
+    "text": "There are many ways to go about that, in",
+    "start": 545.68,
+    "duration": 4.24
+  },
+  {
+    "text": "fact, there's a near infinite cloud of",
+    "start": 547.4,
+    "duration": 4.52
+  },
+  {
+    "text": "opportunities, everything from",
+    "start": 549.92,
+    "duration": 4.04
+  },
+  {
+    "text": "prescription drugs to illicit drugs,",
+    "start": 551.92,
+    "duration": 4.84
+  },
+  {
+    "text": "which I certainly do not recommend,",
+    "start": 553.96,
+    "duration": 4.92
+  },
+  {
+    "text": "supplements, nutrition,",
+    "start": 556.76,
+    "duration": 4.24
+  },
+  {
+    "text": "you can listen to particular music, you",
+    "start": 558.88,
+    "duration": 3.72
+  },
+  {
+    "text": "can do all sorts of cognitive,",
+    "start": 561.0,
+    "duration": 3.68
+  },
+  {
+    "text": "behavioral, nutritional supplementation",
+    "start": 562.6,
+    "duration": 4.2
+  },
+  {
+    "text": "tricks, or",
+    "start": 564.68,
+    "duration": 4.48
+  },
+  {
+    "text": "you can just understand that what you're",
+    "start": 566.8,
+    "duration": 4.96
+  },
+  {
+    "text": "really after are increases in dopamine",
+    "start": 569.16,
+    "duration": 5.48
+  },
+  {
+    "text": "above baseline that you control,",
+    "start": 571.76,
+    "duration": 4.76
+  },
+  {
+    "text": "and there are ways to control them that",
+    "start": 574.64,
+    "duration": 4.84
+  },
+  {
+    "text": "are quite potent and science tells us",
+    "start": 576.52,
+    "duration": 5.0
+  },
+  {
+    "text": "which tools are going to be the most",
+    "start": 579.48,
+    "duration": 5.28
+  },
+  {
+    "text": "potent and the most versatile for you.",
+    "start": 581.52,
+    "duration": 4.44
+  },
+  {
+    "text": "So, I'm going to share those tools with",
+    "start": 584.76,
+    "duration": 3.92
+  },
+  {
+    "text": "you now with the caveat that each one of",
+    "start": 585.96,
+    "duration": 4.24
+  },
+  {
+    "text": "those tools",
+    "start": 588.68,
+    "duration": 4.0
+  },
+  {
+    "text": "could be its own entire podcast episode",
+    "start": 590.2,
+    "duration": 5.32
+  },
+  {
+    "text": "and that we've done near entire episodes",
+    "start": 592.68,
+    "duration": 4.32
+  },
+  {
+    "text": "on each of these tools or small",
+    "start": 595.52,
+    "duration": 2.84
+  },
+  {
+    "text": "collections of these tools. So, I'm",
+    "start": 597.0,
+    "duration": 2.56
+  },
+  {
+    "text": "going to cover these in somewhat",
+    "start": 598.36,
+    "duration": 2.84
+  },
+  {
+    "text": "superficial manner. Let's say you want",
+    "start": 599.56,
+    "duration": 3.16
+  },
+  {
+    "text": "to increase dopamine for sake of",
+    "start": 601.2,
+    "duration": 3.84
+  },
+  {
+    "text": "increasing motivation.",
+    "start": 602.72,
+    "duration": 5.0
+  },
+  {
+    "text": "The first thing to do is to understand",
+    "start": 605.04,
+    "duration": 4.44
+  },
+  {
+    "text": "what the natural behavioral tools are",
+    "start": 607.72,
+    "duration": 3.84
+  },
+  {
+    "text": "for increasing dopamine and to do those",
+    "start": 609.48,
+    "duration": 4.64
+  },
+  {
+    "text": "as consistently as possible. Again,",
+    "start": 611.56,
+    "duration": 4.08
+  },
+  {
+    "text": "these are tools that you'll want to do",
+    "start": 614.12,
+    "duration": 4.88
+  },
+  {
+    "text": "nearly every day if not every day.",
+    "start": 615.64,
+    "duration": 4.96
+  },
+  {
+    "text": "And I know I'm sounding like a broken",
+    "start": 619.0,
+    "duration": 4.96
+  },
+  {
+    "text": "record on this one, but here again we",
+    "start": 620.6,
+    "duration": 5.92
+  },
+  {
+    "text": "come to sunlight and",
+    "start": 623.96,
+    "duration": 5.84
+  },
+  {
+    "text": "I should say not just the desire to but",
+    "start": 626.52,
+    "duration": 5.92
+  },
+  {
+    "text": "really the need for viewing the maximum",
+    "start": 629.8,
+    "duration": 4.48
+  },
+  {
+    "text": "amount of sunlight that one can",
+    "start": 632.44,
+    "duration": 3.84
+  },
+  {
+    "text": "reasonably get given schedules and",
+    "start": 634.28,
+    "duration": 3.4
+  },
+  {
+    "text": "locations in the world, time of year, et",
+    "start": 636.28,
+    "duration": 4.96
+  },
+  {
+    "text": "cetera. In the early part of the day.",
+    "start": 637.68,
+    "duration": 5.84
+  },
+  {
+    "text": "Within the first hour of waking,",
+    "start": 641.24,
+    "duration": 4.599
+  },
+  {
+    "text": "ideally, but certainly in the first 3",
+    "start": 643.52,
+    "duration": 4.0
+  },
+  {
+    "text": "hours of your day, you're going to want",
+    "start": 645.839,
+    "duration": 3.521
+  },
+  {
+    "text": "to maximize sunlight exposure to your",
+    "start": 647.52,
+    "duration": 4.24
+  },
+  {
+    "text": "eyes. Never look at the sun or any other",
+    "start": 649.36,
+    "duration": 4.28
+  },
+  {
+    "text": "light so bright that it's painful to",
+    "start": 651.76,
+    "duration": 3.28
+  },
+  {
+    "text": "look at and yes, of course, blinking is",
+    "start": 653.64,
+    "duration": 3.36
+  },
+  {
+    "text": "fine, but no, take sunglasses off, go",
+    "start": 655.04,
+    "duration": 3.92
+  },
+  {
+    "text": "outside once the sun is out and get some",
+    "start": 657.0,
+    "duration": 3.32
+  },
+  {
+    "text": "natural light in your eyes. So, if you",
+    "start": 658.96,
+    "duration": 2.96
+  },
+  {
+    "text": "get sunlight exposure to your eyes and",
+    "start": 660.32,
+    "duration": 2.92
+  },
+  {
+    "text": "it does have to be to your eyes in the",
+    "start": 661.92,
+    "duration": 3.04
+  },
+  {
+    "text": "early part of the day, you increase the",
+    "start": 663.24,
+    "duration": 3.28
+  },
+  {
+    "text": "amount of dopamine receptor that you",
+    "start": 664.96,
+    "duration": 3.6
+  },
+  {
+    "text": "have, which allows whatever circulating",
+    "start": 666.52,
+    "duration": 4.04
+  },
+  {
+    "text": "dopamine happens to be there to have a",
+    "start": 668.56,
+    "duration": 4.52
+  },
+  {
+    "text": "greater effect on motivation and I",
+    "start": 670.56,
+    "duration": 4.84
+  },
+  {
+    "text": "should say also on mood and feelings of",
+    "start": 673.08,
+    "duration": 5.44
+  },
+  {
+    "text": "being in pursuit and generally in",
+    "start": 675.4,
+    "duration": 5.52
+  },
+  {
+    "text": "craving and pursuit of things in life.",
+    "start": 678.52,
+    "duration": 4.08
+  },
+  {
+    "text": "Now, there's another way to increase the",
+    "start": 680.92,
+    "duration": 3.6
+  },
+  {
+    "text": "effect of whatever dopamine happens to",
+    "start": 682.6,
+    "duration": 4.44
+  },
+  {
+    "text": "be circulating in your brain and body.",
+    "start": 684.52,
+    "duration": 4.92
+  },
+  {
+    "text": "And this again relates to increasing the",
+    "start": 687.04,
+    "duration": 5.4
+  },
+  {
+    "text": "number or the efficacy of the receptors",
+    "start": 689.44,
+    "duration": 6.12
+  },
+  {
+    "text": "for dopamine. How do you do that? Well,",
+    "start": 692.44,
+    "duration": 5.12
+  },
+  {
+    "text": "it turns out that regular ingestion of",
+    "start": 695.56,
+    "duration": 4.96
+  },
+  {
+    "text": "caffeine at safe and appropriate levels",
+    "start": 697.56,
+    "duration": 6.04
+  },
+  {
+    "text": "of about 100 to 250 mg",
+    "start": 700.52,
+    "duration": 5.04
+  },
+  {
+    "text": "is going to increase the number of D2",
+    "start": 703.6,
+    "duration": 3.92
+  },
+  {
+    "text": "and D3 dopamine receptors. When you",
+    "start": 705.56,
+    "duration": 3.96
+  },
+  {
+    "text": "drink caffeine, it's going to increase",
+    "start": 707.52,
+    "duration": 4.64
+  },
+  {
+    "text": "your levels of adrenaline and so-called",
+    "start": 709.52,
+    "duration": 4.0
+  },
+  {
+    "text": "epinephrine, which will increase your",
+    "start": 712.16,
+    "duration": 3.36
+  },
+  {
+    "text": "energy levels. It's going to decrease",
+    "start": 713.52,
+    "duration": 3.44
+  },
+  {
+    "text": "levels of something called adenosine,",
+    "start": 715.52,
+    "duration": 2.8
+  },
+  {
+    "text": "which builds up while you're sleepy.",
+    "start": 716.96,
+    "duration": 2.68
+  },
+  {
+    "text": "It's going to make you feel less sleepy,",
+    "start": 718.32,
+    "duration": 3.32
+  },
+  {
+    "text": "more alert, more energetic. That's sort",
+    "start": 719.64,
+    "duration": 4.12
+  },
+  {
+    "text": "of obvious. But, what's less obvious is",
+    "start": 721.64,
+    "duration": 3.68
+  },
+  {
+    "text": "that it's increasing the number and",
+    "start": 723.76,
+    "duration": 3.76
+  },
+  {
+    "text": "efficacy of dopamine receptors, so that",
+    "start": 725.32,
+    "duration": 4.0
+  },
+  {
+    "text": "whatever dopamine happens to be around",
+    "start": 727.52,
+    "duration": 3.84
+  },
+  {
+    "text": "in your system is going to have more of",
+    "start": 729.32,
+    "duration": 4.6
+  },
+  {
+    "text": "a potent effect. So, these are ways of",
+    "start": 731.36,
+    "duration": 4.88
+  },
+  {
+    "text": "modulating more or less the baseline of",
+    "start": 733.92,
+    "duration": 4.04
+  },
+  {
+    "text": "dopamine that you are able to produce",
+    "start": 736.24,
+    "duration": 4.08
+  },
+  {
+    "text": "and the ways that dopamine can have its",
+    "start": 737.96,
+    "duration": 5.0
+  },
+  {
+    "text": "action by way of binding to receptors",
+    "start": 740.32,
+    "duration": 4.4
+  },
+  {
+    "text": "more potently.",
+    "start": 742.96,
+    "duration": 3.72
+  },
+  {
+    "text": "Now, there are other ways to increase",
+    "start": 744.72,
+    "duration": 4.4
+  },
+  {
+    "text": "dopamine in a more acute or directed",
+    "start": 746.68,
+    "duration": 5.2
+  },
+  {
+    "text": "way. There ways to spike your dopamine,",
+    "start": 749.12,
+    "duration": 5.8
+  },
+  {
+    "text": "to enhance your state of motivation,",
+    "start": 751.88,
+    "duration": 5.72
+  },
+  {
+    "text": "mood, focus, and so on. If you're",
+    "start": 754.92,
+    "duration": 4.48
+  },
+  {
+    "text": "somebody who has",
+    "start": 757.6,
+    "duration": 4.32
+  },
+  {
+    "text": "or is taking drugs for depression or",
+    "start": 759.4,
+    "duration": 4.48
+  },
+  {
+    "text": "mania, please be very cautious about",
+    "start": 761.92,
+    "duration": 4.16
+  },
+  {
+    "text": "manipulating your dopamine in any case.",
+    "start": 763.88,
+    "duration": 3.6
+  },
+  {
+    "text": "I don't just say that to protect us, I",
+    "start": 766.08,
+    "duration": 3.72
+  },
+  {
+    "text": "say that to protect you.",
+    "start": 767.48,
+    "duration": 3.359
+  },
+  {
+    "text": "But, if we were to look at the",
+    "start": 769.8,
+    "duration": 3.08
+  },
+  {
+    "text": "supplement landscape and ask which",
+    "start": 770.839,
+    "duration": 3.521
+  },
+  {
+    "text": "supplements increase dopamine, there are",
+    "start": 772.88,
+    "duration": 3.4
+  },
+  {
+    "text": "a vast number of them.",
+    "start": 774.36,
+    "duration": 2.88
+  },
+  {
+    "text": "But,",
+    "start": 776.28,
+    "duration": 3.32
+  },
+  {
+    "text": "the three main ones, the most effective",
+    "start": 777.24,
+    "duration": 3.8
+  },
+  {
+    "text": "ones that are readily available out",
+    "start": 779.6,
+    "duration": 3.44
+  },
+  {
+    "text": "there without a prescription, are mucuna",
+    "start": 781.04,
+    "duration": 4.0
+  },
+  {
+    "text": "pruriens. This is actually the outside",
+    "start": 783.04,
+    "duration": 4.04
+  },
+  {
+    "text": "of a velvety bean that has been",
+    "start": 785.04,
+    "duration": 3.92
+  },
+  {
+    "text": "extracted and put into a supplement.",
+    "start": 787.08,
+    "duration": 4.6
+  },
+  {
+    "text": "Mucuna pruriens is actual L-DOPA. It's",
+    "start": 788.96,
+    "duration": 6.04
+  },
+  {
+    "text": "99% L-DOPA, which is a prescription drug",
+    "start": 791.68,
+    "duration": 5.68
+  },
+  {
+    "text": "that is given for Parkinson's and for",
+    "start": 795.0,
+    "duration": 4.76
+  },
+  {
+    "text": "other purposes where increasing dopamine",
+    "start": 797.36,
+    "duration": 4.36
+  },
+  {
+    "text": "is important.",
+    "start": 799.76,
+    "duration": 4.04
+  },
+  {
+    "text": "I don't recommend mucuna pruriens. I'm",
+    "start": 801.72,
+    "duration": 3.52
+  },
+  {
+    "text": "not saying that no one should take it,",
+    "start": 803.8,
+    "duration": 3.08
+  },
+  {
+    "text": "but I don't take it and I don't",
+    "start": 805.24,
+    "duration": 3.92
+  },
+  {
+    "text": "recommend it because it tends to so",
+    "start": 806.88,
+    "duration": 4.36
+  },
+  {
+    "text": "potently and acutely increase dopamine",
+    "start": 809.16,
+    "duration": 3.96
+  },
+  {
+    "text": "that there's a pretty substantial crash",
+    "start": 811.24,
+    "duration": 4.28
+  },
+  {
+    "text": "afterwards. The other two supplements",
+    "start": 813.12,
+    "duration": 5.12
+  },
+  {
+    "text": "that can increase dopamine in a",
+    "start": 815.52,
+    "duration": 6.16
+  },
+  {
+    "text": "short-term way, but in a significant way",
+    "start": 818.24,
+    "duration": 5.6
+  },
+  {
+    "text": "are L-tyrosine. So, you can buy that as",
+    "start": 821.68,
+    "duration": 4.12
+  },
+  {
+    "text": "a supplemented amino acid. People vary",
+    "start": 823.84,
+    "duration": 4.0
+  },
+  {
+    "text": "tremendously in their sensitivity to",
+    "start": 825.8,
+    "duration": 3.8
+  },
+  {
+    "text": "supplementing L-tyrosine. I know people",
+    "start": 827.84,
+    "duration": 4.48
+  },
+  {
+    "text": "that can take 2 g. I know people that",
+    "start": 829.6,
+    "duration": 4.88
+  },
+  {
+    "text": "can barely take 100 mg. I know people",
+    "start": 832.32,
+    "duration": 4.56
+  },
+  {
+    "text": "that the best dose for them is 0 mg. So,",
+    "start": 834.48,
+    "duration": 3.4
+  },
+  {
+    "text": "there's a lot of variation there",
+    "start": 836.88,
+    "duration": 3.64
+  },
+  {
+    "text": "depending on sensitivity and their",
+    "start": 837.88,
+    "duration": 4.72
+  },
+  {
+    "text": "natural baseline levels of dopamine and",
+    "start": 840.52,
+    "duration": 3.0
+  },
+  {
+    "text": "whether or not they're doing a lot of",
+    "start": 842.6,
+    "duration": 3.32
+  },
+  {
+    "text": "other things to support dopamine. But",
+    "start": 843.52,
+    "duration": 4.28
+  },
+  {
+    "text": "nonetheless, taking L-tyrosine will lead",
+    "start": 845.92,
+    "duration": 4.12
+  },
+  {
+    "text": "to fairly substantial increases in",
+    "start": 847.8,
+    "duration": 4.8
+  },
+  {
+    "text": "dopamine within about 15 to 45 minutes",
+    "start": 850.04,
+    "duration": 5.44
+  },
+  {
+    "text": "and it lasts for about 30 minutes to 2",
+    "start": 852.6,
+    "duration": 3.88
+  },
+  {
+    "text": "hours and then there's kind of a",
+    "start": 855.48,
+    "duration": 3.04
+  },
+  {
+    "text": "tapering off. Some people experience a",
+    "start": 856.48,
+    "duration": 4.68
+  },
+  {
+    "text": "little bit of an emotional or and/or I",
+    "start": 858.52,
+    "duration": 4.36
+  },
+  {
+    "text": "should say energetic crash. Some people",
+    "start": 861.16,
+    "duration": 4.32
+  },
+  {
+    "text": "don't. Then the other supplement that I",
+    "start": 862.88,
+    "duration": 4.12
+  },
+  {
+    "text": "certainly use and that I know a number",
+    "start": 865.48,
+    "duration": 3.2
+  },
+  {
+    "text": "of other people use is more fast-acting",
+    "start": 867.0,
+    "duration": 2.56
+  },
+  {
+    "text": "but more potent, which is",
+    "start": 868.68,
+    "duration": 2.48
+  },
+  {
+    "text": "phenylethylamine.",
+    "start": 869.56,
+    "duration": 3.6
+  },
+  {
+    "text": "This relates to the so-called PEA",
+    "start": 871.16,
+    "duration": 3.32
+  },
+  {
+    "text": "molecule.",
+    "start": 873.16,
+    "duration": 3.16
+  },
+  {
+    "text": "P P E A",
+    "start": 874.48,
+    "duration": 3.08
+  },
+  {
+    "text": "and",
+    "start": 876.32,
+    "duration": 3.6
+  },
+  {
+    "text": "phenylethylamine increases dopamine and",
+    "start": 877.56,
+    "duration": 4.16
+  },
+  {
+    "text": "some metabolites related to dopamine in",
+    "start": 879.92,
+    "duration": 3.52
+  },
+  {
+    "text": "ways that really increase energy and",
+    "start": 881.72,
+    "duration": 3.28
+  },
+  {
+    "text": "feelings of well-being and motivation.",
+    "start": 883.44,
+    "duration": 3.52
+  },
+  {
+    "text": "And again, it's fast-acting. So, my",
+    "start": 885.0,
+    "duration": 3.839
+  },
+  {
+    "text": "particular protocol, the one I use is",
+    "start": 886.96,
+    "duration": 4.8
+  },
+  {
+    "text": "I'll take phenylethylamine at dosages of",
+    "start": 888.839,
+    "duration": 6.561
+  },
+  {
+    "text": "about 300 to 600 mg along with some",
+    "start": 891.76,
+    "duration": 6.44
+  },
+  {
+    "text": "L-tyrosine or I'll take it on its own",
+    "start": 895.4,
+    "duration": 4.68
+  },
+  {
+    "text": "with a molecule or I should say a",
+    "start": 898.2,
+    "duration": 3.08
+  },
+  {
+    "text": "compound that we'll talk about a little",
+    "start": 900.08,
+    "duration": 2.12
+  },
+  {
+    "text": "bit later as it relates to",
+    "start": 901.28,
+    "duration": 3.64
+  },
+  {
+    "text": "acetylcholine, alpha-GPC. But tyrosine",
+    "start": 902.2,
+    "duration": 4.32
+  },
+  {
+    "text": "and phenylethylamine taken alone or",
+    "start": 904.92,
+    "duration": 3.36
+  },
+  {
+    "text": "together will make you feel more",
+    "start": 906.52,
+    "duration": 4.56
+  },
+  {
+    "text": "motivated and more alert, more willing",
+    "start": 908.28,
+    "duration": 5.0
+  },
+  {
+    "text": "and able to lean into particular",
+    "start": 911.08,
+    "duration": 3.48
+  },
+  {
+    "text": "motivated behaviors, whether or not",
+    "start": 913.28,
+    "duration": 3.48
+  },
+  {
+    "text": "they're physical or cognitive. But",
+    "start": 914.56,
+    "duration": 4.12
+  },
+  {
+    "text": "leaving that aside, there are certain",
+    "start": 916.76,
+    "duration": 4.84
+  },
+  {
+    "text": "behavioral protocols that are unrelated",
+    "start": 918.68,
+    "duration": 5.72
+  },
+  {
+    "text": "to your overall goals and motivations",
+    "start": 921.6,
+    "duration": 4.32
+  },
+  {
+    "text": "that can increase dopamine in a very",
+    "start": 924.4,
+    "duration": 4.44
+  },
+  {
+    "text": "sustained way. And without question, the",
+    "start": 925.92,
+    "duration": 4.88
+  },
+  {
+    "text": "most potent behavioral tool for doing",
+    "start": 928.84,
+    "duration": 4.44
+  },
+  {
+    "text": "that is going to be deliberate cold",
+    "start": 930.8,
+    "duration": 3.68
+  },
+  {
+    "text": "exposure.",
+    "start": 933.28,
+    "duration": 3.52
+  },
+  {
+    "text": "Deliberate cold exposure has been talked",
+    "start": 934.48,
+    "duration": 5.4
+  },
+  {
+    "text": "about a lot here and elsewhere in terms",
+    "start": 936.8,
+    "duration": 4.52
+  },
+  {
+    "text": "of its",
+    "start": 939.88,
+    "duration": 3.2
+  },
+  {
+    "text": "ability to do things like reduce",
+    "start": 941.32,
+    "duration": 3.36
+  },
+  {
+    "text": "inflammation",
+    "start": 943.08,
+    "duration": 4.44
+  },
+  {
+    "text": "as a way to test and improve resilience",
+    "start": 944.68,
+    "duration": 5.52
+  },
+  {
+    "text": "because uncomfortable cold, uh, provided",
+    "start": 947.52,
+    "duration": 4.84
+  },
+  {
+    "text": "it's applied safely, is a great way to",
+    "start": 950.2,
+    "duration": 3.64
+  },
+  {
+    "text": "learn to be more resilient because",
+    "start": 952.36,
+    "duration": 3.32
+  },
+  {
+    "text": "you're essentially staying or forcing",
+    "start": 953.84,
+    "duration": 3.6
+  },
+  {
+    "text": "yourself to stay in a circumstance where",
+    "start": 955.68,
+    "duration": 4.24
+  },
+  {
+    "text": "your system is flooded with adrenaline.",
+    "start": 957.44,
+    "duration": 3.96
+  },
+  {
+    "text": "As I mentioned before, dopamine tends to",
+    "start": 959.92,
+    "duration": 3.04
+  },
+  {
+    "text": "collaborate with epinephrine and vice",
+    "start": 961.4,
+    "duration": 3.72
+  },
+  {
+    "text": "versa. Many people will ask which",
+    "start": 962.96,
+    "duration": 3.76
+  },
+  {
+    "text": "protocols to follow. Please see the",
+    "start": 965.12,
+    "duration": 4.6
+  },
+  {
+    "text": "episode on the use of deliberate cold",
+    "start": 966.72,
+    "duration": 4.6
+  },
+  {
+    "text": "for health and performance. You'll find",
+    "start": 969.72,
+    "duration": 4.6
+  },
+  {
+    "text": "that hubermanlab.com. So,",
+    "start": 971.32,
+    "duration": 4.44
+  },
+  {
+    "text": "the use of cold water for increasing",
+    "start": 974.32,
+    "duration": 3.92
+  },
+  {
+    "text": "dopamine is a real tool. It's, I would",
+    "start": 975.76,
+    "duration": 4.56
+  },
+  {
+    "text": "say, a power tool. I want to just",
+    "start": 978.24,
+    "duration": 4.76
+  },
+  {
+    "text": "briefly return to the fact, however,",
+    "start": 980.32,
+    "duration": 5.72
+  },
+  {
+    "text": "that all of that is riding on that phase",
+    "start": 983.0,
+    "duration": 5.96
+  },
+  {
+    "text": "one, phase two background, meaning it's",
+    "start": 986.04,
+    "duration": 4.84
+  },
+  {
+    "text": "probably going to take less cold water",
+    "start": 988.96,
+    "duration": 4.08
+  },
+  {
+    "text": "exposure, or I should say, less time",
+    "start": 990.88,
+    "duration": 3.8
+  },
+  {
+    "text": "doing cold water exposure early in the",
+    "start": 993.04,
+    "duration": 3.88
+  },
+  {
+    "text": "day to get a big increase in dopamine",
+    "start": 994.68,
+    "duration": 4.24
+  },
+  {
+    "text": "than it would later in the day. Because",
+    "start": 996.92,
+    "duration": 3.64
+  },
+  {
+    "text": "later in the day, your baseline levels",
+    "start": 998.92,
+    "duration": 3.44
+  },
+  {
+    "text": "of dopamine are lower and you've got",
+    "start": 1000.56,
+    "duration": 4.2
+  },
+  {
+    "text": "more serotonin circulating.",
+    "start": 1002.36,
+    "duration": 3.84
+  },
+  {
+    "text": "That should make sense to you now as to",
+    "start": 1004.76,
+    "duration": 4.16
+  },
+  {
+    "text": "why that's the case. And does that mean",
+    "start": 1006.2,
+    "duration": 4.0
+  },
+  {
+    "text": "that you should really modify your",
+    "start": 1008.92,
+    "duration": 3.84
+  },
+  {
+    "text": "protocols dramatically? Probably not,",
+    "start": 1010.2,
+    "duration": 4.639
+  },
+  {
+    "text": "but you might keep that in mind that if,",
+    "start": 1012.76,
+    "duration": 3.52
+  },
+  {
+    "text": "for instance, you need to be in a highly",
+    "start": 1014.839,
+    "duration": 3.201
+  },
+  {
+    "text": "motivated, focused state in the late",
+    "start": 1016.28,
+    "duration": 3.48
+  },
+  {
+    "text": "part of the day for whatever reason, it",
+    "start": 1018.04,
+    "duration": 4.28
+  },
+  {
+    "text": "might take a few or more of these tools",
+    "start": 1019.76,
+    "duration": 4.319
+  },
+  {
+    "text": "in combination in order to accomplish",
+    "start": 1022.32,
+    "duration": 3.119
+  },
+  {
+    "text": "that. Whereas if you're somebody who",
+    "start": 1024.079,
+    "duration": 2.521
+  },
+  {
+    "text": "feels pretty good during the day, but",
+    "start": 1025.439,
+    "duration": 2.88
+  },
+  {
+    "text": "you're kind of lacking motivation, you",
+    "start": 1026.6,
+    "duration": 3.16
+  },
+  {
+    "text": "want to increase dopamine levels and you",
+    "start": 1028.319,
+    "duration": 3.841
+  },
+  {
+    "text": "don't yet need to or want to resort to",
+    "start": 1029.76,
+    "duration": 4.28
+  },
+  {
+    "text": "prescription drugs or supplementation,",
+    "start": 1032.16,
+    "duration": 3.2
+  },
+  {
+    "text": "well then you might layer in and",
+    "start": 1034.04,
+    "duration": 2.96
+  },
+  {
+    "text": "behavioral protocols, paying attention",
+    "start": 1035.36,
+    "duration": 3.2
+  },
+  {
+    "text": "to, of course, the things that you might",
+    "start": 1037.0,
+    "duration": 3.52
+  },
+  {
+    "text": "be doing that would also potentially",
+    "start": 1038.56,
+    "duration": 4.12
+  },
+  {
+    "text": "suppress dopamine. So, again, that kit",
+    "start": 1040.52,
+    "duration": 5.12
+  },
+  {
+    "text": "of tools is designed for you to play",
+    "start": 1042.68,
+    "duration": 5.24
+  },
+  {
+    "text": "with if you choose, if it's safe for you",
+    "start": 1045.64,
+    "duration": 4.92
+  },
+  {
+    "text": "to apply them, then do that. Consider",
+    "start": 1047.92,
+    "duration": 4.76
+  },
+  {
+    "text": "doing them individually, not trying to",
+    "start": 1050.56,
+    "duration": 4.84
+  },
+  {
+    "text": "hit all the tools all at once, right? I",
+    "start": 1052.68,
+    "duration": 5.16
+  },
+  {
+    "text": "mean, why throw all those tools at your",
+    "start": 1055.4,
+    "duration": 4.16
+  },
+  {
+    "text": "dopamine system at once?",
+    "start": 1057.84,
+    "duration": 3.48
+  },
+  {
+    "text": "Better would be to have those tools in",
+    "start": 1059.56,
+    "duration": 3.4
+  },
+  {
+    "text": "your kit and be able to deploy them",
+    "start": 1061.32,
+    "duration": 2.68
+  },
+  {
+    "text": "depending on whether or not you're on",
+    "start": 1062.96,
+    "duration": 2.92
+  },
+  {
+    "text": "travel, whether or not you're eating",
+    "start": 1064.0,
+    "duration": 3.44
+  },
+  {
+    "text": "well or less well, whether or not you're",
+    "start": 1065.88,
+    "duration": 3.36
+  },
+  {
+    "text": "sleeping well or less well.",
+    "start": 1067.44,
+    "duration": 3.52
+  },
+  {
+    "text": "That's highly individual, and I like to",
+    "start": 1069.24,
+    "duration": 3.64
+  },
+  {
+    "text": "think that in having those tools in",
+    "start": 1070.96,
+    "duration": 3.56
+  },
+  {
+    "text": "hand, you'll be able to adjust them and",
+    "start": 1072.88,
+    "duration": 3.56
+  },
+  {
+    "text": "apply them in the ways that allow you to",
+    "start": 1074.52,
+    "duration": 4.76
+  },
+  {
+    "text": "access the dopamine increases that",
+    "start": 1076.44,
+    "duration": 4.44
+  },
+  {
+    "text": "you're after. So, next I'd like to talk",
+    "start": 1079.28,
+    "duration": 3.36
+  },
+  {
+    "text": "about epinephrine, also called",
+    "start": 1080.88,
+    "duration": 3.0
+  },
+  {
+    "text": "adrenaline.",
+    "start": 1082.64,
+    "duration": 3.48
+  },
+  {
+    "text": "I want to point out that epinephrine is",
+    "start": 1083.88,
+    "duration": 4.84
+  },
+  {
+    "text": "released both in the brain and the body.",
+    "start": 1086.12,
+    "duration": 4.28
+  },
+  {
+    "text": "In fact, there's a barrier between brain",
+    "start": 1088.72,
+    "duration": 3.56
+  },
+  {
+    "text": "and body that prevents the epinephrine",
+    "start": 1090.4,
+    "duration": 4.16
+  },
+  {
+    "text": "that's released from your adrenal glands",
+    "start": 1092.28,
+    "duration": 4.24
+  },
+  {
+    "text": "from crossing the blood-brain barrier.",
+    "start": 1094.56,
+    "duration": 3.88
+  },
+  {
+    "text": "So, your brain has a separate site",
+    "start": 1096.52,
+    "duration": 4.36
+  },
+  {
+    "text": "called the locus coeruleus. This is a",
+    "start": 1098.44,
+    "duration": 3.72
+  },
+  {
+    "text": "collection of neurons in the back of the",
+    "start": 1100.88,
+    "duration": 2.68
+  },
+  {
+    "text": "brain that kind of sprinkle the rest of",
+    "start": 1102.16,
+    "duration": 3.68
+  },
+  {
+    "text": "the brain with epinephrine",
+    "start": 1103.56,
+    "duration": 4.64
+  },
+  {
+    "text": "and essentially wakes up",
+    "start": 1105.84,
+    "duration": 4.88
+  },
+  {
+    "text": "whatever neural circuits happen to see,",
+    "start": 1108.2,
+    "duration": 4.2
+  },
+  {
+    "text": "or I should say, uh,",
+    "start": 1110.72,
+    "duration": 3.68
+  },
+  {
+    "text": "wake up any circuits where that",
+    "start": 1112.4,
+    "duration": 4.68
+  },
+  {
+    "text": "epinephrine happens to arrive, right?",
+    "start": 1114.4,
+    "duration": 4.36
+  },
+  {
+    "text": "And generally increase the excitability",
+    "start": 1117.08,
+    "duration": 3.32
+  },
+  {
+    "text": "of those networks. That's why we say",
+    "start": 1118.76,
+    "duration": 2.96
+  },
+  {
+    "text": "epinephrine",
+    "start": 1120.4,
+    "duration": 3.4
+  },
+  {
+    "text": "increases energy. I'm not talking about",
+    "start": 1121.72,
+    "duration": 3.6
+  },
+  {
+    "text": "caloric energy, although that's",
+    "start": 1123.8,
+    "duration": 4.36
+  },
+  {
+    "text": "distantly related to this, but really",
+    "start": 1125.32,
+    "duration": 5.44
+  },
+  {
+    "text": "energy and the desire to move. For many",
+    "start": 1128.16,
+    "duration": 4.96
+  },
+  {
+    "text": "people, increasing",
+    "start": 1130.76,
+    "duration": 4.44
+  },
+  {
+    "text": "adrenaline or epinephrine might seem",
+    "start": 1133.12,
+    "duration": 3.76
+  },
+  {
+    "text": "like a crazy idea. Most people probably",
+    "start": 1135.2,
+    "duration": 3.92
+  },
+  {
+    "text": "associate this molecule with stress, and",
+    "start": 1136.88,
+    "duration": 3.6
+  },
+  {
+    "text": "they would like to be less stressed.",
+    "start": 1139.12,
+    "duration": 2.44
+  },
+  {
+    "text": "But,",
+    "start": 1140.48,
+    "duration": 3.36
+  },
+  {
+    "text": "there are people, including me, that",
+    "start": 1141.56,
+    "duration": 4.04
+  },
+  {
+    "text": "want to increase our levels of",
+    "start": 1143.84,
+    "duration": 4.08
+  },
+  {
+    "text": "epinephrine at least early in the day.",
+    "start": 1145.6,
+    "duration": 4.0
+  },
+  {
+    "text": "I'm somebody who wakes up rather slowly.",
+    "start": 1147.92,
+    "duration": 3.8
+  },
+  {
+    "text": "In fact, I tend to be kind of thinking",
+    "start": 1149.6,
+    "duration": 4.56
+  },
+  {
+    "text": "about thinking about maybe being in",
+    "start": 1151.72,
+    "duration": 4.6
+  },
+  {
+    "text": "action early in the day, but I try and",
+    "start": 1154.16,
+    "duration": 4.92
+  },
+  {
+    "text": "push myself to get into action, which",
+    "start": 1156.32,
+    "duration": 5.16
+  },
+  {
+    "text": "itself can increase epinephrine. I",
+    "start": 1159.08,
+    "duration": 3.92
+  },
+  {
+    "text": "should mention that any physical",
+    "start": 1161.48,
+    "duration": 3.88
+  },
+  {
+    "text": "activity, any physical activity,",
+    "start": 1163.0,
+    "duration": 4.2
+  },
+  {
+    "text": "walking, running, weightlifting,",
+    "start": 1165.36,
+    "duration": 3.2
+  },
+  {
+    "text": "swimming,",
+    "start": 1167.2,
+    "duration": 3.08
+  },
+  {
+    "text": "even talking for that matter, is going",
+    "start": 1168.56,
+    "duration": 4.0
+  },
+  {
+    "text": "to increase levels of epinephrine. Locus",
+    "start": 1170.28,
+    "duration": 5.32
+  },
+  {
+    "text": "coeruleus is a brain structure that is",
+    "start": 1172.56,
+    "duration": 5.68
+  },
+  {
+    "text": "tightly coupled with behaviors in a",
+    "start": 1175.6,
+    "duration": 5.6
+  },
+  {
+    "text": "bidirectional way. That is, when you are",
+    "start": 1178.24,
+    "duration": 5.16
+  },
+  {
+    "text": "in action, you increase the amount of",
+    "start": 1181.2,
+    "duration": 3.52
+  },
+  {
+    "text": "epinephrine released from locus",
+    "start": 1183.4,
+    "duration": 3.92
+  },
+  {
+    "text": "coeruleus, you wake up the brain.",
+    "start": 1184.72,
+    "duration": 5.28
+  },
+  {
+    "text": "And conversely, when locus coeruleus is",
+    "start": 1187.32,
+    "duration": 4.52
+  },
+  {
+    "text": "active, the brain wakes up. So, it's",
+    "start": 1190.0,
+    "duration": 4.0
+  },
+  {
+    "text": "reciprocal, it goes both directions. So,",
+    "start": 1191.84,
+    "duration": 4.48
+  },
+  {
+    "text": "keep that in mind. Exercise does indeed",
+    "start": 1194.0,
+    "duration": 4.68
+  },
+  {
+    "text": "give you energy. It burns caloric",
+    "start": 1196.32,
+    "duration": 4.52
+  },
+  {
+    "text": "energy, but it gives you neural energy",
+    "start": 1198.68,
+    "duration": 3.8
+  },
+  {
+    "text": "by way of increasing epinephrine",
+    "start": 1200.84,
+    "duration": 3.96
+  },
+  {
+    "text": "transmission from locus coeruleus. So,",
+    "start": 1202.48,
+    "duration": 4.64
+  },
+  {
+    "text": "we have exercise and we have caffeine as",
+    "start": 1204.8,
+    "duration": 4.16
+  },
+  {
+    "text": "potent tools for increasing epinephrine",
+    "start": 1207.12,
+    "duration": 3.76
+  },
+  {
+    "text": "and thereby energy.",
+    "start": 1208.96,
+    "duration": 3.36
+  },
+  {
+    "text": "Another potent tool that's purely",
+    "start": 1210.88,
+    "duration": 3.68
+  },
+  {
+    "text": "behavioral, but it is known to work",
+    "start": 1212.32,
+    "duration": 5.08
+  },
+  {
+    "text": "based on excellent studies in humans, is",
+    "start": 1214.56,
+    "duration": 4.96
+  },
+  {
+    "text": "so-called cyclic hyperventilation. Some",
+    "start": 1217.4,
+    "duration": 3.76
+  },
+  {
+    "text": "of you may be familiar with Wim Hof",
+    "start": 1219.52,
+    "duration": 4.0
+  },
+  {
+    "text": "breathing. There's also Tummo breathing,",
+    "start": 1221.16,
+    "duration": 4.08
+  },
+  {
+    "text": "which is very similar, Kundalini",
+    "start": 1223.52,
+    "duration": 2.88
+  },
+  {
+    "text": "breathing.",
+    "start": 1225.24,
+    "duration": 3.48
+  },
+  {
+    "text": "All of those styles of breathing involve",
+    "start": 1226.4,
+    "duration": 5.4
+  },
+  {
+    "text": "cyclic hyperventilation. Deep inhales",
+    "start": 1228.72,
+    "duration": 5.44
+  },
+  {
+    "text": "and either passive exhales or active",
+    "start": 1231.8,
+    "duration": 4.28
+  },
+  {
+    "text": "exhales, but repeating inhale, exhale,",
+    "start": 1234.16,
+    "duration": 3.44
+  },
+  {
+    "text": "inhale, exhale in a very deep and",
+    "start": 1236.08,
+    "duration": 5.08
+  },
+  {
+    "text": "repetitive way. If you did that for 25",
+    "start": 1237.6,
+    "duration": 6.4
+  },
+  {
+    "text": "repetitions, 25 inhales and exhales, you",
+    "start": 1241.16,
+    "duration": 4.32
+  },
+  {
+    "text": "would feel more alert. You'd also feel",
+    "start": 1244.0,
+    "duration": 4.12
+  },
+  {
+    "text": "more warm. Why? Because you increased",
+    "start": 1245.48,
+    "duration": 4.6
+  },
+  {
+    "text": "epinephrine adrenaline release in the",
+    "start": 1248.12,
+    "duration": 3.88
+  },
+  {
+    "text": "brain and body. It works the first time",
+    "start": 1250.08,
+    "duration": 4.32
+  },
+  {
+    "text": "and it works every time to increase",
+    "start": 1252.0,
+    "duration": 4.56
+  },
+  {
+    "text": "epinephrine and thereby energy. If you",
+    "start": 1254.4,
+    "duration": 3.52
+  },
+  {
+    "text": "do that over and over, you're going to",
+    "start": 1256.56,
+    "duration": 2.84
+  },
+  {
+    "text": "be very alert. You're going to have more",
+    "start": 1257.92,
+    "duration": 2.64
+  },
+  {
+    "text": "energy, you're going to feel like you",
+    "start": 1259.4,
+    "duration": 3.16
+  },
+  {
+    "text": "want to move around a lot more. In fact,",
+    "start": 1260.56,
+    "duration": 3.56
+  },
+  {
+    "text": "you might even feel agitated. So, people",
+    "start": 1262.56,
+    "duration": 3.28
+  },
+  {
+    "text": "with a lot of anxiety or prone to panic",
+    "start": 1264.12,
+    "duration": 3.32
+  },
+  {
+    "text": "attack might want to be cautious in how",
+    "start": 1265.84,
+    "duration": 4.08
+  },
+  {
+    "text": "they train and embark on that type of",
+    "start": 1267.44,
+    "duration": 3.6
+  },
+  {
+    "text": "breathing, might want to approach it a",
+    "start": 1269.92,
+    "duration": 2.4
+  },
+  {
+    "text": "little more carefully or avoid it",
+    "start": 1271.04,
+    "duration": 3.28
+  },
+  {
+    "text": "altogether. But, for most people, cyclic",
+    "start": 1272.32,
+    "duration": 3.52
+  },
+  {
+    "text": "hyperventilation is simply going to get",
+    "start": 1274.32,
+    "duration": 3.0
+  },
+  {
+    "text": "you more energized and feeling like you",
+    "start": 1275.84,
+    "duration": 4.04
+  },
+  {
+    "text": "want to move, feeling like you can think",
+    "start": 1277.32,
+    "duration": 3.84
+  },
+  {
+    "text": "more clearly, and you will be more",
+    "start": 1279.88,
+    "duration": 3.4
+  },
+  {
+    "text": "wide-eyed and alert because you are",
+    "start": 1281.16,
+    "duration": 4.36
+  },
+  {
+    "text": "releasing adrenaline. And the cold water",
+    "start": 1283.28,
+    "duration": 3.76
+  },
+  {
+    "text": "exposure protocol that I talked about",
+    "start": 1285.52,
+    "duration": 2.72
+  },
+  {
+    "text": "earlier and that's covered in our",
+    "start": 1287.04,
+    "duration": 3.6
+  },
+  {
+    "text": "episode on cold and in the newsletter on",
+    "start": 1288.24,
+    "duration": 5.04
+  },
+  {
+    "text": "cold, well, that, as I mentioned",
+    "start": 1290.64,
+    "duration": 4.92
+  },
+  {
+    "text": "earlier, potently increases dopamine,",
+    "start": 1293.28,
+    "duration": 4.12
+  },
+  {
+    "text": "but also epinephrine. Now, we can't",
+    "start": 1295.56,
+    "duration": 3.88
+  },
+  {
+    "text": "really say that there are foods to",
+    "start": 1297.4,
+    "duration": 4.32
+  },
+  {
+    "text": "increase epinephrine. There are, of",
+    "start": 1299.44,
+    "duration": 3.92
+  },
+  {
+    "text": "course, prescription drugs that will",
+    "start": 1301.72,
+    "duration": 3.44
+  },
+  {
+    "text": "increase epinephrine.",
+    "start": 1303.36,
+    "duration": 3.72
+  },
+  {
+    "text": "And, of course, there are all sorts of",
+    "start": 1305.16,
+    "duration": 4.32
+  },
+  {
+    "text": "so-called beta blockers that will block",
+    "start": 1307.08,
+    "duration": 4.0
+  },
+  {
+    "text": "the receptors for epinephrine to make",
+    "start": 1309.48,
+    "duration": 4.36
+  },
+  {
+    "text": "you feel calm for public speaking or for",
+    "start": 1311.08,
+    "duration": 4.32
+  },
+  {
+    "text": "various heart conditions, etc. That's",
+    "start": 1313.84,
+    "duration": 3.68
+  },
+  {
+    "text": "really the domain of physicians and",
+    "start": 1315.4,
+    "duration": 4.2
+  },
+  {
+    "text": "should really be worked out with your",
+    "start": 1317.52,
+    "duration": 4.32
+  },
+  {
+    "text": "cardiologist, with a physician, etc. I",
+    "start": 1319.6,
+    "duration": 5.88
+  },
+  {
+    "text": "think the tools of exercise and, should",
+    "start": 1321.84,
+    "duration": 6.4
+  },
+  {
+    "text": "you want very potent increases in",
+    "start": 1325.48,
+    "duration": 5.24
+  },
+  {
+    "text": "adrenaline, high-intensity exercise, as",
+    "start": 1328.24,
+    "duration": 4.92
+  },
+  {
+    "text": "well as the tools of caffeine, cyclic",
+    "start": 1330.72,
+    "duration": 4.16
+  },
+  {
+    "text": "hyperventilation, and deliberate cold",
+    "start": 1333.16,
+    "duration": 4.64
+  },
+  {
+    "text": "exposure really combine to give you a",
+    "start": 1334.88,
+    "duration": 5.68
+  },
+  {
+    "text": "nice little kit, I would say a versatile",
+    "start": 1337.8,
+    "duration": 5.32
+  },
+  {
+    "text": "kit, of ways to increase epinephrine for",
+    "start": 1340.56,
+    "duration": 4.44
+  },
+  {
+    "text": "sake of having more physical and mental",
+    "start": 1343.12,
+    "duration": 4.16
+  },
+  {
+    "text": "energy. So, next is the neuromodulator",
+    "start": 1345.0,
+    "duration": 4.36
+  },
+  {
+    "text": "acetylcholine. And, as I mentioned",
+    "start": 1347.28,
+    "duration": 4.88
+  },
+  {
+    "text": "earlier, acetylcholine is associated",
+    "start": 1349.36,
+    "duration": 5.2
+  },
+  {
+    "text": "with states of focus. And those states",
+    "start": 1352.16,
+    "duration": 4.52
+  },
+  {
+    "text": "of focus can be high-energy states of",
+    "start": 1354.56,
+    "duration": 5.68
+  },
+  {
+    "text": "focus. So, the ones that are accompanied",
+    "start": 1356.68,
+    "duration": 4.96
+  },
+  {
+    "text": "by high levels of dopamine and",
+    "start": 1360.24,
+    "duration": 3.72
+  },
+  {
+    "text": "epinephrine, and where we're really",
+    "start": 1361.64,
+    "duration": 4.52
+  },
+  {
+    "text": "excited about and really lasered in on",
+    "start": 1363.96,
+    "duration": 5.04
+  },
+  {
+    "text": "something, or they can be the calmer,",
+    "start": 1366.16,
+    "duration": 5.12
+  },
+  {
+    "text": "more relaxed states of focus, like",
+    "start": 1369.0,
+    "duration": 5.08
+  },
+  {
+    "text": "reading a book or practicing music or",
+    "start": 1371.28,
+    "duration": 4.92
+  },
+  {
+    "text": "listening very carefully to somebody in",
+    "start": 1374.08,
+    "duration": 4.6
+  },
+  {
+    "text": "a way that's relaxed and calm. Now, ways",
+    "start": 1376.2,
+    "duration": 5.0
+  },
+  {
+    "text": "to increase acetylcholine in a potent",
+    "start": 1378.68,
+    "duration": 6.16
+  },
+  {
+    "text": "way include, again, nutrition and",
+    "start": 1381.2,
+    "duration": 6.56
+  },
+  {
+    "text": "supplementation. It is important to have",
+    "start": 1384.84,
+    "duration": 5.04
+  },
+  {
+    "text": "baseline levels of acetylcholine be",
+    "start": 1387.76,
+    "duration": 4.2
+  },
+  {
+    "text": "sufficiently high as well. And for that,",
+    "start": 1389.88,
+    "duration": 4.12
+  },
+  {
+    "text": "the ideal situation is to regularly",
+    "start": 1391.96,
+    "duration": 4.16
+  },
+  {
+    "text": "ingest foods that provide enough of the",
+    "start": 1394.0,
+    "duration": 4.6
+  },
+  {
+    "text": "precursors for acetylcholine to be made.",
+    "start": 1396.12,
+    "duration": 4.52
+  },
+  {
+    "text": "Eggs contain a lot of choline, beef",
+    "start": 1398.6,
+    "duration": 3.6
+  },
+  {
+    "text": "contains choline, soybeans contain",
+    "start": 1400.64,
+    "duration": 3.52
+  },
+  {
+    "text": "choline. So, there are vegan or non-meat",
+    "start": 1402.2,
+    "duration": 4.76
+  },
+  {
+    "text": "sources. Chicken, fish, mushrooms,",
+    "start": 1404.16,
+    "duration": 4.6
+  },
+  {
+    "text": "kidney beans, these sorts of things",
+    "start": 1406.96,
+    "duration": 3.2
+  },
+  {
+    "text": "contain a lot of choline. And there are",
+    "start": 1408.76,
+    "duration": 2.8
+  },
+  {
+    "text": "other vegetables that contain choline.",
+    "start": 1410.16,
+    "duration": 2.84
+  },
+  {
+    "text": "So, depending on your dietary",
+    "start": 1411.56,
+    "duration": 3.8
+  },
+  {
+    "text": "preferences and needs, you can um select",
+    "start": 1413.0,
+    "duration": 4.52
+  },
+  {
+    "text": "certain foods uh to ingest to get enough",
+    "start": 1415.36,
+    "duration": 4.48
+  },
+  {
+    "text": "choline to synthesize enough baseline",
+    "start": 1417.52,
+    "duration": 4.56
+  },
+  {
+    "text": "acetylcholine.",
+    "start": 1419.84,
+    "duration": 3.96
+  },
+  {
+    "text": "In the realm of supplementation, there",
+    "start": 1422.08,
+    "duration": 4.64
+  },
+  {
+    "text": "are some excellent tools for increasing",
+    "start": 1423.8,
+    "duration": 5.68
+  },
+  {
+    "text": "acetylcholine in the acute short-term,",
+    "start": 1426.72,
+    "duration": 5.2
+  },
+  {
+    "text": "meaning over the course of about 30",
+    "start": 1429.48,
+    "duration": 4.36
+  },
+  {
+    "text": "minutes out to about 2 hours or maybe",
+    "start": 1431.92,
+    "duration": 3.72
+  },
+  {
+    "text": "even 4 hours. The most common of those",
+    "start": 1433.84,
+    "duration": 3.64
+  },
+  {
+    "text": "molecules is actually nicotine.",
+    "start": 1435.64,
+    "duration": 4.44
+  },
+  {
+    "text": "Nicotinic acetylcholine receptors are",
+    "start": 1437.48,
+    "duration": 4.68
+  },
+  {
+    "text": "abundant throughout the body and brain.",
+    "start": 1440.08,
+    "duration": 4.4
+  },
+  {
+    "text": "They're in various brain circuits. They",
+    "start": 1442.16,
+    "duration": 5.44
+  },
+  {
+    "text": "are on muscle. And yes,",
+    "start": 1444.48,
+    "duration": 5.08
+  },
+  {
+    "text": "smoking nicotine either by vaping or",
+    "start": 1447.6,
+    "duration": 5.36
+  },
+  {
+    "text": "cigarette will activate those nicotinic",
+    "start": 1449.56,
+    "duration": 4.6
+  },
+  {
+    "text": "receptors.",
+    "start": 1452.96,
+    "duration": 3.28
+  },
+  {
+    "text": "But, of course, smoking is a terrible",
+    "start": 1454.16,
+    "duration": 4.28
+  },
+  {
+    "text": "thing. It will also activate things like",
+    "start": 1456.24,
+    "duration": 3.68
+  },
+  {
+    "text": "lung cancer. So, I definitely don't",
+    "start": 1458.44,
+    "duration": 3.04
+  },
+  {
+    "text": "recommend that. It also activates",
+    "start": 1459.92,
+    "duration": 4.08
+  },
+  {
+    "text": "addiction because of the ways that it",
+    "start": 1461.48,
+    "duration": 4.56
+  },
+  {
+    "text": "triggers activation of the dopamine",
+    "start": 1464.0,
+    "duration": 4.92
+  },
+  {
+    "text": "circuits. However, some people will chew",
+    "start": 1466.04,
+    "duration": 6.2
+  },
+  {
+    "text": "Nicorette or other nicotine type gums.",
+    "start": 1468.92,
+    "duration": 4.92
+  },
+  {
+    "text": "Some people are very sensitive to",
+    "start": 1472.24,
+    "duration": 3.44
+  },
+  {
+    "text": "ingested nicotine. Some people take it",
+    "start": 1473.84,
+    "duration": 4.2
+  },
+  {
+    "text": "and feel absolutely terrible. But, some",
+    "start": 1475.68,
+    "duration": 4.0
+  },
+  {
+    "text": "people do use them as a cognitive",
+    "start": 1478.04,
+    "duration": 4.0
+  },
+  {
+    "text": "enhancers. Supplements that I have used",
+    "start": 1479.68,
+    "duration": 5.84
+  },
+  {
+    "text": "and do use for increasing acetylcholine",
+    "start": 1482.04,
+    "duration": 6.24
+  },
+  {
+    "text": "are things like Alpha-GPC",
+    "start": 1485.52,
+    "duration": 4.56
+  },
+  {
+    "text": "or Huperzine.",
+    "start": 1488.28,
+    "duration": 3.6
+  },
+  {
+    "text": "Alpha-GPC",
+    "start": 1490.08,
+    "duration": 5.0
+  },
+  {
+    "text": "is in the choline pathway such that more",
+    "start": 1491.88,
+    "duration": 5.76
+  },
+  {
+    "text": "acetylcholine is synthesized after you",
+    "start": 1495.08,
+    "duration": 4.48
+  },
+  {
+    "text": "ingest it. That's the general logic or",
+    "start": 1497.64,
+    "duration": 3.6
+  },
+  {
+    "text": "framework of how it works. Whereas",
+    "start": 1499.56,
+    "duration": 4.12
+  },
+  {
+    "text": "Huperzine is mainly in the enzymatic",
+    "start": 1501.24,
+    "duration": 5.12
+  },
+  {
+    "text": "pathway. It tends to adjust how much",
+    "start": 1503.68,
+    "duration": 4.56
+  },
+  {
+    "text": "acetylcholine is broken down and lead to",
+    "start": 1506.36,
+    "duration": 5.32
+  },
+  {
+    "text": "net increases in acetylcholine.",
+    "start": 1508.24,
+    "duration": 6.56
+  },
+  {
+    "text": "I will often take 300 mg of Alpha-GPC",
+    "start": 1511.68,
+    "duration": 5.56
+  },
+  {
+    "text": "prior to workouts or prior to cognitive",
+    "start": 1514.8,
+    "duration": 4.88
+  },
+  {
+    "text": "work bouts. I tend to take it alongside",
+    "start": 1517.24,
+    "duration": 5.0
+  },
+  {
+    "text": "caffeine and phenylethylamine, so I take",
+    "start": 1519.68,
+    "duration": 4.36
+  },
+  {
+    "text": "that in combination either before",
+    "start": 1522.24,
+    "duration": 3.32
+  },
+  {
+    "text": "workouts or work bouts. It really",
+    "start": 1524.04,
+    "duration": 3.4
+  },
+  {
+    "text": "sharpens my focus and again, I'm doing",
+    "start": 1525.56,
+    "duration": 3.6
+  },
+  {
+    "text": "that three, maybe four times per week",
+    "start": 1527.44,
+    "duration": 3.64
+  },
+  {
+    "text": "and I'm careful to do that in the early",
+    "start": 1529.16,
+    "duration": 3.48
+  },
+  {
+    "text": "part of the day so that it does not",
+    "start": 1531.08,
+    "duration": 3.44
+  },
+  {
+    "text": "disrupt my sleep. So let's discuss",
+    "start": 1532.64,
+    "duration": 3.16
+  },
+  {
+    "text": "serotonin.",
+    "start": 1534.52,
+    "duration": 2.84
+  },
+  {
+    "text": "Serotonin, as I mentioned earlier, is",
+    "start": 1535.8,
+    "duration": 4.68
+  },
+  {
+    "text": "associated with brain and body states of",
+    "start": 1537.36,
+    "duration": 6.0
+  },
+  {
+    "text": "well-being, of comfort, of satiety and",
+    "start": 1540.48,
+    "duration": 4.36
+  },
+  {
+    "text": "therefore it should come as no surprise",
+    "start": 1543.36,
+    "duration": 2.8
+  },
+  {
+    "text": "that a lot of the prescription drug",
+    "start": 1544.84,
+    "duration": 3.24
+  },
+  {
+    "text": "treatments for things like depression",
+    "start": 1546.16,
+    "duration": 4.44
+  },
+  {
+    "text": "involve increasing levels of serotonin",
+    "start": 1548.08,
+    "duration": 4.36
+  },
+  {
+    "text": "in the brain and body.",
+    "start": 1550.6,
+    "duration": 3.76
+  },
+  {
+    "text": "That said, anytime you talk about",
+    "start": 1552.44,
+    "duration": 4.12
+  },
+  {
+    "text": "prescription drugs for serotonin,",
+    "start": 1554.36,
+    "duration": 4.08
+  },
+  {
+    "text": "we also want to acknowledge that there",
+    "start": 1556.56,
+    "duration": 3.6
+  },
+  {
+    "text": "are often side effects associated with",
+    "start": 1558.44,
+    "duration": 3.48
+  },
+  {
+    "text": "increasing serotonin. In particular, if",
+    "start": 1560.16,
+    "duration": 4.08
+  },
+  {
+    "text": "serotonin levels go too high, that is if",
+    "start": 1561.92,
+    "duration": 4.04
+  },
+  {
+    "text": "the dosages of those treatments go too",
+    "start": 1564.24,
+    "duration": 4.44
+  },
+  {
+    "text": "high, people will, for instance, feel",
+    "start": 1565.96,
+    "duration": 4.6
+  },
+  {
+    "text": "reduced appetite, reduced libido,",
+    "start": 1568.68,
+    "duration": 3.92
+  },
+  {
+    "text": "increased lethargy, etc.",
+    "start": 1570.56,
+    "duration": 3.64
+  },
+  {
+    "text": "And there's a so-called serotonergic",
+    "start": 1572.6,
+    "duration": 4.12
+  },
+  {
+    "text": "syndrome. That said, there are",
+    "start": 1574.2,
+    "duration": 4.48
+  },
+  {
+    "text": "behavioral tools, nutritional tools and",
+    "start": 1576.72,
+    "duration": 4.16
+  },
+  {
+    "text": "supplementation tools that can tap into",
+    "start": 1578.68,
+    "duration": 4.16
+  },
+  {
+    "text": "the serotonin system, not to the same",
+    "start": 1580.88,
+    "duration": 4.16
+  },
+  {
+    "text": "degree and potency, but nonetheless, in",
+    "start": 1582.84,
+    "duration": 4.32
+  },
+  {
+    "text": "ways that can still impact our feelings",
+    "start": 1585.04,
+    "duration": 4.88
+  },
+  {
+    "text": "of well-being in positive ways. What",
+    "start": 1587.16,
+    "duration": 5.32
+  },
+  {
+    "text": "sorts of things? Well, for instance,",
+    "start": 1589.92,
+    "duration": 5.12
+  },
+  {
+    "text": "physical contact, things like holding",
+    "start": 1592.48,
+    "duration": 4.52
+  },
+  {
+    "text": "hands, believe it or not, hugs,",
+    "start": 1595.04,
+    "duration": 5.36
+  },
+  {
+    "text": "cuddling, etc. can increase serotonin",
+    "start": 1597.0,
+    "duration": 5.24
+  },
+  {
+    "text": "transmission and they make people feel",
+    "start": 1600.4,
+    "duration": 3.48
+  },
+  {
+    "text": "good. This shouldn't really come as a",
+    "start": 1602.24,
+    "duration": 4.04
+  },
+  {
+    "text": "surprise. There's also gratitude and we",
+    "start": 1603.88,
+    "duration": 4.08
+  },
+  {
+    "text": "did an entire episode about gratitude.",
+    "start": 1606.28,
+    "duration": 3.32
+  },
+  {
+    "text": "There's a lot of misunderstanding about",
+    "start": 1607.96,
+    "duration": 4.44
+  },
+  {
+    "text": "gratitude. Turns out, first of all, that",
+    "start": 1609.6,
+    "duration": 5.8
+  },
+  {
+    "text": "receiving, not giving gratitude, is what",
+    "start": 1612.4,
+    "duration": 4.36
+  },
+  {
+    "text": "has the most potent effects on",
+    "start": 1615.4,
+    "duration": 3.28
+  },
+  {
+    "text": "increasing serotonin and activity of the",
+    "start": 1616.76,
+    "duration": 4.2
+  },
+  {
+    "text": "brain circuits that involve serotonin",
+    "start": 1618.68,
+    "duration": 4.08
+  },
+  {
+    "text": "and that lead to increases in feelings",
+    "start": 1620.96,
+    "duration": 4.2
+  },
+  {
+    "text": "of well-being. So, this is interesting.",
+    "start": 1622.76,
+    "duration": 3.84
+  },
+  {
+    "text": "Receiving",
+    "start": 1625.16,
+    "duration": 4.16
+  },
+  {
+    "text": "much more than giving gratitude",
+    "start": 1626.6,
+    "duration": 4.36
+  },
+  {
+    "text": "is what activates those serotonergic",
+    "start": 1629.32,
+    "duration": 2.96
+  },
+  {
+    "text": "pathways. The other thing about",
+    "start": 1630.96,
+    "duration": 2.24
+  },
+  {
+    "text": "gratitude that's somewhat",
+    "start": 1632.28,
+    "duration": 3.64
+  },
+  {
+    "text": "counterintuitive is that observing",
+    "start": 1633.2,
+    "duration": 5.12
+  },
+  {
+    "text": "others giving and receiving gratitude is",
+    "start": 1635.92,
+    "duration": 5.52
+  },
+  {
+    "text": "immensely powerful for evoking serotonin",
+    "start": 1638.32,
+    "duration": 4.88
+  },
+  {
+    "text": "and the activity of serotonergic",
+    "start": 1641.44,
+    "duration": 4.48
+  },
+  {
+    "text": "circuits in you, the observer. So,",
+    "start": 1643.2,
+    "duration": 4.84
+  },
+  {
+    "text": "receiving and observing gratitude turns",
+    "start": 1645.92,
+    "duration": 3.96
+  },
+  {
+    "text": "out to be the most potent way to",
+    "start": 1648.04,
+    "duration": 3.88
+  },
+  {
+    "text": "increase serotonin in the brain and",
+    "start": 1649.88,
+    "duration": 4.32
+  },
+  {
+    "text": "body. Now, what about",
+    "start": 1651.92,
+    "duration": 4.44
+  },
+  {
+    "text": "nutritional approaches to increasing",
+    "start": 1654.2,
+    "duration": 4.16
+  },
+  {
+    "text": "serotonin? Well, just as we have",
+    "start": 1656.36,
+    "duration": 4.2
+  },
+  {
+    "text": "tyrosine as an amino acid precursor",
+    "start": 1658.36,
+    "duration": 5.4
+  },
+  {
+    "text": "upstream of dopamine synthesis,",
+    "start": 1660.56,
+    "duration": 4.72
+  },
+  {
+    "text": "we have",
+    "start": 1663.76,
+    "duration": 4.0
+  },
+  {
+    "text": "the amino acid tryptophan, which is",
+    "start": 1665.28,
+    "duration": 5.44
+  },
+  {
+    "text": "upstream of serotonin synthesis. And one",
+    "start": 1667.76,
+    "duration": 5.68
+  },
+  {
+    "text": "simply has to go online and put in",
+    "start": 1670.72,
+    "duration": 4.44
+  },
+  {
+    "text": "tryptophan-containing foods, and you",
+    "start": 1673.44,
+    "duration": 2.92
+  },
+  {
+    "text": "will discover that there are a lot of",
+    "start": 1675.16,
+    "duration": 3.16
+  },
+  {
+    "text": "foods that are enriched in tryptophan",
+    "start": 1676.36,
+    "duration": 4.16
+  },
+  {
+    "text": "that can lead to net increases in the",
+    "start": 1678.32,
+    "duration": 3.64
+  },
+  {
+    "text": "amount of serotonin available in the",
+    "start": 1680.52,
+    "duration": 3.44
+  },
+  {
+    "text": "brain and body. Now, one molecule that I",
+    "start": 1681.96,
+    "duration": 3.88
+  },
+  {
+    "text": "found to be particularly interesting and",
+    "start": 1683.96,
+    "duration": 3.76
+  },
+  {
+    "text": "useful, and this is one that I haven't",
+    "start": 1685.84,
+    "duration": 4.28
+  },
+  {
+    "text": "talked about yet on this podcast, is",
+    "start": 1687.72,
+    "duration": 5.88
+  },
+  {
+    "text": "inositol, in particular myo-inositol.",
+    "start": 1690.12,
+    "duration": 6.16
+  },
+  {
+    "text": "Myo-inositol can have the effect of",
+    "start": 1693.6,
+    "duration": 5.4
+  },
+  {
+    "text": "increasing serotonin and other",
+    "start": 1696.28,
+    "duration": 5.36
+  },
+  {
+    "text": "neurochemicals, but primarily, at least",
+    "start": 1699.0,
+    "duration": 3.96
+  },
+  {
+    "text": "in terms of the neuromodulators",
+    "start": 1701.64,
+    "duration": 3.76
+  },
+  {
+    "text": "discussed today, serotonin. I've been",
+    "start": 1702.96,
+    "duration": 5.48
+  },
+  {
+    "text": "taking 900 mg of myo-inositol",
+    "start": 1705.4,
+    "duration": 5.24
+  },
+  {
+    "text": "every third night or so as a test of its",
+    "start": 1708.44,
+    "duration": 4.04
+  },
+  {
+    "text": "ability to improve sleep, and I have to",
+    "start": 1710.64,
+    "duration": 2.76
+  },
+  {
+    "text": "say",
+    "start": 1712.48,
+    "duration": 2.88
+  },
+  {
+    "text": "the depth and quality of sleep that I've",
+    "start": 1713.4,
+    "duration": 5.72
+  },
+  {
+    "text": "been obtaining on myo-inositol is pretty",
+    "start": 1715.36,
+    "duration": 5.08
+  },
+  {
+    "text": "remarkable. And of course, I should",
+    "start": 1719.12,
+    "duration": 4.2
+  },
+  {
+    "text": "mention that no supplement, either added",
+    "start": 1720.44,
+    "duration": 5.16
+  },
+  {
+    "text": "or withdrawn from your protocol, should",
+    "start": 1723.32,
+    "duration": 5.32
+  },
+  {
+    "text": "ever be used as a direct replacement for",
+    "start": 1725.6,
+    "duration": 4.36
+  },
+  {
+    "text": "prescription drug treatments that your",
+    "start": 1728.64,
+    "duration": 2.44
+  },
+  {
+    "text": "physician has given you. You should",
+    "start": 1729.96,
+    "duration": 2.56
+  },
+  {
+    "text": "always talk to your physician anytime",
+    "start": 1731.08,
+    "duration": 3.64
+  },
+  {
+    "text": "you remove or add something to your drug",
+    "start": 1732.52,
+    "duration": 3.88
+  },
+  {
+    "text": "protocol or prescription protocol, of",
+    "start": 1734.72,
+    "duration": 3.6
+  },
+  {
+    "text": "course. And again, this is a general",
+    "start": 1736.4,
+    "duration": 3.32
+  },
+  {
+    "text": "theme of all four of these",
+    "start": 1738.32,
+    "duration": 3.56
+  },
+  {
+    "text": "neuromodulators, dopamine, epinephrine,",
+    "start": 1739.72,
+    "duration": 4.04
+  },
+  {
+    "text": "acetylcholine, and serotonin.",
+    "start": 1741.88,
+    "duration": 3.48
+  },
+  {
+    "text": "You want to make sure that you have",
+    "start": 1743.76,
+    "duration": 4.2
+  },
+  {
+    "text": "sufficient baseline levels of those",
+    "start": 1745.36,
+    "duration": 4.96
+  },
+  {
+    "text": "things through things like diet, regular",
+    "start": 1747.96,
+    "duration": 4.28
+  },
+  {
+    "text": "behaviors, and then you have the",
+    "start": 1750.32,
+    "duration": 4.68
+  },
+  {
+    "text": "opportunity to use supplementation and",
+    "start": 1752.24,
+    "duration": 3.6
+  },
+  {
+    "text": "if it's appropriate for you,",
+    "start": 1755.0,
+    "duration": 2.64
+  },
+  {
+    "text": "prescription drugs, and certain",
+    "start": 1755.84,
+    "duration": 3.4
+  },
+  {
+    "text": "behavioral protocols to try and get",
+    "start": 1757.64,
+    "duration": 3.4
+  },
+  {
+    "text": "these potent increases, these acute",
+    "start": 1759.24,
+    "duration": 3.16
+  },
+  {
+    "text": "increases in whichever the",
+    "start": 1761.04,
+    "duration": 3.92
+  },
+  {
+    "text": "neuromodulators you happen to want to",
+    "start": 1762.4,
+    "duration": 5.0
+  },
+  {
+    "text": "leverage for your particular goals. So,",
+    "start": 1764.96,
+    "duration": 4.28
+  },
+  {
+    "text": "that brings us to the end of at least",
+    "start": 1767.4,
+    "duration": 4.44
+  },
+  {
+    "text": "this exploration of the neuromodulators,",
+    "start": 1769.24,
+    "duration": 4.4
+  },
+  {
+    "text": "dopamine, epinephrine,",
+    "start": 1771.84,
+    "duration": 3.84
+  },
+  {
+    "text": "acetylcholine, and serotonin.",
+    "start": 1773.64,
+    "duration": 4.04
+  },
+  {
+    "text": "Whether or not you're using nutritional",
+    "start": 1775.68,
+    "duration": 4.76
+  },
+  {
+    "text": "tools or supplementation or prescription",
+    "start": 1777.68,
+    "duration": 6.04
+  },
+  {
+    "text": "drugs or any other sort of protocol to",
+    "start": 1780.44,
+    "duration": 6.44
+  },
+  {
+    "text": "try and create a desired effect of focus",
+    "start": 1783.72,
+    "duration": 6.2
+  },
+  {
+    "text": "or energy, motivation, relaxation,",
+    "start": 1786.88,
+    "duration": 5.44
+  },
+  {
+    "text": "you're playing with the same",
+    "start": 1789.92,
+    "duration": 5.12
+  },
+  {
+    "text": "neurochemical ingredients. So, what I'm",
+    "start": 1792.32,
+    "duration": 5.16
+  },
+  {
+    "text": "hoping is that rather than decide that",
+    "start": 1795.04,
+    "duration": 5.08
+  },
+  {
+    "text": "anyone tool is the most useful or that",
+    "start": 1797.48,
+    "duration": 5.16
+  },
+  {
+    "text": "anyone neurochemical is most useful for",
+    "start": 1800.12,
+    "duration": 3.84
+  },
+  {
+    "text": "that matter,",
+    "start": 1802.64,
+    "duration": 2.68
+  },
+  {
+    "text": "that the information that I've provided",
+    "start": 1803.96,
+    "duration": 4.8
+  },
+  {
+    "text": "today allows you a kit of versatile",
+    "start": 1805.32,
+    "duration": 6.64
+  },
+  {
+    "text": "tools that allows you to figure out what",
+    "start": 1808.76,
+    "duration": 5.68
+  },
+  {
+    "text": "levels of dopamine and augmentation of",
+    "start": 1811.96,
+    "duration": 4.68
+  },
+  {
+    "text": "dopamine are appropriate and necessary",
+    "start": 1814.44,
+    "duration": 5.56
+  },
+  {
+    "text": "for you. What levels of acetylcholine",
+    "start": 1816.64,
+    "duration": 5.88
+  },
+  {
+    "text": "and tools for manipulating acetylcholine",
+    "start": 1820.0,
+    "duration": 4.16
+  },
+  {
+    "text": "are going to be most useful for you and",
+    "start": 1822.52,
+    "duration": 3.36
+  },
+  {
+    "text": "so on and so forth. So, I'd like to",
+    "start": 1824.16,
+    "duration": 3.2
+  },
+  {
+    "text": "thank you once again for joining me",
+    "start": 1825.88,
+    "duration": 3.64
+  },
+  {
+    "text": "today in our discussion about these",
+    "start": 1827.36,
+    "duration": 4.44
+  },
+  {
+    "text": "incredibly powerful molecules we call",
+    "start": 1829.52,
+    "duration": 3.92
+  },
+  {
+    "text": "neuromodulators",
+    "start": 1831.8,
+    "duration": 4.84
+  },
+  {
+    "text": "and the things we can do and take in",
+    "start": 1833.44,
+    "duration": 5.4
+  },
+  {
+    "text": "order to control them so that we can",
+    "start": 1836.64,
+    "duration": 3.64
+  },
+  {
+    "text": "enhance our mental health, physical",
+    "start": 1838.84,
+    "duration": 3.72
+  },
+  {
+    "text": "health, and performance. And last but",
+    "start": 1840.28,
+    "duration": 4.48
+  },
+  {
+    "text": "certainly not least, thank you for your",
+    "start": 1842.56,
+    "duration": 4.561
+  },
+  {
+    "text": "interest in science.",
+    "start": 1844.76,
+    "duration": 4.381
+  },
+  {
+    "text": ">> [music]",
+    "start": 1847.121,
+    "duration": 2.02
+  }
+]
