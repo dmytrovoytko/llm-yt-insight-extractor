@@ -25,7 +25,9 @@ YT Insight Extractor turns those long interviews into a small, structured set of
 - **History** — every run is saved locally as JSON with 👍/👎 feedback per tab; view, export, or delete past results.
 - **Report Dashboard** — usage KPIs: total runs, goals set, avg/min/max processing time, distributions by Area of Life, LLM, and feedback.
 - **Configuration** — switch LLM provider/model at runtime (Ollama, OpenAI, Anthropic, OpenRouter — BYOK).
-- Optional **cross-encoder re-ranking** of retrieved chunks and a strict **mandatory-keyword** content filter (toggle in `core/settings.py`).
+- **Retrieval modes** — `vector` (embeddings only, default), `keyword` (lexical overlap), or `hybrid` (reciprocal-rank fusion of both via `core/hybrid.py`, stdlib-only). Selectable in the UI; default in `core/settings.py:RETRIEVAL_MODE`.
+- Optional **cross-encoder re-ranking** of retrieved chunks (UI checkbox) and a strict **mandatory-keyword** content filter.
+- **Evaluated RAG + prompts** — offline retrieval eval (`scripts/eval_retrieval.py` → `docs/retrieval_eval.md`, 6 configs) and LLM prompt eval v1 vs v2 challenger (`scripts/eval_llm.py` → `docs/llm_eval.md`).
 - Export results as **Markdown** or **JSON**.
 
 ---
@@ -48,11 +50,14 @@ YouTube URL
 [4] In-memory vector store ─ core/rag_engine.py
    │                         (ChromaDB wrapped by llama_index.vector_stores.chroma)
    ▼
-[5] Retrieval ────────────── top-k vector similarity over query = Area of Life + Goal,
-   │                         optional ms-marco cross-encoder re-rank and mandatory-keyword filter
+[5] Retrieval ────────────── core/rag_engine.py::retrieve(mode=...) + core/hybrid.py
+   │                         mode = vector | keyword | hybrid (RRF, k=60, stdlib-only);
+   │                         query = Area of Life + Goal; optional ms-marco
+   │                         cross-encoder re-rank and mandatory-keyword filter
    ▼
 [6] Structured generation ── core/generator.py
-   │                         (Pydantic schemas from core/prompts.py; LLM providers via core/llm_config.py)
+   │                         (Pydantic schemas + v1/v2 prompt variants from core/prompts.py;
+   │                          LLM providers via core/llm_config.py)
    ▼
 Results UI: subtopics & ideas tabs with clickable timestamps · history store (core/history.py) · exports (core/exports.py)
 ```
@@ -108,12 +113,21 @@ llm-yt-insight-extractor/
 │   ├── chunker.py            # Timestamp chunking logic with overlaps
 │   ├── embedder.py           # Embedding for ChromaDB vector search
 │   ├── hf_download.py        # Embedding model downloader
-│   ├── rag_engine.py         # LlamaIndex index creation, retrieval, synthesizer
+│   ├── rag_engine.py         # LlamaIndex index creation, retrieval (mode=vector|keyword|hybrid), synthesizer
+│   ├── hybrid.py             # Stdlib-only keyword scoring + RRF fusion (k=60)
 │   ├── generator.py          # LLM generation pipeline for structured output
 │   ├── llm_config.py         # LLM configuration supporting multiple providers
-│   ├── prompts.py            # Prompt templates (Subtopics, Summaries, Actionable Ideas)
+│   ├── prompts.py            # Prompt templates v1 (production) + v2 (challenger) + version registry
 │   ├── history.py            # Persistence of generated content history
 │   └── exports.py            # Markdown and JSON generators
+│
+├── scripts/
+│   ├── eval_retrieval.py     # Offline retrieval eval (6 configs → docs/retrieval_eval.md)
+│   └── eval_llm.py           # Offline (+ optional live) LLM prompt eval v1 vs v2 → docs/llm_eval.md
+│
+├── docs/
+│   ├── retrieval_eval.md     # Retrieval eval report (A–F configs, 8 queries × 6)
+│   └── llm_eval.md           # LLM prompt eval report (v1 vs v2, deterministic metrics + optional judge)
 │
 ├── tests/                    # Unittest tests for modules
 │   └── test-*.py
@@ -182,7 +196,7 @@ All settings come from environment variables (see `.env.example`). Application-l
 | `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | BYOK Anthropic access | `claude-3-5-sonnet-latest` |
 | `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` | BYOK OpenRouter access | `google/gemma-2-9b-it:free` |
 
-Application-level toggles (in `core/settings.py`, not env):
+Application-level toggles (in `core/settings.py`, prompt version in `core/prompts.py`; not env):
 
 | Setting | Purpose | Default |
 |---|---|---|
@@ -190,15 +204,19 @@ Application-level toggles (in `core/settings.py`, not env):
 | `DURATION_TRESHOLD` | Max accepted video length (seconds) | `3600` (60 min) |
 | `TOP_K_FIRST_STAGE` | First-stage vector candidates | `10` |
 | `TOP_K` | Chunks kept after re-ranking | `4` |
+| `RETRIEVAL_MODE` | Retrieval mode: `vector` \| `keyword` \| `hybrid` (UI selectbox overrides it) | `vector` |
 | `DEFAULT_CHUNK_WORDS` | Chunk size in words | `300` |
 | `DEFAULT_OVERLAP_WORDS` | Overlap between consecutive chunks | `50` |
 | `USE_TRANSCRIPT_CACHE` | Cache fetched transcripts in `data/.transcript_cache/` | `True` |
+| `DEFAULT_PROMPT_VERSION` (`core/prompts.py`) | Prompt variant used by `core/generator.py` (`v1` production, `v2` challenger for eval) | `v1` |
 
 > `.env` is loaded automatically by `run_local.sh` and by `docker compose`; for manual runs, `export` the variables yourself.
 > 
 Web app UI configuration:
 
-![Configuration](screenshots/configuration-1.png)
+![Configuration](screenshots/configuration-2.png)
+
+In app UI you can choose LLM provider (Ollama, OpenRouter, OpenAI, Anthropic). Free models on OpenRouter may be temporary rate-limited, especially evenings/weekends.
 
 ---
 
@@ -209,8 +227,9 @@ A few notes on the trade-offs I picked, in case you're evaluating this as a port
 - **LlamaIndex, simple chain (no agents).** The pipeline is a deterministic, six-step RAG flow with structured outputs. Agents would add latency and non-determinism without changing the deliverable. The MVP deliberately stays a chain; an agent layer is a post-MVP item.
 - **In-memory ChromaDB.** Each run is short-lived, the video is small (≤ 60 min), and persistence is handled by the History store. Avoiding an on-disk vector DB removes a moving part and makes the app trivially restartable.
 - **ONNX `all-MiniLM-L6-v2` over `sentence-transformers`.** The latter pulls in PyTorch, which is ~800 MB. ONNX + `tokenizers` keeps the runtime small enough to run on a CPU-only laptop and inside a container.
-- **Cross-encoder re-ranking is opt-in.** It measurably improves relevance on noisy transcripts but adds ~1-2 s per query and another model download. The toggle lives in `core/settings.py` (`USE_RERANKING`-style flag) and is off by default.
-- **Mandatory-keyword filter.** A safety net for the rare case where vector retrieval returns a chunk that doesn't actually contain the user's chosen Area of Life term. Stops obviously off-topic context from reaching the LLM.
+- **Hybrid retrieval over vector-only default.** `core/hybrid.py` (stdlib-only, no new deps) scores lexical token overlap and fuses it with the vector order via reciprocal-rank fusion (RRF, `k=60`). `RAGEngine.retrieve(mode=...)` supports `vector` (default, historical behavior), `keyword` (diagnostic re-sort of the same first-stage candidates), and `hybrid` (RRF of both). Evaluated offline in `docs/retrieval_eval.md` across 6 configs (A–F); filtered configs tie at 0.250 keyword hit rate vs 0.031 unfiltered, so `vector` stays the default and `hybrid` is one UI click away.
+- **Cross-encoder re-ranking is opt-in.** It measurably improves relevance on noisy transcripts but adds ~1-2 s per query and another model download. Toggled via the UI checkbox (off by default), then applied inside `RAGEngine.rerank()`.
+- **Mandatory-keyword filter.** A safety net for the rare case where vector retrieval returns a chunk that doesn't actually contain the user's chosen Area of Life term. Stops obviously off-topic context from reaching the LLM. The eval shows it is the single biggest relevance lever (0.031 → 0.250 hit rate).
 - **Local-first default (`llama3.2:1b`).** It's the smallest model I've found that consistently honors the JSON-Schema output the pipeline requires. IBM Granite models are great for free-form summarization but their structured-output adherence is unreliable as of writing.
 
 ---
@@ -220,8 +239,8 @@ A few notes on the trade-offs I picked, in case you're evaluating this as a port
 1. **Extract transcript** via `youtube-transcript-api`; cache by video ID in `data/.transcript_cache/`.
 2. **Chunk** into `[mm:ss]`-prefixed blocks (`DEFAULT_CHUNK_WORDS`, `DEFAULT_OVERLAP_WORDS`).
 3. **Embed** chunks with ONNX `all-MiniLM-L6-v2`; build an in-memory ChromaDB index.
-4. **Retrieve** `TOP_K_FIRST_STAGE` chunks by vector similarity against `Area of Life + Goal`; re-rank to `TOP_K`; optionally apply the mandatory-keyword filter.
-5. **Generate** structured output (Pydantic schemas from `core/prompts.py`); stream results into the two UI tabs.
+4. **Retrieve** `TOP_K_FIRST_STAGE` first-stage candidates, then order by `RETRIEVAL_MODE` (`vector` similarity, `keyword` overlap, or `hybrid` RRF of both); optionally cross-encoder re-rank to `TOP_K` and apply the mandatory-keyword filter.
+5. **Generate** structured output (Pydantic schemas + `v1` production prompt from `core/prompts.py`; `v2` challenger exists for eval only); stream results into the two UI tabs.
 6. **Persist** the run (transcript length, timing breakdown, model used, feedback buttons) to `data/history.json`.
 
 ---
@@ -245,11 +264,42 @@ After a successful run, the History page shows a row like:
 
 ![History Ideas](screenshots/history-2.png)
 
+![User Feedback](screenshots/feedback-1.png)
+
+## 📊 Report Dashboard
+
 The Report Dashboard aggregates these across runs.
 
 ![Report dashboard 1](screenshots/dashboard-1.png)
 
 ![Report dashboard 2](screenshots/dashboard-2.png)
+
+---
+
+## Evaluation
+
+Retrieval and prompts are evaluated offline on cached transcripts — no YouTube calls, no running LLM required. Reports are checked in under `docs/`.
+
+**Retrieval (`scripts/eval_retrieval.py` → `docs/retrieval_eval.md`)** — 8 queries × 6 configs (48 rows) on `TrvLEgPpV8s` (7 chunks), same chunking and `top_k=4` throughout:
+
+| Config | Keyword hit rate | Timestamp valid | Diversity |
+|---|---:|---:|---:|
+| A: vector-only | 0.031 | 0.250 | 0.875 |
+| B: vector + rerank | 0.031 | 0.250 | 0.875 |
+| C: vector + rerank + kw filter (production default) | **0.250** | 0.188 | 0.887 |
+| D: keyword + kw filter | 0.250 | 0.188 | 0.887 |
+| E: hybrid + kw filter | 0.250 | 0.188 | 0.887 |
+| F: hybrid + rerank + kw filter | 0.250 | 0.188 | 0.887 |
+
+Takeaway: the keyword filter is the dominant lever (0.031 → 0.250); hybrid ties C on the TF stand-in and stays available via the UI mode selector. Re-run with `python scripts/eval_retrieval.py --cache-id <VIDEO_ID>` (add `--use-production` for live embeddings when deps + models are present).
+
+**LLM prompts (`scripts/eval_llm.py` → `docs/llm_eval.md`)** — v1 (production) vs v2 (challenger: focus-area emphasis for subtopics, mandatory first-step for ideas). Offline mode re-scores recent `data/history.json` entries on `json_valid_rate`, `count_in_range_rate`, `timestamp_valid_rate`, `avg_keyword_coverage`, `first_step_rate`; live mode (`--with-llm`) regenerates with both prompts, plus optional LLM-as-a-judge (`--judge` via `EVALUATION_LLM` in `core/settings.py`). v1 stays the default (`DEFAULT_PROMPT_VERSION = "v1"`); the v1 contract is pinned by `tests/test_prompts_versions.py`.
+
+```bash
+python scripts/eval_retrieval.py --cache-id TrvLEgPpV8s
+python scripts/eval_llm.py --samples 5
+python scripts/eval_llm.py --with-llm --judge   # needs deps + running LLM
+```
 
 ---
 
@@ -261,7 +311,7 @@ Run the full suite:
 python -m unittest discover -s tests/
 ```
 
-Or a single module:
+Or a single module, for example:
 
 ```bash
 python -m unittest tests/test_llm_config.py
@@ -286,8 +336,9 @@ python -m unittest tests/test_llm_config.py
 - Cross-encoder re-ranking helps most on long, topically diverse transcripts; for short clips the marginal gain rarely justifies the latency.
 
 **Next steps**
-- Add an **LLM-as-a-Judge** evaluation flow to score summary faithfulness and answer relevance against the History store.
-- Add a **challenger prompt** alongside the production prompt and an A/B comparison view.
+- ~~Add an **LLM-as-a-Judge** evaluation flow~~ — done offline (`scripts/eval_llm.py`, `--judge` flag wired to `EVALUATION_LLM`); remaining: run a live `--with-llm --judge` pass and promote the winner - requires more time, and credits.
+- ~~Expreriment with other **challenger prompt** alongside the production prompt~~: live comparison + admin A/B view.
+- ~~Evaluate retrieval (vector vs rerank vs hybrid)~~: live-embedding check that hybrid beats `vector` on a larger sample.
 - Test more lightweight Ollama models (e.g., newer Granite, Gemma-4) against `llama3.2:1b` on structured outputs.
 
 ---
