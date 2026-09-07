@@ -304,7 +304,7 @@ python scripts/eval_llm.py --with-llm --judge   # needs deps + running LLM
 
 ## Testing
 
-Run the full suite:
+Run the full suite (200 tests in 3.607s):
 
 ```bash
 python -m unittest discover -s tests/
