@@ -334,6 +334,78 @@ class MarkdownRenderTests(unittest.TestCase):
 
 
 # --------------------------------------------------------------------------- #
+# Findings (timestamp-validity note)
+# --------------------------------------------------------------------------- #
+
+class FindingsTests(unittest.TestCase):
+    def _sample(self, sub_ts="[01:30]", idea_ts="[02:00]"):
+        return {
+            "video_url": "https://www.youtube.com/watch?v=abc123",
+            "area_of_life": "Productivity",
+            "goal": "",
+            "subtopics": {
+                "subtopics": [
+                    {"title": "Focus tips", "timestamp": sub_ts, "summary": "Productivity focus."}
+                ]
+            },
+            "actionable_ideas": {
+                "ideas": [
+                    {
+                        "title": "Take a break",
+                        "description": "Schedule a break. Start tomorrow.",
+                        "timestamp": idea_ts,
+                    }
+                ]
+            },
+        }
+
+    def _rows_for(self, samples):
+        return eval_llm.evaluate_offline(samples)
+
+    def test_unbracketed_timestamps_produce_note(self):
+        samples = [self._sample(sub_ts="01:30", idea_ts="02:00")]
+        rows = self._rows_for(samples)
+        notes = eval_llm._findings(samples, rows)
+        self.assertTrue(notes, "expected a findings note for unbracketed timestamps")
+        text = " ".join(notes)
+        self.assertIn("timestamp_valid_rate", text)
+        self.assertIn("bracket", text)
+        # Must mention the display/export fallback so reviewers don't read
+        # 0.000 as broken output.
+        self.assertIn("core/exports.py", text)
+
+    def test_bracketed_timestamps_produce_no_timestamp_note(self):
+        samples = [self._sample()]
+        rows = self._rows_for(samples)
+        notes = eval_llm._findings(samples, rows)
+        self.assertFalse(
+            [n for n in notes if "timestamp_valid_rate" in n],
+            f"unexpected timestamp note: {notes}",
+        )
+
+    def test_findings_reads_raw_samples_not_rows(self):
+        # Rows hold aggregates only (no item lists). The note must still fire
+        # because the raw samples carry the unbracketed timestamps.
+        samples = [self._sample(sub_ts="01:30")]
+        rows = self._rows_for(samples)
+        self.assertNotIn("subtopics", rows[0]["v1_subtopics"])
+        notes = eval_llm._findings(samples, rows)
+        self.assertTrue(any("timestamp_valid_rate" in n for n in notes))
+
+    def test_render_includes_timestamp_note(self):
+        samples = [self._sample(sub_ts="01:30")]
+        rows = self._rows_for(samples)
+        summary = eval_llm.aggregate(rows)
+        report = eval_llm.render_markdown(
+            samples=samples, rows=rows, summary=summary,
+            prompt_versions={"v1": "v1", "v2": "v2"},
+            live=False, use_judge=False,
+        )
+        self.assertIn("timestamp_valid_rate", report)
+        self.assertNotIn("No notable findings", report)
+
+
+# --------------------------------------------------------------------------- #
 # Script smoke (offline)
 # --------------------------------------------------------------------------- #
 

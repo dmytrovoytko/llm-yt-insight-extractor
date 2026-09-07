@@ -635,7 +635,7 @@ def render_markdown(
     out.append("- **avg_n**: average number of items returned per sample.")
     out.append("")
     out.append("## Findings")
-    findings = _findings(rows)
+    findings = _findings(samples, rows)
     if findings:
         for f in findings:
             out.append(f"- {f}")
@@ -658,29 +658,32 @@ def render_markdown(
     return "\n".join(out)
 
 
-def _findings(rows: list[dict]) -> list[str]:
+def _findings(samples: list[dict], rows: list[dict]) -> list[str]:
     notes: list[str] = []
-    # Check for the unbracketed-timestamp bug observed in data/history.json.
+    # Check for the unbracketed-timestamp pattern observed in data/history.json.
+    # NOTE: score rows only hold aggregates, so item-level checks must read
+    # the raw history entries (samples), not the rows.
     bad_ts_sub = sum(
         1
-        for r in rows
-        for it in r.get("v1_subtopics", {}).get("subtopics", [])
-        if not eval_llm.timestamp_format_ok(it.get("timestamp", ""))
+        for s in samples
+        for it in (s.get("subtopics") or {}).get("subtopics", [])
+        if not timestamp_format_ok(it.get("timestamp", ""))
     )
     bad_ts_idea = sum(
         1
-        for r in rows
-        for it in r.get("v1_ideas", {}).get("ideas", [])
-        if not eval_llm.timestamp_format_ok(it.get("timestamp", ""))
+        for s in samples
+        for it in (s.get("actionable_ideas") or {}).get("ideas", [])
+        if not timestamp_format_ok(it.get("timestamp", ""))
     )
     if bad_ts_sub + bad_ts_idea > 0:
         notes.append(
-            f"`timestamp_valid_rate` is low because some historical LLM outputs drop the `[ ]` "
-            f"brackets from their timestamps (e.g., `01:30` instead of `[01:30]`). "
+            f"`timestamp_valid_rate` is strict: it counts only bracketed `[mm:ss]` / `[hh:mm:ss]` "
+            f"timestamps. Some historical LLM outputs drop the `[ ]` brackets "
+            f"(e.g., `01:30` instead of `[01:30]`). "
             f"Observed in {bad_ts_sub + bad_ts_idea} of the sampled items. "
-            f"Root cause: the LLM is interpolating the timestamp format from the prompt examples; "
-            f"v2 narrows the contract by demanding `[mm:ss]` more explicitly. "
-            f"Downstream impact: `core/exports.convert_timestamps_to_youtube_links` cannot link unbracketed timestamps."
+            f"Display/export still links these via the bracket-restoring fallback in "
+            f"`core/exports.py`, so this is a contract-adherence signal (v2 tightens the "
+            f"`[mm:ss]` requirement), not broken output."
         )
     # Flag if keyword coverage is low.
     sub_v1 = sum(r["v1_subtopics"].get("keyword_coverage", 0) for r in rows) / max(1, len(rows))

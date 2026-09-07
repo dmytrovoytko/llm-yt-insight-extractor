@@ -22,7 +22,7 @@ Default version (used by `app.py` and `core/generator.py`): `v1`. Changing it re
 |---|---|---:|---:|---:|
 | Subtopics | `json_valid_rate` | 1.000 | 1.000 | = |
 | Subtopics | `count_in_range_rate` | 1.000 | 1.000 | = |
-| Subtopics | `timestamp_valid_rate` | 0.333 | 0.333 | = |
+| Subtopics | `timestamp_valid_rate` | 0.000 | 0.000 | = |
 | Subtopics | `avg_keyword_coverage` | 0.750 | 0.750 | = |
 | Subtopics | `first_step_rate` | 0.000 | 0.000 | = |
 | Subtopics | `avg_n` | 4.000 | 4.000 | = |
@@ -50,10 +50,10 @@ Default version (used by `app.py` and `core/generator.py`): `v1`. Changing it re
 - **avg_n**: average number of items returned per sample.
 
 ## Findings
-- No notable findings; all metrics at expected values.
+- `timestamp_valid_rate` is strict: it counts only bracketed `[mm:ss]` / `[hh:mm:ss]` timestamps. Some historical LLM outputs drop the `[ ]` brackets (e.g., `01:30` instead of `[01:30]`). Observed in 21 of the sampled items. Display/export still links these via the bracket-restoring fallback in `core/exports.py`, so this is a contract-adherence signal (v2 tightens the `[mm:ss]` requirement), not broken output.
 
 ## Decision
-Offline mode: v1 metrics reflect the existing `data/history.json` outputs; the v2 column is intentionally zero. To produce a real v1-vs-v2 comparison, re-run with `--with-llm`. v1 subtopics: json_valid=1.00, count_in_range=1.00, timestamps_ok=0.33, keyword_coverage=0.75. v1 ideas: json_valid=1.00, first_step_rate=0.00 (v1 has no first-step contract).
+Offline mode: v1 metrics reflect the existing `data/history.json` outputs; the v2 column is intentionally zero. To produce a real v1-vs-v2 comparison, re-run with `--with-llm`. v1 subtopics: json_valid=1.00, count_in_range=1.00, timestamps_ok=0.00, keyword_coverage=0.75. v1 ideas: json_valid=1.00, first_step_rate=0.00 (v1 has no first-step contract).
 
 ## How to re-run
 ```bash
