@@ -1,0 +1,459 @@
+[
+  {
+    "video_url": "https://www.youtube.com/watch?v=8KPLs-ZFuPo",
+    "video_title": "How to Embrace Slow Productivity, Achieve Mastery, and Defend Your Time \u2014 Cal Newport & Tim Ferriss",
+    "area_of_life": "Finance",
+    "goal": "earn more money",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Avoiding Hasty Decisions and Finding Your Advantage",
+          "timestamp": "43:04",
+          "summary": "Drawing on Warren Buffett's philosophy, the speaker advises against rushing into investments or overcommitting to half-baked ideas. Instead, one should wait for the 'fat pitch' and focus on their unique zone of genius through experimentation."
+        },
+        {
+          "title": "The Risks of Chasing Digital Attention",
+          "timestamp": "01:47:26",
+          "summary": "The discussion explores how media outlets often fall into the trap of chasing viral attention and traffic. It highlights how a subscriber-based model can protect a brand from the need to produce sensationalist content."
+        },
+        {
+          "title": "The Fallacy of Linear Scaling in Business",
+          "timestamp": "02:09:11",
+          "summary": "The speaker warns against the 'checklist productivity' mindset that assumes simple scaling will lead to guaranteed profits. Using a drop-shipping analogy, they explain that volume does not matter if the underlying product or value proposition is poor."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Wait for the fat pitch",
+          "description": "Avoid making impulsive or massive investments just to be active. Instead, identify your 'zone of genius' and wait for high-probability opportunities that align with your specific advantages.",
+          "timestamp": "43:14"
+        },
+        {
+          "title": "Workshop ideas before committing",
+          "description": "Don't overcommit to half-baked ideas. Use experimentation, blogging, or small-scale testing to validate interest and personal enjoyment before scaling a business or product.",
+          "timestamp": "43:37"
+        },
+        {
+          "title": "Avoid the attention chasing trap",
+          "description": "Resist the urge to chase viral trends or low-quality engagement to drive growth. Focus on sustainable models, like subscription-based value, to avoid being pulled into the 'ud' of algorithmic favoritism.",
+          "timestamp": "01:47:57"
+        },
+        {
+          "title": "Verify scalability before scaling up",
+          "description": "Do not assume that linear scaling works for every business model. Before pouring resources into a method, ensure the underlying product actually has market demand to avoid scaling a zero-revenue model.",
+          "timestamp": "02:09:42"
+        }
+      ]
+    },
+    "timestamp": "2026-08-03T13:28:55.852123",
+    "llm_info": "Ollama: llama3.2:1b",
+    "processing_time": 123,
+    "user_feedback": 1
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=K4Ze-Sp6aUE",
+    "video_title": "The Science of Eating for Health, Fat Loss & Lean Muscle | Dr. Layne Norton",
+    "area_of_life": "Fitness",
+    "goal": "best exercises to Lose fat ",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Protein Intake and Plant-Based Diet Challenges",
+          "timestamp": "01:55:11",
+          "summary": "The speaker discusses the importance of total protein intake over timing and distribution. He notes that plant-based diets require more planning and isolated protein sources to meet caloric and amino acid needs effectively."
+        },
+        {
+          "title": "Exercise and Appetite Regulation",
+          "timestamp": "44:21",
+          "summary": "Regular exercise is highly correlated with long-term weight loss maintenance. Physical activity appears to increase sensitivity to satiety signals, helping individuals regulate appetite more effectively than sedentary individuals."
+        },
+        {
+          "title": "Creatine Benefits and Safety Profile",
+          "timestamp": "03:23:40",
+          "summary": "Creatine is discussed as a tool to increase training intensity and lean tissue rather than a direct fat burner. The speaker addresses concerns regarding hair loss, noting that evidence linking creatine to hair loss is insufficient and unproven."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Prioritize total protein intake daily",
+          "description": "Focus on hitting your total daily protein target rather than worrying about the exact timing or distribution of meals. This is a much more significant lever for body composition than meal timing.",
+          "timestamp": "01:55:37"
+        },
+        {
+          "title": "Use exercise to regulate appetite",
+          "description": "Engage in regular physical activity to increase your sensitivity to satiety signals. This helps your body more appropriately regulate calorie intake and manage hunger, which is crucial for long-term weight maintenance.",
+          "timestamp": "44:46"
+        },
+        {
+          "title": "Use protein isolates for fat loss",
+          "description": "When in a calorie deficit, use isolated protein sources to meet your needs. This prevents you from accidentally consuming excess carbohydrates or fats that are often bundled with whole plant-based protein sources.",
+          "timestamp": "01:56:01"
+        }
+      ]
+    },
+    "timestamp": "2026-08-03T14:58:13.636114",
+    "llm_info": "OpenRouter: google/gemma-4-26b-a4b-it:free",
+    "processing_time": 37,
+    "user_feedback": 0
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=p3JLaF_4Tz8",
+    "video_title": "Understanding & Treating Addiction | Dr. Anna Lembke",
+    "area_of_life": "Mental Health",
+    "goal": "How to reduce internet addiction, social media addiction",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "The Role of Stimulation and Friction in Addiction",
+          "timestamp": "21:32",
+          "summary": "The discussion explores how a lack of friction and a constant need for stimulation can lead to unhappiness and addiction in a world not suited to the human brain."
+        },
+        {
+          "title": "The Ubiquity and Normalization of Addiction",
+          "timestamp": "01:13:26",
+          "summary": "The speakers discuss how addiction is a universal human vulnerability and how certain behaviors, like work, can be socially rewarded despite being addictive."
+        },
+        {
+          "title": "The Cycle of Relapse and Hidden Addiction",
+          "timestamp": "55:11",
+          "summary": "This section addresses the difficulty of treating addiction, noting that many addicts appear perfectly normal and healthy until they experience a relapse."
+        },
+        {
+          "title": "Social Media and the Difficulty of Moderation",
+          "timestamp": "01:42:47",
+          "summary": "The conversation highlights how individuals have varying propensities for social media addiction and the difficulty of using digital tools without becoming harmfuly dependent."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Increase friction for digital habits",
+          "description": "Introduce intentional obstacles to make accessing social media or the internet more difficult. This helps counteract the brain's natural tendency to seek constant stimulation and reduces impulsive usage. By adding friction, you create a gap between the impulse and the action.",
+          "timestamp": "21:35"
+        },
+        {
+          "title": "Monitor your dopamine-seeking behaviors",
+          "description": "Pay close attention to moments when you feel a sudden rush of pleasure or excitement from digital interactions. Recognizing these dopamine spikes can help you identify when you are transitioning from intentional use to addictive behavior. Awareness is the first step to regaining control.",
+          "timestamp": "01:43:36"
+        },
+        {
+          "title": "Develop adaptive usage strategies",
+          "description": "Recognize that everyone has different propensities for addiction, so you must proactively decide how to use digital tools adaptively. Since addiction often goes unnoticed while it is happening, set strict boundaries to ensure technology remains a helpful tool rather than a harmful habit.",
+          "timestamp": "01:42:49"
+        }
+      ]
+    },
+    "timestamp": "2026-08-03T15:49:18.238491",
+    "llm_info": "OpenRouter: google/gemma-4-26b-a4b-it:free",
+    "processing_time": 41,
+    "user_feedback": 1
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=wQd-slndk2g",
+    "video_title": "The Best Way to Learn as Shown by Research | Dr. Andrew Huberman",
+    "area_of_life": "Productivity",
+    "goal": "",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Debunking Learning Styles and the Goal of Studying",
+          "timestamp": "00:02",
+          "summary": "The speaker argues that traditional learning styles like visual or auditory are less important than the method of study. Instead, effective learning should focus on offsetting the natural process of forgetting."
+        },
+        {
+          "title": "The Mechanism of Learning Through Neural Pruning",
+          "timestamp": "05:17",
+          "summary": "Using motor skill development as an example, the speaker explains that learning involves the removal of neural connections. This process makes the remaining neural connections more robust and reliable."
+        },
+        {
+          "title": "Incentive for Listening: Knowledge Evaluation Tool",
+          "timestamp": "09:08",
+          "summary": "The speaker mentions a zero-cost tool provided at the end of the podcast to help listeners evaluate their ability to learn and retain the information presented."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Offset the natural forgetting process",
+          "description": "Instead of just trying to learn new information, shift your focus to actively countering the natural tendency to forget. Design your study sessions specifically to inoculate yourself against memory decay. This mindset shift ensures you are building robust, long-term retention rather than just temporary familiarity.",
+          "timestamp": "01:01"
+        },
+        {
+          "title": "Prioritize memory system activation over medium",
+          "description": "Stop worrying about whether you are a visual, auditory, or kinesthetic learner. Research suggests that the medium of information is less important than how you engage your memory systems. Focus on techniques that trigger active recall to ensure information is deeply embedded.",
+          "timestamp": "00:21"
+        }
+      ]
+    },
+    "timestamp": "2026-08-06T14:26:43.912731",
+    "llm_info": "OpenRouter: google/gemma-4-26b-a4b-it:free",
+    "processing_time": 36,
+    "user_feedback": 1
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=wQd-slndk2g",
+    "video_title": "The Best Way to Learn as Shown by Research | Dr. Andrew Huberman",
+    "area_of_life": "Learning",
+    "goal": "",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Debunking Learning Styles and the Importance of Memory Systems",
+          "timestamp": "00:02",
+          "summary": "The speaker argues that preferred learning styles (visual, auditory, etc.) are not supported by research. Instead, effective learning is about accessing memory systems to offset the natural process of forgetting."
+        },
+        {
+          "title": "Studying to Offset the Natural Process of Forgetting",
+          "timestamp": "01:01",
+          "summary": "Rather than just trying to learn new information, the goal of studying should be to inoculate oneself against the natural tendency to forget new material."
+        },
+        {
+          "title": "The Role of Error Recognition in Information Retention",
+          "timestamp": "07:53",
+          "summary": "Recognizing errors in your own information retention is a critical tool for learning. Even failing to recall information during a quiz can be a useful part of the learning process."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Offset the natural forgetting process",
+          "description": "Instead of studying just to learn new material, shift your mindset to studying to counteract the natural decay of memory. Focus your efforts on inoculating yourself against forgetting to achieve true mastery.",
+          "timestamp": "01:01"
+        },
+        {
+          "title": "Use quizzes to identify knowledge gaps",
+          "description": "Incorporate brief self-quizzes into your learning routine to test your recall. Recognizing errors in your information retention is a critical step in improving your ability to retain more information.",
+          "timestamp": "06:52"
+        }
+      ]
+    },
+    "timestamp": "2026-08-07T14:45:23.916175",
+    "llm_info": "OpenRouter: google/gemma-4-26b-a4b-it:free",
+    "processing_time": 19,
+    "user_feedback": -1
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=hFL6qRIJZ_Y",
+    "video_title": "ADHD & How Anyone Can Improve Their Focus",
+    "area_of_life": "Learning",
+    "goal": "improve focus for teenagers",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Psychological Tricks to Increase Interest and Focus",
+          "timestamp": "50:34",
+          "summary": "The speaker shares a personal technique of deliberately pretending a subject is fascinating to trigger dopamine. This mental shift can help students engage with difficult material and even lead to genuine interest."
+        },
+        {
+          "title": "The Impact of Diet on ADHD and Attention",
+          "timestamp": "56:34",
+          "summary": "This section explores the relationship between nutrition and attention, specifically how individuals with ADHD are naturally drawn to sugary foods that increase dopamine levels. It discusses the complexities of using diet as a leverage point for treatment."
+        },
+        {
+          "title": "Neuroscience of Focus and Meditation",
+          "timestamp": "01:11:05",
+          "summary": "The speaker introduces research regarding how meditation and brain state modulation can enhance the ability to focus. He references the book 'Altered Traits' to discuss the science of attention."
+        },
+        {
+          "title": "Using Physical Movement to Enhance Mental Focus",
+          "timestamp": "01:30:10",
+          "summary": "The discussion covers how fidget toys and physical activities can help individuals with ADHD manage nervous system activity. Engaging in small physical movements can actually enhance mental focus rather than distract from it."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Delude yourself into loving the subject",
+          "description": "If you struggle to focus on a boring topic, try to convince yourself that it is the most interesting thing in the world. This deliberate engagement can trigger dopamine and help you actually fall in love with the information. It is a way to artificially stimulate the brain's desire to know.",
+          "timestamp": "50:42"
+        },
+        {
+          "title": "Use fidget tools to enhance focus",
+          "description": "Engage in repetitive physical movements, such as using a fidget toy or a rubber band, to manage underlying nervous system activity. This physical engagement can help release excess energy and actually improve mental focus rather than forcing yourself to sit perfectly still. This technique is effective for both children and adults.",
+          "timestamp": "01:30:27"
+        }
+      ]
+    },
+    "timestamp": "2026-08-07T17:21:27.123384",
+    "llm_info": "OpenRouter: google/gemma-4-26b-a4b-it:free",
+    "processing_time": 52,
+    "user_feedback": 1
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=TrvLEgPpV8s",
+    "video_title": "Productivity Tips From Tim Ferriss",
+    "area_of_life": "Productivity",
+    "goal": "",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Accepting Inconsistent Productivity Levels",
+          "timestamp": "02:29",
+          "summary": "It is okay not to be hyperproductive every single day. Even high-level professionals experience periods of being stuck in a rut or being unproductive."
+        },
+        {
+          "title": "Prioritizing Impact Over Volume",
+          "timestamp": "03:47",
+          "summary": "Focusing on the right targets is more important than the quantity of work done. Choosing projects with high ROI and beneficial side effects can provide an 'Archimedes lever' for success."
+        },
+        {
+          "title": "Developing Skills Through Low-Stakes Projects",
+          "timestamp": "04:11",
+          "summary": "Select projects that allow you to develop lasting skills and relationships, ensuring the effort is worthwhile even if the specific project fails."
+        },
+        {
+          "title": "Recovering from Unproductive Days",
+          "timestamp": "04:42",
+          "summary": "When a day feels unproductive, use specific coping mechanisms like identifying the one task that makes everything else easier or shifting focus to gratitude."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Prioritize high-impact tasks over volume",
+          "description": "Focus on what you do rather than how much you do. Identify the one task on your list that, if completed, would make everything else easier or irrelevant. This ensures you are working on the right targets to maximize your return on investment.",
+          "timestamp": "01:01"
+        },
+        {
+          "title": "Select projects with beneficial side effects",
+          "description": "Choose goals that provide value even if the primary objective fails. Aim for 'Archimedes lever' projects that allow you to develop lasting skills or build valuable relationships regardless of the final outcome. This ensures every endeavor has a high ROI.",
+          "timestamp": "04:00"
+        },
+        {
+          "title": "Practice gratitude when productivity fails",
+          "description": "If a day gets off on the wrong foot and you feel unproductive, pivot your focus toward gratitude. This reduces the stress associated with perceived failure and allows you to make the most of the remaining hours in your day.",
+          "timestamp": "05:50"
+        },
+        {
+          "title": "Accept periods of low productivity",
+          "description": "Do not pressure yourself to be hyper-productive every single day. Recognize that it is normal to go through ruts or unproductive stretches, especially when facing deadlines or creative blocks, and accept that a few good days are enough.",
+          "timestamp": "03:26"
+        }
+      ]
+    },
+    "timestamp": "2026-08-16T13:33:33.973791",
+    "llm_info": "OpenRouter: google/gemma-4-26b-a4b-it:free",
+    "processing_time": 46,
+    "user_feedback": 0
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=xKvlK7OqZso",
+    "video_title": "Control Your Brain Chemistry for Focus, Motivation & Well-Being | Huberman Lab Essentials",
+    "area_of_life": "Productivity",
+    "goal": "improve focus",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Neuromodulators for Focus and Learning",
+          "timestamp": "08:42",
+          "summary": "Acetylcholine is identified as the primary neuromodulator associated with states of focus and neuroplasticity. It plays a critical role in the brain's ability to learn and encode new information."
+        },
+        {
+          "title": "Controlling Dopamine for Motivation and Energy",
+          "timestamp": "09:29",
+          "summary": "To increase motivation and energy, one should focus on controlled increases in dopamine above baseline. This can be achieved through various behavioral, nutritional, and environmental tools."
+        },
+        {
+          "title": "Using Sunlight to Regulate Brain Chemistry",
+          "timestamp": "10:19",
+          "summary": "Maximizing sunlight exposure to the eyes within the first hour of waking is a key behavioral tool. This practice helps regulate dopamine and overall brain chemistry for better performance."
+        },
+        {
+          "title": "Enhancing Focus with Supplements and Caffeine",
+          "timestamp": "25:17",
+          "summary": "Combining specific supplements with caffeine can sharpen focus during cognitive work bouts. It is recommended to use these tools early in the day to avoid disrupting sleep patterns."
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Maximize early morning sunlight exposure",
+          "description": "View as much sunlight as reasonably possible within the first hour of waking, or at least within the first three hours. This helps regulate your dopamine and circadian rhythms to support motivation and energy.",
+          "timestamp": "10:41"
+        },
+        {
+          "title": "Leverage acetylcholine for deep focus",
+          "description": "Understand that acetylcholine is the primary neuromodulator associated with states of focus and neuroplasticity. Use it to enhance your ability to learn and encode new information during cognitive work bouts.",
+          "timestamp": "08:42"
+        },
+        {
+          "title": "Use physical contact to boost well-being",
+          "description": "Engage in physical touch, such as hugging, cuddling, or holding hands, to increase serotonin transmission. This can naturally improve your sense of contentment and emotional well-being.",
+          "timestamp": "26:32"
+        }
+      ]
+    },
+    "timestamp": "2026-08-16T20:20:44.442150",
+    "llm_info": "OpenRouter: google/gemma-4-26b-a4b-it:free",
+    "processing_time": 88,
+    "user_feedback": 0
+  },
+  {
+    "video_url": "https://www.youtube.com/watch?v=TrvLEgPpV8s",
+    "video_title": "Productivity Tips From Tim Ferriss",
+    "area_of_life": "Productivity",
+    "goal": "",
+    "subtopics": {
+      "subtopics": [
+        {
+          "title": "Productivity",
+          "timestamp": "00:24",
+          "summary": "The importance of not being super productive every day"
+        },
+        {
+          "title": "Zero Sum Game",
+          "timestamp": "02:40",
+          "summary": "Being in a Zero Sum game where everyone is competing for market share can be unproductive and stress-inducing."
+        },
+        {
+          "title": "Gratitude and Appreciation",
+          "timestamp": "04:42",
+          "summary": "Focusing on gratitude and appreciation can help with productivity and overall well-being."
+        },
+        {
+          "title": "Time Management",
+          "timestamp": "01:12",
+          "summary": "Using effective time management techniques, such as creating a timeline, can improve productivity and free up more time for the week ahead"
+        }
+      ]
+    },
+    "actionable_ideas": {
+      "ideas": [
+        {
+          "title": "Make Time for Gratitude",
+          "description": "Focus on small things and do nice things for others, practice wanting what you have, and focus on gratitude.",
+          "timestamp": "01:12"
+        },
+        {
+          "title": "Be Less Productive Every Day",
+          "description": "Don't worry about being productive every day, just go with the flow, focus on progress rather than perfection, and learn to say it's okay if you're not done for the day.",
+          "timestamp": "01:12"
+        },
+        {
+          "title": "Choose Right Projects",
+          "description": "Pick projects that have beneficial side effects even if they don't turn out as planned, and commit yourself to them through which you will develop skills and relationships.",
+          "timestamp": "04:18"
+        },
+        {
+          "title": "Focus on the Big Picture",
+          "description": "Prioritize tasks based on their impact and remember that small wins can add up over time. Focus on what's truly important and don't get bogged down by details.",
+          "timestamp": "01:43"
+        }
+      ]
+    },
+    "timestamp": "2026-09-07T20:35:27.672411",
+    "llm_info": "Ollama: llama3.2:1b",
+    "processing_time": 99,
+    "user_feedback": 0
+  }
+]
