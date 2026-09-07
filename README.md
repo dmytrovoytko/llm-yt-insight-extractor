@@ -171,6 +171,7 @@ bash run_compose.sh
 Then open http://localhost:8501.
 
 > Project can be tested in **GitHub CodeSpaces** - the [easiest option](screenshots/docker-3.png), and free. Just  **use 4-core - 16GB RAM machine type**. 
+> See [`docs/deployment.md`](docs/deployment.md) for why there is no public-cloud hosting (YouTube blocks cloud IPs) and the verified environments.
 
 ### 🚀 Smoke test
 
