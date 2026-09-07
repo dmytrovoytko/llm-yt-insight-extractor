@@ -166,12 +166,12 @@ bash run_compose.sh
 
 ![Docker compose 1](screenshots/docker-1.png)
 
-![Docker compose 2](screenshots/docker-1.png)
+![Docker compose 2](screenshots/docker-2.png)
 
 
 Then open http://localhost:8501.
 
-> If you want a single-container build instead, `Dockerfile` is provided (it runs `ollama serve` inside the app container via `entrypoint.sh`). The compose path is preferred because it isolates the model server and survives app rebuilds.
+> Project can be tested in **GitHub CodeSpaces** - the easiest option, and free. Just  **use 4-core - 16GB RAM machine type**. 
 
 ### 🚀 Smoke test
 
@@ -325,7 +325,9 @@ python -m unittest tests/test_llm_config.py
 - **"I get a 404 / model-not-found on the default cloud model."** Cloud providers rotate model names. Check `.env.example` for the current defaults; this README tracks the same values.
 - **"How do I enable the 60-minute video cap?"** Set `VALIDATE_DURATION = True` in `core/settings.py`. The PRD defines the cap; the MVP ships with it off so longer videos can still be processed for testing.
 - **"How do I use a different embedding or reranker model?"** Update `DEFAULT_EMBEDDING_MODEL` / `DEFAULT_RERANKING_MODEL` in `core/settings.py` and re-run `python onnx_download.py`. If the model is gated on the Hugging Face Hub, also set `HF_API_KEY` / `HUGGINGFACE_API_KEY` in `.env`.
-- **"Ollama times out on the first run."** The first request to a freshly-pulled model includes model load time. Increase `OLLAMA_TIMEOUT` (default `300`).
+- **"Ollama times out on the first run."** The first request to a freshly-pulled model includes model load time. Increase `OLLAMA_TIMEOUT` (default `180`).
+- **"How can I get free OpenRouter API access?"** Go to openrouter.ai. Sign up and create your account using your email, GitHub, or Google account. Get a free API key at https://openrouter.ai/keys.
+- **"I'm getting `(title not extracted) TrvLEgPpV8s` instead of title."** YouTube is changing API used to extract video data, and blocking IPs known to belong to cloud providers as they run similar apps scraping their video data. Try running the app locally. Use several cached transcripts and provided history.json to test application.
 
 ---
 
