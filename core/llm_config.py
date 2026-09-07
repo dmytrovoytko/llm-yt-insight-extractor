@@ -66,9 +66,13 @@ class BaseLLMConfig:
                     f"Cannot connect to {self.provider} server. "
                     f"Is it running/accessible? Error: {str(e)}"
                 )
+            elif "error code: 429" in error_msg or "rate-limited" in error_msg or "ratelimiterror" in error_msg:
+                raise LLMConfigError(
+                    f"Looks like the specified model is temporary rate-limited on {self.provider}. Please check your limits/credits, or retry later."
+                )
             elif "not found" in error_msg or "model" in error_msg:
                 raise LLMConfigError(
-                    f"Looks like specified model not found on {self.provider}. Please check your model name."
+                    f"Looks like the specified model not found on {self.provider}. Please check your model name."
                 )
             elif "api key" in error_msg or "authentication" in error_msg:
                 raise LLMConfigError(
