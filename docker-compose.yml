@@ -1,15 +1,20 @@
-version: "3.9"
+# version: "3.9"
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.compose
     container_name: yt_insight_extractor_app
+    env_file:
+      - .env
     ports:
       - "8501:8501"
     environment:
+      - USE_OLLAMA=true
       - OLLAMA_HOST=http://ollama:11434
       - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.2:1b}
-      - OLLAMA_TIMEOUT=${OLLAMA_TIMEOUT:-120}
+      - OLLAMA_TIMEOUT=${OLLAMA_TIMEOUT:-180}
     volumes:
       - ./:/app:cached
       - ./data:/app/data
@@ -17,14 +22,42 @@ services:
       - ollama
 
   ollama:
-    image: ghcr.io/ollama/ollama:latest
+    # image: ollama/ollama:latest # ~3Gb GPU enabled image
+    # image: alpine/ollama:latest # ~30Mb CPU-only image
+    image: docker.io/alpine/ollama:0.33.3 # tested, working
     container_name: ollama
+    env_file:
+      - .env
     ports:
       - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
     volumes:
       - ollama_data:/root/.ollama
-    command: ["serve", "--host", "0.0.0.0"]
+    command: ["serve"]
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  ollama-pull-model:
+    # image: ollama/ollama:latest
+    image: docker.io/alpine/ollama:0.33.3 # tested, working
+    container_name: ollama_pull_model
+    env_file:
+      - .env
+    environment:
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.2:1b}
+    volumes:
+      - ollama_data:/root/.ollama
+    # This container only boots up AFTER the main ollama service passes its healthcheck
+    depends_on:
+      ollama:
+        condition: service_healthy
+    command: ["pull", $OLLAMA_MODEL]
 
 volumes:
   ollama_data:

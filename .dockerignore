@@ -26,3 +26,7 @@ htmlcov/
 *.db
 chromadb/
 models/
+ollama_data/
+docs/
+screenshots/
+
