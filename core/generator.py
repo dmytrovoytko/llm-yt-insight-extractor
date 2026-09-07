@@ -311,6 +311,7 @@ def generate_all_outputs(
     specific_goal: str,
     retrieved_chunks: list[dict],
     llm_config: BaseLLMConfig | None = None,
+    content: str = "all",
     debug_outputs: bool = GENERATOR_TEST_DEBUG,
 ) -> tuple[Subtopics, ActionableIdeas]:
     """Generate both subtopics and actionable ideas in sequence.
@@ -320,6 +321,7 @@ def generate_all_outputs(
         specific_goal: The optional specific goal.
         retrieved_chunks: List of retrieved transcript chunks.
         llm_config: Optional LLMConfig instance.
+        content: Optional, "all"/"subtopics"/"ideas",
 
     Returns:
         Tuple of (Subtopics, ActionableIdeas).
@@ -337,52 +339,58 @@ def generate_all_outputs(
         except LLMConfigError as e:
             raise GenerationError(f"Failed to initialize LLM: {str(e)}")
 
-    if DEBUG:
-        print("\n...generate_subtopics():", retrieved_chunks)
-    subtopics = generate_subtopics(
-        area_of_life, specific_goal, retrieved_chunks, llm_config
-    )
-    # handle edge case: area_of_life or specific_goal have no correlation with the video
-    # so we return an artificial entry explaining that
-    if subtopics.subtopics==[]:
-        subtopics = Subtopics(
-            subtopics=[
-                Subtopic(
-                    title="Nothing found",
-                    timestamp="[00:00]",
-                    summary="No relevant ideas found related to the chosen area of life/goal",
-                ),
-            ]
-        )
-
-    try:
-        ideas = generate_actionable_ideas(
+    if content in ["all", "subtopics"]:
+        if DEBUG:
+            print("\n...generate_subtopics():", retrieved_chunks)
+        subtopics = generate_subtopics(
             area_of_life, specific_goal, retrieved_chunks, llm_config
         )
         # handle edge case: area_of_life or specific_goal have no correlation with the video
         # so we return an artificial entry explaining that
-        if ideas.ideas==[]:
+        if subtopics.subtopics==[]:
+            subtopics = Subtopics(
+                subtopics=[
+                    Subtopic(
+                        title="Nothing found",
+                        timestamp="[00:00]",
+                        summary="No relevant ideas found related to the chosen area of life/goal",
+                    ),
+                ]
+            )
+    else:
+        subtopics = None
+
+    if content in ["all", "ideas"]:
+        try:
+            ideas = generate_actionable_ideas(
+                area_of_life, specific_goal, retrieved_chunks, llm_config
+            )
+            # handle edge case: area_of_life or specific_goal have no correlation with the video
+            # so we return an artificial entry explaining that
+            if ideas.ideas==[]:
+                ideas = ActionableIdeas(
+                    ideas=[
+                        ActionableIdea(
+                            title="Nothing found",
+                            description="No relevant ideas found related to the chosen area of life/goal",
+                            timestamp="[00:00]",
+                        ),
+                    ]
+                )
+        except Exception as e:
+            # FIXME for testing - returning the error as idea - to show at least topics
+            if DEBUG:
+                print("!! generate_actionable_ideas() error:", e)
             ideas = ActionableIdeas(
                 ideas=[
                     ActionableIdea(
-                        title="Nothing found",
-                        description="No relevant ideas found related to the chosen area of life/goal",
+                        title="Generate actionable ideas failed",
+                        description=str(e),
                         timestamp="[00:00]",
                     ),
                 ]
             )
-    except Exception as e:
-        # FIXME for testing - returning the error as idea - to show at least topics
-        if DEBUG:
-            print("!! generate_actionable_ideas() error:", e)
-        ideas = ActionableIdeas(
-            ideas=[
-                ActionableIdea(
-                    title="Generate actionable ideas failed",
-                    description=str(e),
-                    timestamp="[00:00]",
-                ),
-            ]
-        )
+    else:
+        ideas = None
 
     return subtopics, ideas
