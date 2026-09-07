@@ -170,7 +170,7 @@ bash run_compose.sh
 
 Then open http://localhost:8501.
 
-> Project can be tested in **GitHub CodeSpaces** - the [easiest option](screenshots/docker-2.png), and free. Just  **use 4-core - 16GB RAM machine type**. 
+> Project can be tested in **GitHub CodeSpaces** - the [easiest option](screenshots/docker-3.png), and free. Just  **use 4-core - 16GB RAM machine type**. 
 
 ### 🚀 Smoke test
 
@@ -183,7 +183,7 @@ Then open http://localhost:8501.
 
 ## ⚙️ Configuration
 
-All settings come from environment variables (see `.env.example`). Application-level defaults (chunking, top-k, validation thresholds) live in `core/settings.py`. The provider/model can be switched at runtime on the app's Configuration page.
+All settings come from environment variables (see [`.env.example`](.env.example)). Application-level defaults (chunking, top-k, validation thresholds) live in `core/settings.py`. The provider/model can be switched at runtime on the app's Configuration page.
 
 | Variable | Purpose | Default |
 |---|---|---|
