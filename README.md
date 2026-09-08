@@ -126,6 +126,7 @@ llm-yt-insight-extractor/
 │   └── eval_llm.py           # Offline (+ optional live) LLM prompt eval v1 vs v2 → docs/llm_eval.md
 │
 ├── docs/
+│   ├── deployment.md         # Deployment notes: local-first by design
 │   ├── retrieval_eval.md     # Retrieval eval report (A–F configs, 8 queries × 6)
 │   └── llm_eval.md           # LLM prompt eval report (v1 vs v2, deterministic metrics + optional judge)
 │
@@ -170,7 +171,7 @@ bash run_compose.sh
 
 Then open http://localhost:8501.
 
-> Project can be tested in **GitHub CodeSpaces** - the [easiest option](screenshots/docker-3.png), and free. Just  **use 4-core - 16GB RAM machine type**. 
+> Project can be tested in **GitHub CodeSpaces** - the [easiest option](screenshots/codespace-1.png), and free. Just  **use 4-core - 16GB RAM machine type**. 
 > See [`docs/deployment.md`](docs/deployment.md) for why there is no public-cloud hosting (YouTube blocks cloud IPs) and the verified environments.
 
 ### 🚀 Smoke test

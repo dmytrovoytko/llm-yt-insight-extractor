@@ -13,13 +13,13 @@ no demo.
 ## Verified environments
 
 - **GitHub CodeSpaces** (verified dev environment, not production hosting):
-  4-core / 16 GB machine type — see `screenshots/docker-3.png` and
-  `screenshots/docker-4.png`.
+  4-core / 16 GB machine type — see `screenshots/docker-3.png`,
+  `screenshots/docker-4.png`, `screenshots/codespace-1.png`, `screenshots/codespace-2.png`.
 - **Local**: `bash run_local.sh` (Ollama + venv + Streamlit on `:8501`).
 - **Docker Compose** (canonical): `bash run_compose.sh` — `app` + `ollama` +
   `ollama-pull-model` services with healthcheck (`docker-compose.yml`).
 
-## Bonus-pointa
+## Bonus-points
 
 If you are evaluating my project in LLM Zoomcamp, consider awarding up-to-3 extra bonus points for:
 
