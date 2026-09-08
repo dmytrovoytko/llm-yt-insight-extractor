@@ -25,6 +25,7 @@ echo "====================================================="
 # 2. Check if USE_OLLAMA is true
 if [ "$USE_OLLAMA" = "true" ]; then
     echo "🦙 USE_OLLAMA is true. Setting up Ollama..."
+    export OLLAMA_HOST=http://localhost:11434
     
     # Check if Ollama is installed
     if ! command -v ollama &> /dev/null; then
